@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>他明天還會來嗎？</title>
+<style>
+:root{
+  --y:#ffd400; --y2:#fff0a0; --y-s:#fffae0;
+  --b:#0b5cff; --b2:#4a9bff; --b-s:#e9f0ff;
+  --ink:#0d0f12; --grey:#8e8e93; --bub:#efeff1; --line:#dbdbdb;
+  --red:#ff3b30; --green:#34c759;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:
+    radial-gradient(900px 500px at 15% 0%, #fff6bf 0%, transparent 55%),
+    radial-gradient(900px 600px at 90% 100%, #d5e3ff 0%, transparent 55%),
+    #f4f4f2;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Helvetica Neue",sans-serif;
+  color:var(--ink);
+}
+
+/* ══════ 手機外殼 ══════ */
+#phone{
+  width:100%;max-width:400px;height:min(844px,calc(100vh - 40px));
+  background:#0d0f12;border-radius:48px;padding:11px;position:relative;
+  box-shadow:0 2px 0 #2b2f36 inset, 0 40px 90px -20px rgba(13,15,18,.45), 0 0 0 1px rgba(0,0,0,.5);
+  flex:0 0 auto;
+}
+#phone::before,#phone::after{content:'';position:absolute;left:-2px;width:3px;background:#23272e;border-radius:3px 0 0 3px}
+#phone::before{top:150px;height:34px}
+#phone::after{top:196px;height:56px}
+#screen{
+  width:100%;height:100%;background:#fff;border-radius:38px;overflow:hidden;
+  position:relative;display:flex;flex-direction:column;
+}
+#notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:118px;height:26px;
+        background:#0d0f12;border-radius:0 0 16px 16px;z-index:30}
+
+/* ══════ 狀態列（電池＝留任意願） ══════ */
+#status{flex:0 0 auto;height:46px;padding:14px 22px 0;display:flex;align-items:center;
+        justify-content:space-between;font-size:12.5px;font-weight:600;z-index:20}
+#stime{letter-spacing:-.2px}
+.sright{display:flex;align-items:center;gap:5px}
+.bars{display:flex;align-items:flex-end;gap:1.5px;height:9px}
+.bars i{width:2.5px;background:var(--ink);border-radius:1px}
+.bars i:nth-child(1){height:3px}.bars i:nth-child(2){height:5px}
+.bars i:nth-child(3){height:7px}.bars i:nth-child(4){height:9px}
+.wifi{width:12px;height:9px;border:2.5px solid var(--ink);border-bottom:0;
+      border-radius:12px 12px 0 0;position:relative;opacity:.9}
+.batwrap{display:flex;align-items:center;gap:3px}
+.batnum{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;min-width:20px;text-align:right}
+.bat{width:25px;height:12.5px;border:1.5px solid rgba(13,15,18,.4);border-radius:4px;padding:1.5px;position:relative}
+.bat::after{content:'';position:absolute;right:-3.5px;top:4px;width:2px;height:4.5px;
+            background:rgba(13,15,18,.4);border-radius:0 2px 2px 0}
+.bat i{display:block;height:100%;border-radius:2px;background:var(--green);transition:width .5s cubic-bezier(.3,1,.4,1),background .4s}
+.bat i.mid{background:var(--y)}
+.bat i.low{background:var(--red)}
+
+/* ══════ IG 導覽列 ══════ */
+#nav{flex:0 0 auto;display:flex;align-items:center;gap:11px;padding:6px 16px 12px;
+     border-bottom:.5px solid var(--line);background:#fff;z-index:20}
+.back{font-size:26px;line-height:1;color:var(--ink);font-weight:300;margin-right:-2px}
+.ring{width:34px;height:34px;border-radius:50%;padding:2px;flex:0 0 auto;
+      background:conic-gradient(from 200deg,var(--y),#ff9a3c,var(--b),var(--y))}
+.ring div{width:100%;height:100%;border-radius:50%;background:var(--ink);color:#fff;
+          display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;
+          border:1.5px solid #fff}
+.nname{flex:1;min-width:0}
+.nname b{display:block;font-size:14.5px;font-weight:700;letter-spacing:-.2px;line-height:1.2}
+.nname span{font-size:11.5px;color:var(--grey)}
+.nname span.live{color:var(--b);font-weight:600}
+.nico{display:flex;gap:16px;color:var(--ink);opacity:.85}
+.nico svg{width:21px;height:21px;display:block}
+
+/* ══════ 對話 ══════ */
+#chat{flex:1 1 auto;overflow-y:auto;padding:14px 14px 22px;display:flex;flex-direction:column;gap:2px}
+#chat::before{content:'';flex:1 1 auto;min-height:0}
+#chat::-webkit-scrollbar{width:0}
+.stamp{align-self:center;text-align:center;font-size:11px;color:var(--grey);
+       margin:16px 0 10px;line-height:1.6;max-width:82%}
+.stamp b{display:block;font-weight:700;color:#6b6f76;font-size:11.5px;margin-bottom:1px}
+.grp{display:flex;align-items:flex-end;gap:7px;max-width:100%;margin-top:7px}
+.grp .pic{width:23px;height:23px;border-radius:50%;background:var(--ink);color:#fff;flex:0 0 auto;
+          font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:1px}
+.grp .col{display:flex;flex-direction:column;gap:2px;align-items:flex-start;max-width:calc(100% - 34px)}
+.bb{padding:9px 14px;font-size:15px;line-height:1.45;word-break:break-word;
+    background:var(--bub);border-radius:20px;animation:in .26s cubic-bezier(.2,.9,.3,1.25)}
+.col .bb:last-child{border-bottom-left-radius:5px}
+@keyframes in{from{opacity:0;transform:translateY(10px) scale(.94)}to{opacity:1;transform:none}}
+.mine{align-self:flex-end;max-width:78%;padding:9px 14px;font-size:15px;line-height:1.45;color:#fff;
+      background:linear-gradient(115deg,#0b5cff,#4a9bff);border-radius:20px 20px 6px 20px;
+      margin-top:7px;animation:in .26s cubic-bezier(.2,.9,.3,1.25);word-break:break-word}
+.seen{align-self:flex-end;font-size:10.5px;color:var(--grey);margin:3px 4px 0}
+.dots{display:flex;gap:4px;background:var(--bub);border-radius:20px 20px 20px 5px;padding:12px 15px}
+.dots i{width:7px;height:7px;border-radius:50%;background:#b6b8be;animation:bl 1.15s infinite}
+.dots i:nth-child(2){animation-delay:.16s}.dots i:nth-child(3){animation-delay:.32s}
+@keyframes bl{0%,60%,100%{opacity:.4;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+.chip{align-self:center;font-size:11.5px;font-weight:700;padding:5px 13px;border-radius:99px;
+      margin:8px 0 2px;letter-spacing:.2px}
+.chip.up{background:var(--b-s);color:var(--b)}
+.chip.dn{background:#ffecea;color:var(--red)}
+.chip.zz{background:var(--y);color:#5a4500}
+
+/* ══════ 選項區 ══════ */
+#pad{flex:0 0 auto;background:#fff;border-top:.5px solid var(--line);padding:14px 12px 16px}
+#timer{height:2.5px;background:var(--line);border-radius:99px;margin:0 -12px 11px;overflow:hidden}
+#timer i{display:block;height:100%;width:0;background:var(--y);transition:width .1s linear}
+#timer i.hot{background:var(--red)}
+.opts{display:flex;flex-direction:column;gap:7px;align-items:flex-end}
+.opt{max-width:92%;text-align:left;font-family:inherit;font-size:14.5px;line-height:1.45;
+     color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:20px 20px 6px 20px;
+     padding:9px 14px;cursor:pointer;transition:.13s}
+.opt:hover{background:var(--y);border-color:var(--y);transform:translateX(-3px)}
+.opt:disabled{opacity:.3;cursor:not-allowed;transform:none;background:#fff;border-color:var(--line)}
+.opt.dark{background:var(--ink);color:#fff;border-color:var(--ink);text-align:center;max-width:100%;
+          border-radius:22px;font-weight:600}
+.opt.dark:hover{background:#000;transform:none}
+.opt.ghost{border-style:dashed;color:var(--grey);background:#fafafa;font-size:13.5px}
+.opt.ghost:hover{background:var(--ink);border-color:var(--ink);color:#fff;border-style:solid}
+
+/* ══════ 手機裡的其他畫面 ══════ */
+.sheet{position:absolute;inset:0;background:#fff;z-index:25;display:flex;flex-direction:column;
+       animation:slide .22s ease-out;box-shadow:-10px 0 24px rgba(13,15,18,.08)}
+@keyframes slide{from{transform:translateX(24%)}to{transform:none}}
+.sheet .top{flex:0 0 auto;padding:52px 18px 12px;display:flex;align-items:center;gap:12px;
+            border-bottom:.5px solid var(--line)}
+.sheet .top .x{font-size:27px;line-height:1;font-weight:300;cursor:pointer;color:var(--ink)}
+.sheet .top b{font-size:17px;font-weight:800;letter-spacing:-.3px;flex:1}
+.sheet .body{flex:1;overflow-y:auto}
+.sheet .body::-webkit-scrollbar{width:0}
+
+/* 收件匣 */
+.dm{display:flex;align-items:center;gap:12px;padding:11px 18px;cursor:pointer}
+.dm:hover{background:#fafafa}
+.dm .pf{width:52px;height:52px;border-radius:50%;background:#dcdce0;color:#fff;flex:0 0 auto;
+        display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.dm.hot .pf{background:var(--ink)}
+.dm .tx{flex:1;min-width:0}
+.dm .tx b{display:block;font-size:14.5px;font-weight:600}
+.dm.hot .tx b{font-weight:800}
+.dm .tx span{font-size:13px;color:var(--grey);display:block;overflow:hidden;
+             text-overflow:ellipsis;white-space:nowrap}
+.dm.hot .tx span{color:var(--ink);font-weight:600}
+.dm .dot{width:9px;height:9px;border-radius:50%;background:var(--b);flex:0 0 auto}
+.tip{text-align:center;font-size:12px;color:var(--grey);padding:16px}
+
+/* 限時動態 */
+#story{position:absolute;inset:0;z-index:35;background:#0d0f12;display:flex;flex-direction:column;
+       cursor:pointer}
+#story .segs{display:flex;gap:4px;padding:50px 12px 0}
+#story .segs i{flex:1;height:2.5px;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden}
+#story .segs i b{display:block;height:100%;width:0;background:#fff;border-radius:2px}
+#story .segs i.done b{width:100%}
+#story .segs i.now b{width:100%;transition:width 4s linear}
+#story .hd{display:flex;align-items:center;gap:9px;padding:14px 16px;color:#fff}
+#story .hd .pf{width:30px;height:30px;border-radius:50%;background:var(--y);color:var(--ink);
+               display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+#story .hd b{font-size:13.5px;font-weight:700}
+#story .hd span{font-size:12px;color:rgba(255,255,255,.55)}
+#story .card{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+             padding:30px 34px;text-align:center;gap:16px;margin:0 12px 60px;border-radius:14px}
+#story .card p{font-size:23px;font-weight:800;line-height:1.55;letter-spacing:-.5px}
+#story .card small{font-size:12px;opacity:.6;font-weight:600}
+#story .poll{width:100%;display:flex;flex-direction:column;gap:8px}
+#story .poll div{background:rgba(255,255,255,.9);color:var(--ink);border-radius:10px;padding:10px;
+                 font-size:14px;font-weight:700}
+
+/* 個人檔案 */
+.pro{padding:20px 18px 30px}
+.pro .row1{display:flex;align-items:center;gap:22px}
+.pro .big{width:78px;height:78px;border-radius:50%;background:var(--ink);color:#fff;flex:0 0 auto;
+          display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800}
+.pro .nums{flex:1;display:flex;justify-content:space-around;text-align:center}
+.pro .nums div{font-size:11.5px;color:var(--grey);line-height:1.5}
+.pro .nums b{display:block;font-size:17px;color:var(--ink);font-weight:800}
+.pro .bio{margin-top:15px;font-size:13.5px;line-height:1.75}
+.pro .bio b{font-size:14px;display:block;margin-bottom:3px}
+.pro .bio span{color:var(--grey)}
+.pro .grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.pro .grid div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:8px;
+               font-size:11.5px;font-weight:700;text-align:center;line-height:1.4;color:var(--ink)}
+
+/* 通話 */
+#call{position:absolute;inset:0;z-index:38;background:#1a1d22;color:#fff;display:flex;
+      flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px}
+#call .pf{width:96px;height:96px;border-radius:50%;background:var(--y);color:var(--ink);
+          display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;
+          animation:ring 1.4s ease-in-out infinite}
+@keyframes ring{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+#call b{font-size:23px;font-weight:800;letter-spacing:-.5px}
+#call .st{font-size:13.5px;color:rgba(255,255,255,.55)}
+#call .said{font-size:18px;font-weight:700;line-height:1.6;text-align:center;max-width:280px}
+#call .hang{width:60px;height:60px;border-radius:50%;background:var(--red);margin-top:12px;
+            display:flex;align-items:center;justify-content:center;font-size:26px}
+.bar-hint{display:flex;align-items:center;gap:9px;padding:8px 4px 2px}
+.pill{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:9px 15px;
+      font-size:14px;color:var(--grey)}
+.cnt{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink);min-width:20px;text-align:center}
+.cnt.hot{color:var(--red)}
+
+/* ══════════ START 畫面（GameBoy） ══════════ */
+#boot{position:absolute;inset:0;z-index:40;background:#f6f6ee;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:0;overflow:hidden;
+      background-image:
+        linear-gradient(rgba(13,15,18,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(13,15,18,.045) 1px,transparent 1px);
+      background-size:4px 4px}
+#boot::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px);
+  mix-blend-mode:multiply}
+.cart{width:76%;background:var(--y);border:4px solid var(--ink);padding:16px 14px 14px;
+      box-shadow:7px 7px 0 var(--ink);text-align:center;transform:rotate(-1.4deg)}
+.cart .mini{font-size:9px;letter-spacing:3px;font-weight:800;color:#6a5200;margin-bottom:8px}
+.cart h1{font-size:32px;font-weight:900;letter-spacing:5px;line-height:1.62;
+         color:#fff;-webkit-text-stroke:9px var(--b);paint-order:stroke fill}
+.cart .sub{margin-top:9px;font-size:10px;letter-spacing:2.5px;font-weight:700;color:#6a5200}
+.plate{margin-top:30px;text-align:center;z-index:3;position:relative;
+       display:flex;flex-direction:column;align-items:center}
+#press{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:17px;font-weight:800;
+       letter-spacing:6px;color:#fff;background:var(--ink);border:0;cursor:pointer;
+       padding:15px 30px 15px 36px;border-radius:6px;box-shadow:5px 5px 0 var(--b);
+       animation:pulse 1.15s ease-in-out infinite;transition:none}
+#press:hover{background:var(--b);box-shadow:5px 5px 0 var(--ink);animation:none}
+#press:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--ink)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+.blink{margin-top:13px;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:3px;
+       color:#8f8f86;animation:blink 1.05s steps(1) infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.plate small{display:block;margin-top:7px;font-size:9.5px;letter-spacing:2px;color:#b3b3a9;
+             font-family:ui-monospace,monospace}
+.pad-deco{position:absolute;bottom:26px;left:0;right:0;display:flex;align-items:center;
+          justify-content:space-between;padding:0 34px;z-index:2}
+.dpad{width:56px;height:56px;position:relative}
+.dpad i{position:absolute;background:var(--ink);border-radius:3px}
+.dpad i:nth-child(1){left:19px;top:0;width:18px;height:56px}
+.dpad i:nth-child(2){top:19px;left:0;width:56px;height:18px}
+.ab{display:flex;gap:11px;align-items:center}
+.btn-r{width:42px;height:42px;border-radius:50%;border:3.5px solid var(--ink);background:#fff;
+       font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;
+       cursor:pointer;font-family:inherit;color:var(--ink);box-shadow:3px 3px 0 var(--ink);
+       transition:.1s}
+.btn-r.on{background:var(--b);color:#fff;border-color:var(--ink)}
+.btn-r:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.howto{position:absolute;top:52px;left:0;right:0;text-align:center;font-size:10px;
+       letter-spacing:1.5px;color:#a3a399;font-family:ui-monospace,monospace;z-index:2}
+
+/* ══════════ 結算 ══════════ */
+#over{position:absolute;inset:0;z-index:45;background:#fff;padding:52px 22px 24px;
+      display:flex;flex-direction:column;gap:13px;overflow-y:auto}
+#over::-webkit-scrollbar{width:0}
+.rcard{border:2.5px solid var(--ink);border-radius:22px;padding:20px;box-shadow:6px 6px 0 var(--y);
+       display:flex;flex-direction:column;gap:11px}
+.rcard .lab{font-size:9.5px;letter-spacing:2.5px;font-weight:800;color:var(--grey);
+            font-family:ui-monospace,monospace}
+.rnum{display:flex;align-items:baseline;gap:7px}
+.rnum b{font-size:60px;font-weight:900;letter-spacing:-4px;line-height:.85;font-variant-numeric:tabular-nums}
+.rnum i{font-style:normal;font-size:11.5px;color:var(--grey)}
+.rtitle{font-size:24px;font-weight:900;letter-spacing:-.8px;line-height:1.3}
+.rtitle u{text-decoration:none;background:var(--y);box-shadow:0 -9px 0 var(--y) inset;padding:0 3px}
+.rtext{font-size:14.5px;line-height:1.8;font-weight:700;color:var(--ink);white-space:pre-line;
+       border-left:4px solid var(--y);padding-left:13px;margin-top:2px}
+.rwho{font-size:11px;color:var(--grey);letter-spacing:1px;padding-left:17px;margin-top:-4px}
+.rstat{display:flex;gap:6px;border-top:1.5px dashed var(--line);padding-top:12px}
+.rstat div{flex:1;font-size:10px;color:var(--grey);line-height:1.5}
+.rstat b{display:block;font-size:19px;color:var(--ink);font-weight:800;font-variant-numeric:tabular-nums}
+.mines{background:var(--y-s);border-radius:18px;padding:15px 17px;font-size:13px;line-height:1.8}
+.mines b{display:block;font-size:9.5px;letter-spacing:2px;color:#8a6d00;margin-bottom:8px;
+         font-family:ui-monospace,monospace}
+.mines ul{padding-left:17px}.mines li{margin-bottom:4px}
+.rbtn{border:0;border-radius:20px;padding:15px;font-size:15.5px;font-weight:700;font-family:inherit;
+      cursor:pointer;background:var(--b);color:#fff}
+.rbtn:hover{filter:brightness(1.1)}
+.rbtn.g{background:#fff;color:var(--grey);border:1.5px solid var(--line);font-weight:600;font-size:14px}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+
+<div id="phone">
+  <div id="notch"></div>
+  <div id="screen">
+
+    <!-- 狀態列 -->
+    <div id="status">
+      <div id="stime">9:41</div>
+      <div class="sright">
+        <div class="bars"><i></i><i></i><i></i><i></i></div>
+        <div class="wifi"></div>
+        <div class="batwrap">
+          <div class="batnum" id="batnum">55</div>
+          <div class="bat"><i id="batfill" style="width:55%"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IG 導覽列 -->
+    <div id="nav">
+      <div class="back" id="navBack" style="cursor:pointer">‹</div>
+      <div class="ring" id="navAvatar" style="cursor:pointer"><div>Z</div></div>
+      <div class="nname" id="navName" style="cursor:pointer"><b>gen_z</b><span id="pres">活躍中</span></div>
+      <div class="nico">
+        <span id="navPhone" style="cursor:pointer;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6.6 3.5 8.8 8l-2 2.6a13 13 0 0 0 6.6 6.6l2.6-2 4.5 2.2v3.1c0 .8-.7 1.5-1.6 1.4C10.5 21 3 13.5 2.1 4.1 2 3.2 2.7 2.5 3.5 2.5h3.1Z"/></svg></span>
+        <span id="navVideo" style="cursor:pointer;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="m16 11 6-3.5v9L16 13z"/></svg></span>
+      </div>
+    </div>
+
+    <div id="chat"></div>
+
+    <div id="pad">
+      <div class="opts" id="opts"></div>
+    </div>
+
+    <!-- ══ 收件匣 ══ -->
+    <div class="sheet hide" id="inbox">
+      <div class="top"><div class="x" id="inboxX">‹</div><b>訊息</b></div>
+      <div class="body">
+        <div class="dm hot" id="dmZ">
+          <div class="pf">Z</div>
+          <div class="tx"><b>gen_z</b><span id="dmZlast">…</span></div>
+          <div class="dot"></div>
+        </div>
+        <div class="dm"><div class="pf">V</div><div class="tx"><b>vivian_w</b><span>那份流程圖你不用改了 · 2 小時</span></div></div>
+        <div class="dm"><div class="pf">K</div><div class="tx"><b>kevin.tsai</b><span>收到！ · 5 小時</span></div></div>
+        <div class="dm"><div class="pf">H</div><div class="tx"><b>hr_公告</b><span>【提醒】尾牙表演彩排時間 · 昨天</span></div></div>
+        <div class="dm"><div class="pf">老</div><div class="tx"><b>老闆</b><span>明天早上八點半來我辦公室 · 昨天</span></div></div>
+        <div class="tip">現在只有一個人的訊息重要</div>
+      </div>
+    </div>
+
+    <!-- ══ 個人檔案 ══ -->
+    <div class="sheet hide" id="profile">
+      <div class="top"><div class="x" id="proX">‹</div><b>gen_z</b></div>
+      <div class="body"><div class="pro">
+        <div class="row1">
+          <div class="big">Z</div>
+          <div class="nums">
+            <div><b>18</b>貼文</div><div><b>431</b>粉絲</div><div><b>287</b>追蹤中</div>
+          </div>
+        </div>
+        <div class="bio">
+          <b>Gen Z</b>
+          行銷企劃 · 一年三個月<br>
+          拿多少錢做多少事，這句話是中性的<br>
+          <span>限動都在抱怨，本人其實很好相處</span>
+        </div>
+        <div class="grid">
+          <div style="background:#fff3b0">下班<br>是一種<br>基本人權</div>
+          <div style="background:#dce8ff">今天<br>第 4 個會</div>
+          <div style="background:#f1f1f1">加班費<br>試算表<br>v3</div>
+          <div style="background:#ffe0dc">「再看看」<br>翻譯蒟蒻</div>
+          <div style="background:#e6f7e9">週末<br>不看群組<br>第 12 天</div>
+          <div style="background:#fff3b0">JD 到底<br>要不要<br>算數</div>
+          <div style="background:#f1f1f1">104 更新<br>紀錄</div>
+          <div style="background:#dce8ff">我不是<br>玻璃心</div>
+          <div style="background:#ffe0dc">是玻璃<br>也有<br>底線</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ══ 限時動態 ══ -->
+    <div id="story" class="hide">
+      <div class="segs"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+      <div class="hd">
+        <div class="pf">Z</div><b>gen_z</b><span id="storyAgo">2 小時前</span>
+      </div>
+      <div class="card" id="storyCard"></div>
+    </div>
+
+    <!-- ══ 通話 ══ -->
+    <div id="call" class="hide">
+      <div class="pf">Z</div>
+      <b>gen_z</b>
+      <div class="st" id="callSt">撥號中…</div>
+      <div class="said" id="callSaid"></div>
+      <div class="hang">✕</div>
+    </div>
+
+    <!-- ══ START ══ -->
+    <div id="boot">
+      <div class="howto">H R &nbsp; S I M U L A T O R &nbsp;·&nbsp; 2 0 2 6</div>
+      <div class="cart">
+        <div class="mini">M A N A G E R &nbsp; M O D E</div>
+        <h1>他明天<br>還會來嗎</h1>
+        <div class="sub">留 不 住 就 換 你 被 檢 討</div>
+      </div>
+      <div class="plate">
+        <button id="press">▶ START</button>
+        <div class="blink">P R E S S &nbsp; T O &nbsp; P L A Y</div>
+        <small>© 2026 &nbsp; 1 PLAYER &nbsp; NO CONTINUE</small>
+      </div>
+      <div class="pad-deco">
+        <div class="dpad"><i></i><i></i></div>
+        <div class="ab">
+          <button class="btn-r" id="btnB">B</button>
+          <button class="btn-r on" id="btnA">A</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 結算 ══ -->
+    <div id="over" class="hide">
+      <div class="rcard">
+        <div class="lab" id="oLab">R E S U L T</div>
+        <div class="rnum"><b id="oNum">0</b><i>／100　留任意願</i></div>
+        <div class="rtitle" id="oTitle">—</div>
+        <div class="rtext" id="oText">—</div>
+        <div class="rwho">— gen_z</div>
+        <div class="rstat">
+          <div><b id="oQ">0</b>回合</div>
+          <div><b id="oG">0</b>句接住</div>
+          <div><b id="oB">0</b>句踩雷</div>
+        </div>
+      </div>
+      <div class="mines hide" id="oMines"></div>
+      <button class="rbtn" id="oAgain">再玩一次</button>
+      <button class="rbtn g" id="oCopy">複製戰績</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   題庫｜20 類別 × 3 題 ＝ 60 情境，每題 4 選項
+   s = 情境副標　t = 時間　m = 他傳的訊息（短、沒句號）
+   o = 選項 { t 你要傳的, d 分數, r 他的回話, mine 地雷, x 雷的名字 }
+   ══════════════════════════════════════════════════════ */
+
+const BANK = [
+
+/* ═══ 1. 臨時加班 ═══ */
+[
+{s:'他已經到家了，你看得到他剛把捷運卡嗶出站', t:'週五 20:47',
+ m:['客戶說提案要改','那不就整份重做'],
+ o:[
+  {t:'客戶我去擋，禮拜一再說',d:12,r:'喔好'},
+  {t:'先做一版吧，客戶在等',d:-8,r:'好喔'},
+  {t:'要幾小時？我拿去談延期',d:10,r:'四小時。你真的會談喔'},
+  {t:'大家都是這樣過來的',d:-99,mine:1,x:'用「大家都這樣過來的」合理化加班',r:'所以呢'}
+ ]},
+{s:'他包包已經背上了，站在你桌邊', t:'週二 18:55',
+ m:['競品分析那個','明天早上還是明天下班前'],
+ o:[
+  {t:'我講太快了，下班前就好',d:11,r:'那我先走囉'},
+  {t:'明天早上，你今天留一下',d:-13,r:'好喔'},
+  {t:'先給我兩小時的版本',d:5,r:'可以，那我抓到八點'},
+  {t:'你怎麼每次都在問時間',d:-16,x:'把「確認期限」當成推託',r:'蛤'}
+ ]},
+{s:'週日下午，他傳來一張排休表的截圖', t:'週日 15:30',
+ m:['我下週排了兩天特休','你把展會排同一週'],
+ o:[
+  {t:'我沒看排休，我調人',d:13,r:'謝啦，我機票訂了'},
+  {t:'可以幫我撐一下嗎',d:-12,x:'把已核准的特休拿來商量',r:'我機票訂了欸'},
+  {t:'我看能不能改期，明天回你',d:8,r:'好'},
+  {t:'展會比較重要吧',d:-99,mine:1,x:'把核准的特休講成隨時可取消',r:'退票錢你出喔'}
+ ]}
+],
+
+/* ═══ 2. 加班費與補休 ═══ */
+[
+{s:'他打了又刪，最後還是傳了', t:'週一 11:20',
+ m:['上禮拜六那三小時','有加班費嗎'],
+ o:[
+  {t:'我今天問，明天給你答案',d:12,r:'好'},
+  {t:'補休吧，你自己找時間休',d:2,r:'自己找是什麼意思'},
+  {t:'依法你可以選，算法傳你',d:13,r:'欸第一次聽到有人講依法'},
+  {t:'這種小事不用算這麼細吧',d:-99,mine:1,x:'把權益問題說成「計較」',r:'對我來說不小'}
+ ]},
+{s:'他截了打卡系統的畫面，紅字圈起來', t:'週四 10:03',
+ m:['系統會把超過的時數歸零','我上個月少 11 小時'],
+ o:[
+  {t:'我今天調紀錄，補回來',d:14,r:'真假，謝謝'},
+  {t:'系統就那樣，大家都一樣',d:-15,x:'用「大家都一樣」帶過制度缺陷',r:'一樣不代表對吧'},
+  {t:'紀錄給我，我拿去問',d:7,r:'好，等一下傳你'},
+  {t:'有空查這個不如做專案',d:-99,mine:1,x:'暗示爭取權益是不務正業',r:'我午休查的'}
+ ]},
+{s:'他的補休申請單昨天被系統退回', t:'週三 16:40',
+ m:['補休三個月會過期喔','我上禮拜過期一批'],
+ o:[
+  {t:'我去申請展延，不然換錢',d:14,r:'可以這樣喔'},
+  {t:'制度就三個月，我也沒辦法',d:-14,x:'用「制度就是這樣」關掉討論',r:'制度誰訂的'},
+  {t:'我重排人力，你先休最舊的',d:9,r:'好，那我下週休'},
+  {t:'你自己沒排怪不了別人',d:-99,mine:1,x:'把休不到假的責任推給員工',r:'我排三次你退三次'}
+ ]}
+],
+
+/* ═══ 3. 下班後訊息 ═══ */
+[
+{s:'週日早上十點，他終於回你昨晚的訊息', t:'週日 10:12',
+ m:['我群組通知關掉了','可以定個原則嗎'],
+ o:[
+  {t:'明天公告：非緊急等上班日',d:14,r:'那我開回來'},
+  {t:'關掉可以，但找不到你很麻煩',d:-7,r:'所以還是要我隨時看'},
+  {t:'我先改我自己，週末不傳',d:12,r:'我記著喔'},
+  {t:'就你要特別規則喔',d:-99,mine:1,x:'把制度建議說成「搞特殊」',r:'我講的是全部人'}
+ ]},
+{s:'你昨天半夜 23:40 傳了東西給他', t:'今天 09:15',
+ m:['你半夜傳的我早上才看到','那要當下回喔'],
+ o:[
+  {t:'不用，以後我會標非急件',d:12,r:'那就好'},
+  {t:'看到回一下比較好啦',d:-12,r:'半夜也要喔'},
+  {t:'我沒想過，以後排程發',d:13,r:'謝謝你沒說我想太多'},
+  {t:'我半夜還在工作欸',d:-99,mine:1,x:'用自己的加班綁架別人的下班',r:'那是你的事吧'}
+ ]},
+{s:'他傳來一張群組截圖，某人 23:50 標了全體成員', t:'週四 08:02',
+ m:['昨天有人半夜 tag 全體','有人回了，我沒回'],
+ o:[
+  {t:'沒回是對的，我今天講',d:14,r:'那我放心了'},
+  {t:'回個收到也不會怎樣啊',d:-13,x:'要員工用秒回換氣氛',r:'那界線就沒了吧'},
+  {t:'我去問昨天那個人幹嘛',d:8,r:'好'},
+  {t:'別人都回了就你沒回',d:-99,mine:1,x:'用同儕壓力逼人放棄界線',r:'原來標準是誰先妥協'}
+ ]}
+],
+
+/* ═══ 4. 聚餐與團康 ═══ */
+[
+{s:'部門群組剛發了聚餐接龍，他私訊你', t:'週三 14:05',
+ m:['下週四聚餐我可能不去','那算上班嗎'],
+ o:[
+  {t:'不算，所以不去也 OK',d:11,r:'好，那我不去'},
+  {t:'來吃個前半場嘛',d:-9,r:'所以還是要去'},
+  {t:'不算。我下次改午餐辦',d:13,r:'那個我會去'},
+  {t:'這樣大家會覺得你不合群',d:-99,mine:1,x:'用「不合群」施壓私人時間',r:'好喔'}
+ ]},
+{s:'尾牙表演名單貼出來，他的名字在上面', t:'週一 16:30',
+ m:['尾牙要練三週欸','我可以只做幕後嗎'],
+ o:[
+  {t:'不參加也可以，我去喬',d:12,r:'那我不參加'},
+  {t:'幕後可以，我跟主辦講',d:8,r:'好'},
+  {t:'你不上台別人要多做欸',d:-14,x:'用同儕壓力代替自願',r:'那我上'},
+  {t:'這是公司文化，配合一下',d:-99,mine:1,x:'用「公司文化」要求無償付出',r:'文化包含我的時間嗎'}
+ ]},
+{s:'週五下午五點，隔壁組在揪酒吧', t:'週五 17:20',
+ m:['等下那攤我不去','我不喝酒'],
+ o:[
+  {t:'知道了，以後不排酒吧',d:13,r:'欸這個沒想到'},
+  {t:'不喝點果汁啊，人到就好',d:-11,x:'把出席當成義務',r:'重點是我不想去'},
+  {t:'OK，我跟他們說你有事',d:10,r:'那更好'},
+  {t:'業務都嘛酒桌上談的',d:-99,mine:1,x:'把喝酒包裝成職涯必要條件',r:'那我不做業務'}
+ ]}
+],
+
+/* ═══ 5. 職場言語 ═══ */
+[
+{s:'會議剛散，他還坐在位子上沒動', t:'週四 17:41',
+ m:['Vivian 說我草莓族','我沒回話'],
+ o:[
+  {t:'我去跟她談，不會說是你講的',d:13,r:'謝啦'},
+  {t:'她講話就那樣，別放心上',d:-13,x:'要當事人自己吸收職場言語',r:'所以是我太敏感'},
+  {t:'下次會議我會定調',d:14,r:'你真的講我會很意外'},
+  {t:'你自己去跟她說啊',d:-99,mine:1,x:'把管理責任丟回給被冒犯的人',r:'她資深五年欸'}
+ ]},
+{s:'午餐時間，他坐在那桌，一句話沒說', t:'週二 12:40',
+ m:['他們在聊年輕人玻璃心','你也這樣覺得嗎'],
+ o:[
+  {t:'不是。是以前太多話不該講',d:13,r:'好，那我放心'},
+  {t:'兩邊都有啦，時代不一樣',d:-9,r:'這等於沒回答'},
+  {t:'不覺得。那桌我等下會處理',d:12,r:'不用特別處理啦'},
+  {t:'你們這代是真的比較敏感',d:-99,mine:1,x:'當面認證「你們這代玻璃心」',r:'謝謝你的誠實'}
+ ]},
+{s:'他傳來一段今天早會的逐字稿', t:'週三 11:05',
+ m:['早會有人說不想做的可以走','那是在講誰'],
+ o:[
+  {t:'那句我不接受，我會回應',d:14,r:'我等著看'},
+  {t:'氣話啦，不用太認真',d:-14,x:'把威脅性發言說成氣話',r:'講出來也是話吧'},
+  {t:'我不知道，但那不是我的意思',d:9,r:'好，先信你一次'},
+  {t:'他講的也沒錯啊',d:-99,mine:1,x:'附和「不爽可以走」的威脅',r:'好喔，那我看看外面'}
+ ]}
+],
+
+/* ═══ 6. 職務範圍 ═══ */
+[
+{s:'展會前一週，工作分配表剛發出去', t:'週二 09:58',
+ m:['搬運跟動線不在我 JD 裡','為什麼是我'],
+ o:[
+  {t:'人力不夠。我寫進績效加補休',d:12,r:'那可以'},
+  {t:'JD 只是參考啦',d:-16,x:'用「JD 只是參考」無限擴張職務',r:'那面試講的算什麼'},
+  {t:'你說得對。這次先撐，下季編預算',d:13,r:'我記著下季喔'},
+  {t:'新人本來就要多做一點',d:-99,mine:1,x:'把超出職務說成「新人義務」',r:'這句我記下來了'}
+ ]},
+{s:'他傳來這週的時間紀錄表', t:'週五 11:15',
+ m:['我這週訂了三次便當兩張高鐵票','加起來四小時欸'],
+ o:[
+  {t:'不是你的事，我自己來',d:14,r:'……好'},
+  {t:'順手幫忙而已啦',d:-15,x:'把雜務說成「順手」',r:'四小時不是順手'},
+  {t:'等行政補進來就交接',d:2,r:'什麼時候補'},
+  {t:'大家都是從小事做起的',d:-99,mine:1,x:'用「從小事做起」正當化雜務堆積',r:'我做的是行銷'}
+ ]},
+{s:'另一個部門直接在群組 tag 他派工', t:'週一 14:30',
+ m:['業務直接叫我做他們簡報','他們有問你嗎'],
+ o:[
+  {t:'沒有。之後派工走我',d:13,r:'謝啦，我不想得罪人'},
+  {t:'能幫就幫，同一間公司嘛',d:-13,x:'用「同一間公司」讓跨部門白拿人力',r:'那我 KPI 誰做'},
+  {t:'你先不要回，我看一下',d:9,r:'好，我已讀不回囉'},
+  {t:'多做多學啊',d:-99,mine:1,x:'把被凹說成「機會」',r:'那給別人學好嗎'}
+ ]}
+],
+
+/* ═══ 7. 薪資 ═══ */
+[
+{s:'他約了你十分鐘，坐下來第一句就是這個', t:'週五 13:30',
+ m:['我有一個 offer 多 15%','還沒答應'],
+ o:[
+  {t:'這禮拜我去談，數字明確回你',d:14,r:'好，我等'},
+  {t:'錢不是全部，成長比較重要',d:-15,x:'用「成長機會」搪塞薪資',r:'成長可以繳房租嗎'},
+  {t:'薪水一樣你會選哪邊',d:11,r:'這裡啊，不然咧'},
+  {t:'那你要不要先去試試看',d:-99,mine:1,x:'在關鍵時刻表現得可有可無',r:'所以你不介意我走'}
+ ]},
+{s:'他知道了不該知道的事，而且不打算裝作不知道', t:'週三 20:10',
+ m:['新來的起薪比我高六千','我多做一年欸'],
+ o:[
+  {t:'錯在公司沒回頭調，我這個月提',d:14,r:'謝謝你沒先怪我'},
+  {t:'薪水保密，你不該去問',d:-17,x:'先追究「你怎麼知道」而不是回答',r:'所以重點是我怎麼知道喔'},
+  {t:'他經驗不一樣啦',d:-11,r:'差在哪可以講嗎'},
+  {t:'不要拿別人的薪水衡量自己',d:-99,mine:1,x:'把薪資落差說成員工的心態問題',r:'我衡量的是公司'}
+ ]},
+{s:'年度調薪公布當天下午', t:'週一 15:45',
+ m:['調 3%','通膨 4% 欸'],
+ o:[
+  {t:'對，我不會幫它擦脂抹粉',d:14,r:'至少你承認'},
+  {t:'有調就不錯了啦',d:-15,x:'用「別人更慘」壓下合理不滿',r:'比爛喔'},
+  {t:'3% 是普調，你的我另外提',d:9,r:'什麼時候知道'},
+  {t:'要看長期，不要只看一年',d:-99,mine:1,x:'用「看長期」迴避眼前的實質減薪',r:'長期是幾年'}
+ ]}
+],
+
+/* ═══ 8. 遠端與彈性 ═══ */
+[
+{s:'他把上個月的成效報表一起傳過來了', t:'週三 15:12',
+ m:['我想一週兩天在家','通勤來回兩個半小時欸'],
+ o:[
+  {t:'先試一個月，看產出',d:13,r:'成交'},
+  {t:'制度改不了，幫你申請彈性上下班',d:3,r:'聊勝於無'},
+  {t:'下週會議我提，一定回你',d:8,r:'有下文就好'},
+  {t:'開了先例不好管',d:-99,mine:1,x:'用「不好管」拒絕彈性',r:'所以是管理方便'}
+ ]},
+{s:'外面在下暴雨，新聞跑馬燈全紅', t:'今天 06:50',
+ m:['市政府停班了','群組說照常、自行斟酌'],
+ o:[
+  {t:'不來不會被記，我現在講',d:13,r:'我就在等這句'},
+  {t:'能來的盡量來啦',d:-12,x:'用模糊的「自行斟酌」轉嫁風險',r:'成本我扛喔'},
+  {t:'今天全部遠端，我來喬',d:14,r:'那我開電腦'},
+  {t:'我等下也會進辦公室',d:-99,mine:1,x:'用自己到班暗示別人不該缺席',r:'我看懂了'}
+ ]},
+{s:'他請了半天，下午兩點回到座位', t:'週四 14:10',
+ m:['有人說現在的人請假好多','是在講我喔'],
+ o:[
+  {t:'是的話我處理，你不用解釋',d:13,r:'好'},
+  {t:'不用理他啦',d:-8,r:'但話還是被講了'},
+  {t:'我去問誰講的，這種話不該有',d:12,r:'講一次就好啦'},
+  {t:'你這個月是請比較多次',d:-99,mine:1,x:'趁機把合法請假記成缺點',r:'我請兩次'}
+ ]}
+],
+
+/* ═══ 9. 職涯 ═══ */
+[
+{s:'週一晚上，他還沒走，坐到你旁邊', t:'週一 19:03',
+ m:['我三年後在這裡會是怎樣','你有想過嗎'],
+ o:[
+  {t:'下一步是帶兩個人，我列三件事給你',d:14,r:'今天可以寫嗎'},
+  {t:'認真做，機會自然會來',d:-16,x:'用「機會自然會來」代替具體路徑',r:'上一份也這樣講'},
+  {t:'我沒想清楚，給我一週',d:9,r:'誠實給推'},
+  {t:'太遠了啦，先做好眼前',d:-99,mine:1,x:'把職涯問題推成「想太多」',r:'三年不遠吧'}
+ ]},
+{s:'他傳訊息前先問「現在方便嗎」', t:'週四 14:22',
+ m:['我對產品比較有興趣','有機會想轉組'],
+ o:[
+  {t:'我幫你問，先約個午餐聊',d:14,r:'以為你會不爽'},
+  {t:'你在行銷做得好好的欸',d:-11,r:'因為我想做那個'},
+  {t:'可以，案子排三個月交接',d:10,r:'合理'},
+  {t:'我培養你，你跟我說要走',d:-99,mine:1,x:'把栽培當成情緒債來索討',r:'我是換部門欸'}
+ ]},
+{s:'升遷名單公布後的第二天早上', t:'週二 09:40',
+ m:['這次升 Kevin','他多了什麼'],
+ o:[
+  {t:'他扛過一次危機。下季換你',d:13,r:'好，我等那個'},
+  {t:'他資歷比較深啦',d:-13,x:'用年資解釋一切',r:'所以我只要等'},
+  {t:'這次有名額限制。你排第一順位，我寫下來',d:12,r:'寫下來我要'},
+  {t:'不要老是比較',d:-99,mine:1,x:'把合理提問說成愛比較',r:'我問的是標準'}
+ ]}
+],
+
+/* ═══ 10. 回饋方式 ═══ */
+[
+{s:'會議結束十分鐘後，他從座位傳訊息給你', t:'週三 16:05',
+ m:['你剛說這數字錯得很離譜','那是我做的'],
+ o:[
+  {t:'我錯了，那句該私下講',d:14,r:'你會更正嗎'},
+  {t:'我對事不對人啦',d:-15,x:'用「對事不對人」迴避場合問題',r:'我在意的是場合'},
+  {t:'數字確實錯。但場合是我不對',d:12,r:'這樣可以'},
+  {t:'被講兩句就受不了喔',d:-99,mine:1,x:'把「檢討方式」扭曲成抗壓性問題',r:'我問方式你講我人格'}
+ ]},
+{s:'績效面談結束，他走出去又走回來', t:'週五 17:50',
+ m:['B+ 是怎麼算的','A 差在哪'],
+ o:[
+  {t:'差在還沒獨立扛完整專案',d:13,r:'清楚，那我知道拚什麼'},
+  {t:'整體感覺差一點，再加油',d:-16,x:'用「感覺」當作績效理由',r:'感覺沒辦法努力欸'},
+  {t:'A 有名額限制，這點我該早講',d:9,r:'早講就好啦'},
+  {t:'不要太在意等第',d:-99,mine:1,x:'叫員工不要在意攸關薪資的評等',r:'那會影響調薪吧'}
+ ]},
+{s:'他把你昨天的回饋原話貼回來給你看', t:'週二 10:15',
+ m:['你說這份沒有靈魂','靈魂是什麼'],
+ o:[
+  {t:'我講廢話。是開頭三行沒打到痛點',d:14,r:'這樣才改得動'},
+  {t:'就感覺不對，多看幾個案例',d:-14,x:'用抽象評語代替具體回饋',r:'我看三十個了'},
+  {t:'我重寫一版給你看差在哪',d:12,r:'好，這個有用'},
+  {t:'這種東西要靠悟性',d:-99,mine:1,x:'把說不清楚包裝成「悟性」',r:'那你怎麼打分數'}
+ ]}
+],
+
+/* ═══ 11. 請假 ═══ */
+[
+{s:'週一早上八點四十，他沒有編理由', t:'週一 08:40',
+ m:['今天請身心假','沒生病，就是需要'],
+ o:[
+  {t:'准，不用給我理由',d:13,r:'我還準備了說詞'},
+  {t:'可以啊，但案子今天要交欸',d:-10,r:'昨晚做完了'},
+  {t:'准。謝謝你直說',d:14,r:'哈好'},
+  {t:'心情不好也要請喔',d:-99,mine:1,x:'把法定假別當成藉口',r:'那是法定假吧'}
+ ]},
+{s:'凌晨傳的訊息，你早上七點才看到', t:'週二 07:15',
+ m:['我爸住院要開刀','我要請一週'],
+ o:[
+  {t:'先去，工作我分',d:14,r:'……謝謝'},
+  {t:'一週有點久，先請三天？',d:-14,x:'跟家庭急難討價還價',r:'我不知道夠不夠'},
+  {t:'去吧。公司有急難補助，我請人資找你',d:15,r:'我不知道有這個'},
+  {t:'交接文件寫完再走',d:-99,mine:1,x:'把交接文件排在家人開刀前面',r:'我爸明早開刀'}
+ ]},
+{s:'他請生理假，人事系統跳出通知給你', t:'週四 09:05',
+ m:['系統要主管備註我請假的原因','我不想講'],
+ o:[
+  {t:'不用寫，我填「依法申請」',d:14,r:'這系統很爛'},
+  {t:'寫個身體不適就好',d:4,r:'好吧'},
+  {t:'那欄位本來就不該有，我去反映',d:12,r:'欸真的喔'},
+  {t:'大家都寫啊',d:-99,mine:1,x:'要求員工交代不必交代的身體狀況',r:'我為什麼要跟你報告'}
+ ]}
+],
+
+/* ═══ 12. 文化與畫餅 ═══ */
+[
+{s:'全員大會散場，他走在你後面', t:'週四 18:20',
+ m:['老闆說我們是一家人','上個月才資遣兩個'],
+ o:[
+  {t:'那句我也不喜歡。這裡是公司',d:14,r:'這樣安心多了'},
+  {t:'老闆好意啦，不要那麼負面',d:-14,x:'把合理質疑貼上「負面」標籤',r:'我是在核對欸'},
+  {t:'我也難過，但那是別的層級決定的',d:-4,r:'我只是想聽你講'},
+  {t:'公司養你，要有感恩的心',d:-99,mine:1,x:'用「感恩」取代對等的僱傭關係',r:'我用勞動換薪水'}
+ ]},
+{s:'新辦公椅昨天送到，凍薪公告上禮拜發的', t:'週一 10:30',
+ m:['說要凍薪','然後換新椅子跟咖啡機'],
+ o:[
+  {t:'這個對照很刺眼。我把原話帶上去',d:13,r:'有人帶上去就好'},
+  {t:'那是不同預算科目',d:-10,r:'我問的是選擇欸'},
+  {t:'椅子是我提的，薪水我另外吵',d:11,r:'椅子是不錯啦'},
+  {t:'公司有困難，體諒一下',d:-99,mine:1,x:'用「公司有困難」要求單方面體諒',r:'體諒是雙向的嗎'}
+ ]},
+{s:'招募頁面昨天上線，他截圖傳給你', t:'週三 13:50',
+ m:['官網寫彈性工時無限特休','有哪個是真的'],
+ o:[
+  {t:'一個都不是。我去要求改掉',d:14,r:'笑死，但尊重'},
+  {t:'招募文案啦，大家都嘛這樣',d:-13,x:'把對外不實說成業界常態',r:'那新人進來也會發現'},
+  {t:'扁平是真的，其他兩個假的',d:12,r:'至少有一個'},
+  {t:'你不也是看了才來的',d:-99,mine:1,x:'用「你自己也被騙進來」堵嘴',r:'對啊所以我在問'}
+ ]}
+],
+
+/* ═══ 13. 會議文化 ═══ */
+[
+{s:'他把這週的行事曆截圖傳來，滿滿的藍色方塊', t:'週五 09:30',
+ m:['我這週開了 14 小時的會','做事剩 11 小時'],
+ o:[
+  {t:'太多了，我砍掉週會',d:14,r:'真的可以喔'},
+  {t:'開會也是工作啊',d:-13,x:'把會議時數當成產出',r:'那產出誰做'},
+  {t:'挑三個最沒用的，你不用去',d:12,r:'我現在就可以講'},
+  {t:'那是溝通成本，習慣就好',d:-99,mine:1,x:'要員工「習慣」明顯的浪費',r:'不想習慣浪費欸'}
+ ]},
+{s:'他在會議中全程沒發言，會後傳訊息', t:'週二 16:20',
+ m:['剛那場五分鐘就能講完','為什麼要八個人坐一小時'],
+ o:[
+  {t:'因為我懶得先寫文件，下次我寫',d:14,r:'誠實給推'},
+  {t:'大家都在場才有共識啊',d:-11,x:'用「共識」正當化低效會議',r:'共識還是陪坐'},
+  {t:'下次只留三個人，你不用來',d:12,r:'那我可以做事了'},
+  {t:'開會也是一種學習',d:-99,mine:1,x:'把浪費時間包裝成「學習」',r:'學到什麼可以列嗎'}
+ ]},
+{s:'週會排在週五下午五點半，已經第四週了', t:'週五 17:35',
+ m:['週會又要延到六點半','是故意的喔'],
+ o:[
+  {t:'不是，我沒調。下週改週四',d:14,r:'那就好'},
+  {t:'那時候大家比較有空啊',d:-12,x:'用「比較好講」佔用下班時間',r:'對誰有空'},
+  {t:'下週改時間，今天縮短到半小時',d:11,r:'OK'},
+  {t:'才半小時而已欸',d:-99,mine:1,x:'把每週固定超時說成「才半小時」',r:'一年 26 小時'}
+ ]}
+],
+
+/* ═══ 14. 輩分與老鳥 ═══ */
+[
+{s:'早上九點，茶水間', t:'週一 09:12',
+ m:['有人說新人要早到十五分鐘','那是規定喔'],
+ o:[
+  {t:'不是。九點就是九點',d:13,r:'好喔'},
+  {t:'早到一下融入一下嘛',d:-14,x:'用「融入」要求無償早到',r:'那算薪水嗎'},
+  {t:'誰講的？我去講，不用你出面',d:12,r:'麻煩你'},
+  {t:'我以前也是這樣過來的',d:-99,mine:1,x:'用「我以前也這樣」複製陋習',r:'那時候你覺得合理喔'}
+ ]},
+{s:'尾牙桌上，他被指定坐在老闆旁邊倒酒', t:'週五 20:15',
+ m:['他們叫我去老闆那桌倒酒','我可以不要嗎'],
+ o:[
+  {t:'可以。我現在去講，你別動',d:14,r:'謝謝我快嚇死'},
+  {t:'倒個酒而已，給老闆面子嘛',d:-15,x:'把陪酒說成「面子」',r:'我的面子呢'},
+  {t:'不要去，被講全部推給我',d:13,r:'收到'},
+  {t:'這是禮貌，去一下就好',d:-99,mine:1,x:'把年輕員工的身體與時間當成禮數',r:'禮貌是單向的喔'}
+ ]},
+{s:'交接文件寫到一半，他傳來一句', t:'週三 15:40',
+ m:['Vivian 說我的流程圖不用改','說以前都這樣'],
+ o:[
+  {t:'你這版比較好，我來拍板',d:14,r:'那我繼續'},
+  {t:'她資深，你先照她的',d:-15,x:'用年資壓過內容',r:'所以做好沒用'},
+  {t:'我約三個人一起看，看內容決定',d:12,r:'這個公平'},
+  {t:'不要挑戰老鳥',d:-99,mine:1,x:'用輩分否定改善提案',r:'那我不提了'}
+ ]}
+],
+
+/* ═══ 15. 社群與隱私 ═══ */
+[
+{s:'昨晚老闆送出了 Instagram 好友邀請', t:'週二 11:30',
+ m:['老闆加我 IG','那是私人的欸'],
+ o:[
+  {t:'可以不加，不會有後果',d:13,r:'那我按拒絕囉'},
+  {t:'加一下又不會怎樣',d:-13,x:'替別人決定隱私界線',r:'重點不是這個吧'},
+  {t:'不用加。他問我就說是我叫的',d:14,r:'哇這招好'},
+  {t:'加了老闆才會記得你啊',d:-99,mine:1,x:'把私人帳號當成升遷工具',r:'那我用表現讓他記得'}
+ ]},
+{s:'公司行銷部要拍形象照，名單裡有他', t:'週四 10:50',
+ m:['我不想入鏡','我的臉不想上廣告'],
+ o:[
+  {t:'肖像權是你的，我去改名單',d:14,r:'以為要吵'},
+  {t:'就拍一張，大家都拍啊',d:-13,x:'把肖像權當成配合事項',r:'那可以要求撤掉嗎'},
+  {t:'要用你的照片一定先問，也能撤',d:13,r:'這樣可以'},
+  {t:'公司宣傳員工配合是應該的',d:-99,mine:1,x:'認為僱傭關係包含肖像使用',r:'合約沒這條吧'}
+ ]},
+{s:'他的私人 Threads 貼文被同事截圖轉到群組', t:'週一 13:20',
+ m:['我下班發的廢文被截圖丟群組','有人說上班發這個好嗎'],
+ o:[
+  {t:'那是你的時間。截圖那件事我處理',d:14,r:'謝謝我快氣死'},
+  {t:'公開發文本來就會被看到啊',d:-14,x:'把被監控說成「自己小心」',r:'所以是我的錯'},
+  {t:'我去問誰截的',d:12,r:'拜託'},
+  {t:'同事看得到，還是收斂點',d:-99,mine:1,x:'把管制延伸到下班後的言論',r:'那我全封鎖'}
+ ]}
+],
+
+/* ═══ 16. 學習與自費 ═══ */
+[
+{s:'他傳來一張課程報名頁的截圖，價格 18,000', t:'週三 09:45',
+ m:['你說我數據分析要加強','這個要我自己出喔'],
+ o:[
+  {t:'公司出。回來分享一次',d:14,r:'成交'},
+  {t:'先自己上，績效好再幫你爭取',d:-12,x:'把公司需要的技能變成員工自費',r:'那績效不好咧'},
+  {t:'公司有一萬，差額我想辦法',d:10,r:'一萬也不錯'},
+  {t:'投資自己啊，能力是你的',d:-99,mine:1,x:'用「投資自己」把訓練成本外包給員工',r:'那我學完可以帶走喔'}
+ ]},
+{s:'讀書會排在週三晚上七點到九點', t:'週二 17:30',
+ m:['讀書會算上班嗎','還要交心得欸'],
+ o:[
+  {t:'算，記加班。心得也算產出',d:14,r:'那我認真寫'},
+  {t:'那是自我成長啦',d:-14,x:'指定內容還說是自我成長',r:'主題是你指定的欸'},
+  {t:'我改成上班辦，心得改口頭講',d:13,r:'這樣好多了'},
+  {t:'兩小時而已，別這麼計較',d:-99,mine:1,x:'用「才兩小時」抹掉無償勞動',r:'一年一百小時'}
+ ]},
+{s:'證照補助辦法昨天改版了', t:'週五 14:15',
+ m:['補助改成要在職滿兩年','那是綁約吧'],
+ o:[
+  {t:'對，那是綁約。我去反映',d:13,r:'謝謝你叫它真名'},
+  {t:'公司出錢有條件很正常啊',d:-11,r:'那別叫補助啊'},
+  {t:'我幫你走舊制',d:12,r:'欸那太好了'},
+  {t:'不想被綁就自己出啊，很公平',d:-99,mine:1,x:'把不對等條款說成公平選擇',r:'公平是雙方都能談吧'}
+ ]}
+],
+
+/* ═══ 17. 出差與交通 ═══ */
+[
+{s:'出差申請單卡在你這裡三天了', t:'週四 11:20',
+ m:['台中出差要自己開車','油錢怎麼算'],
+ o:[
+  {t:'實報實銷，停車費也行',d:13,r:'好，我留收據'},
+  {t:'應該可以報吧，先墊一下',d:-11,x:'讓員工先墊付又不確認規則',r:'應該是多少'},
+  {t:'改叫車，不用開你的車',d:14,r:'我車很舊，這樣好'},
+  {t:'開自己的車比較方便啊',d:-99,mine:1,x:'把成本轉嫁說成「方便」',r:'誰方便'}
+ ]},
+{s:'高鐵票訂好了，早上六點半那班', t:'週一 20:40',
+ m:['明天六點半的高鐵','那五點要起床欸'],
+ o:[
+  {t:'移動算工時，回程直接回家',d:14,r:'那可以'},
+  {t:'通勤本來就不算工時',d:-12,x:'把出差移動混為一般通勤',r:'我又不是去我家'},
+  {t:'我改訂八點的',d:12,r:'謝謝我可以睡'},
+  {t:'出差就是這樣啊',d:-99,mine:1,x:'用「大家都這樣」關掉合理討論',r:'好喔'}
+ ]},
+{s:'活動結束，晚上十一點半，現場在收東西', t:'週六 23:30',
+ m:['最後一班捷運走了','我怎麼回家'],
+ o:[
+  {t:'叫車，公司帳號，上車傳我',d:14,r:'謝謝我腳超痠'},
+  {t:'跟同事共乘一下吧',d:-10,x:'把回家的責任丟給同事之間',r:'我住反方向'},
+  {t:'我現在幫你叫。下次交通進預算',d:15,r:'哇好'},
+  {t:'做活動就這樣，自己想辦法',d:-99,mine:1,x:'讓員工在深夜自行處理返家',r:'我一個人在信義區'}
+ ]}
+],
+
+/* ═══ 18. 尊重與不當玩笑 ═══ */
+[
+{s:'剛剛的會議室裡有八個人，沒有人出聲', t:'週三 15:10',
+ m:['有人說這個要找女生做比較細心','沒人講話'],
+ o:[
+  {t:'我沒出聲是我的錯，下次我會公開講',d:14,r:'那我等下次'},
+  {t:'他沒惡意啦，講話老派',d:-15,x:'用「沒有惡意」抵銷實質影響',r:'那是兩件事吧'},
+  {t:'我現在去講。不是替你出頭，是那句話不行',d:15,r:'謝謝'},
+  {t:'這種話聽聽就算了',d:-99,mine:1,x:'要員工把歧視發言當耳邊風',r:'聽聽就算的不是我'}
+ ]},
+{s:'午餐，隔壁桌笑很大聲', t:'週五 12:50',
+ m:['他們又拿我口音開玩笑','第三次了'],
+ o:[
+  {t:'第三次就不是玩笑。我今天處理',d:15,r:'謝謝'},
+  {t:'開玩笑而已，回嗆回去啊',d:-15,x:'要被冒犯的人自己反擊',r:'為什麼是我要回嗆'},
+  {t:'我要知道是誰，不會說是你講的',d:12,r:'我傳名字給你'},
+  {t:'太認真就輸了啦',d:-99,mine:1,x:'用「太認真就輸了」要求受害者配合',r:'輸的一直是我'}
+ ]},
+{s:'新人自我介紹單上，性別欄是空白的', t:'週一 10:05',
+ m:['新來的希望大家叫他名字','有人說很麻煩欸'],
+ o:[
+  {t:'不麻煩，改口而已。我在群組講',d:14,r:'謝謝我幫他問的'},
+  {t:'大家習慣就好啦',d:-12,x:'把該做的事丟給時間',r:'習慣要多久'},
+  {t:'我今天就改。講錯就道歉再改回來',d:15,r:'這個回答很好'},
+  {t:'現在的年輕人事情真多',d:-99,mine:1,x:'把基本尊重說成「事情多」',r:'叫對名字叫事情多喔'}
+ ]}
+],
+
+/* ═══ 19. 離職前兆 ═══ */
+[
+{s:'他這個月第三次請半天，都在早上', t:'週二 08:50',
+ m:['我今天請半天','私事'],
+ o:[
+  {t:'好，不用解釋',d:12,r:'嗯'},
+  {t:'你最近很常請早上，在面試喔',d:-14,x:'當面拆穿而不是先反省',r:'你希望我怎麼回'},
+  {t:'准。有什麼我可以改的我想聽',d:13,r:'……晚點跟你說'},
+  {t:'請假可以，但對團隊公平嗎',d:-99,mine:1,x:'用「對團隊公平嗎」勒索合法權益',r:'我用我的假欸'}
+ ]},
+{s:'他這禮拜每天六點準時關電腦，一分鐘都不多', t:'週四 18:01',
+ m:['我把東西都整理成文件了','放共用資料夾'],
+ o:[
+  {t:'謝謝。直接問你：你要走嗎',d:11,r:'……我在想'},
+  {t:'很好啊，大家都方便',d:-8,r:'嗯'},
+  {t:'這是好事。但你最近怎麼了',d:13,r:'好，明天午餐'},
+  {t:'文件很好，那進度呢',d:-99,mine:1,x:'看到求救訊號卻只關心進度',r:'都在文件裡'}
+ ]},
+{s:'公司群組跳出「歡迎新夥伴」，他沒有按讚', t:'週一 17:15',
+ m:['新來的坐我旁邊','他問我這裡好不好'],
+ o:[
+  {t:'照實講。我寧願他從你這裡知道',d:13,r:'那我照實囉'},
+  {t:'講好的部分就好啦',d:-13,x:'要求員工幫公司粉飾',r:'那他會更失望'},
+  {t:'你會怎麼回',d:12,r:'主管還可以，制度很爛'},
+  {t:'講話小心一點，別影響新人',d:-99,mine:1,x:'把誠實當成需要管制的風險',r:'原來實話是負面影響'}
+ ]}
+],
+
+/* ═══ 20. 裁員傳聞與 AI ═══ */
+[
+{s:'昨天財經新聞跑了公司的名字', t:'週三 08:30',
+ m:['新聞說公司要縮編','我要開始找工作嗎'],
+ o:[
+  {t:'目前沒名單，我們組沒縮。有變我第一個講',d:14,r:'好，那我先不慌'},
+  {t:'不要看新聞亂想',d:-14,x:'用「不要亂想」代替資訊透明',r:'那給我不用想的理由'},
+  {t:'我也不知道。明天去問，問到什麼講什麼',d:11,r:'誠實給推'},
+  {t:'表現好的不用擔心啊',d:-99,mine:1,x:'把裁員說成表現問題',r:'上次那兩個表現也不差'}
+ ]},
+{s:'他傳來一個 AI 工具的連結', t:'週五 16:10',
+ m:['這個十分鐘做完我一整天的事','那我還有價值嗎'],
+ o:[
+  {t:'有。價值變成判斷哪版能用',d:14,r:'好，那我學'},
+  {t:'AI 不會取代人啦',d:-11,x:'用空話安撫真實的焦慮',r:'但它剛剛取代了'},
+  {t:'我不確定。但省下的時間不會拿來塞雜事',d:13,r:'這句我信'},
+  {t:'那你要更努力，不然真的被取代',d:-99,mine:1,x:'把結構性焦慮轉成個人恐嚇',r:'努力到什麼程度'}
+ ]},
+{s:'他做的專案上線了，數字很好，沒有人提到他', t:'週二 19:20',
+ m:['上線報告沒有我的名字','是漏掉嗎'],
+ o:[
+  {t:'是我漏的。我現在補一封信',d:15,r:'那就好'},
+  {t:'團隊成果不用分那麼細啦',d:-15,x:'用「團隊成果」抹掉個人貢獻',r:'那為什麼有人有'},
+  {t:'我補上去。以後署名照分工不照職級',d:14,r:'這個我要'},
+  {t:'做事不要為了名字',d:-99,mine:1,x:'把應得的署名說成虛榮',r:'名字會影響我換工作'}
+ ]}
+],
+
+/* ═══ 21. 牢騷與無理要求（回什麼都錯，已讀才是對的） ═══ */
+[
+{s:'半夜十一點，他連傳了七則', t:'週三 23:04', z:14, zr:'算了 我睡了',
+ m:['欸我跟你說 Vivian 今天又','她整天在那邊講電話有夠吵','你不覺得她很雷嗎'],
+ o:[
+  {t:'對啊她真的滿吵的',d:-20,x:'跟下屬一起講同事壞話',r:'笑死，我截圖囉'},
+  {t:'你要不要直接跟她講',d:-10,x:'把私下抱怨推成正面衝突',r:'我又沒有要吵架'},
+  {t:'這個我來正式處理',d:-12,x:'把半夜的牢騷當成申訴案件辦',r:'蛤不用啦 我只是講講'},
+  {t:'不要在背後講同事',d:-14,x:'用說教回應情緒',r:'喔'}
+ ]},
+{s:'他昨天跟 Kevin 在會議上不太愉快', t:'週四 10:20', z:12, zr:'……好啦我知道不行',
+ m:['我不想跟 Kevin 同組','可以把他換掉嗎'],
+ o:[
+  {t:'好，我幫你換',d:-20,x:'為了留一個人犧牲另一個人',r:'欸真的假的，這樣好嗎'},
+  {t:'他哪裡不好？你講',d:-11,x:'開啟一場沒有結論的批鬥',r:'就……很多啊'},
+  {t:'你們自己溝通一下',d:-12,x:'把該管的事推回給兩個當事人',r:'那我幹嘛跟你講'},
+  {t:'不行，這是編制',d:-8,r:'好喔'}
+ ]},
+{s:'週日晚上十點半，他傳了一長串', t:'週日 22:31', z:13, zr:'我明天會到啦 不用擔心',
+ m:['週日晚上真的好憂鬱','這份工作到底有什麼意義'],
+ o:[
+  {t:'意義是你自己給的',d:-16,x:'在週日晚上對下屬說教',r:'……喔'},
+  {t:'明天到公司再聊',d:-6,r:'嗯'},
+  {t:'要不要乾脆請一天假',d:-10,x:'把情緒訊號直接轉成請假處理',r:'我沒有要請假欸'},
+  {t:'大家都這樣啦，習慣就好',d:-17,x:'用「大家都這樣」抹掉他的感受',r:'好喔'}
+ ]}
+],
+
+/* ═══ 22. 情緒勒索與試探（他在測你會不會被牽著走） ═══ */
+[
+{s:'他傳了一張別家公司的午餐照片', t:'週二 12:15', z:11, zr:'開玩笑的啦',
+ m:['我朋友公司午餐免費欸','你看看我們'],
+ o:[
+  {t:'我去爭取看看午餐補助',d:-14,x:'被一句抱怨推著開空頭支票',r:'欸真的喔？那我等'},
+  {t:'那你要不要去他們公司',d:-18,x:'用「不然你去啊」回應抱怨',r:'我只是講一下欸'},
+  {t:'我們有別的好處啊',d:-9,r:'例如'},
+  {t:'對啊我們公司很爛',d:-12,x:'跟著一起罵公司但什麼都不做',r:'那你要幹嘛'}
+ ]},
+{s:'他今天第三次提到那個離職的同事', t:'週五 16:50', z:12, zr:'我隨口講的',
+ m:['小昕走了之後薪水多一萬欸','早知道我也……'],
+ o:[
+  {t:'那你也可以去試試看',d:-18,x:'把試探當成挑釁回擊',r:'我又沒說要走'},
+  {t:'我這個月就幫你談調薪',d:-13,x:'被一句試探逼出還沒把握的承諾',r:'你確定喔？別又跳票'},
+  {t:'外面沒有你想的那麼好',d:-15,x:'用恐嚇代替回應',r:'你怎麼知道'},
+  {t:'她走之前有跟我談過',d:-7,r:'她怎麼說'}
+ ]},
+{s:'公司群組剛宣布尾牙抽獎名單', t:'週一 18:40', z:10, zr:'我只是嘴一下',
+ m:['尾牙頭獎又是主管抽到','有夠假的啦'],
+ o:[
+  {t:'我去查抽獎流程',d:-11,x:'把玩笑話升級成調查案',r:'不用啦真的'},
+  {t:'對啊每年都這樣',d:-13,x:'跟著抱怨但完全不處理',r:'所以呢'},
+  {t:'你這樣講會被聽到喔',d:-16,x:'第一反應是叫他小聲一點',r:'喔，好'},
+  {t:'運氣而已啦',d:-8,r:'好喔'}
+ ]}
+]
+];
+
+/* ═══ 結局 murmur：他在心裡（或背後）說的那句 ═══ */
+const MURMUR = {
+
+over:[   /* 他遞出離職單 */
+ '我就玻璃怎樣\n玻璃也是有底線的\n你每次都說我想太多\n那我現在不想了\n祝你找到抗壓性好的',
+ '交接文件我寫好了\n寫得比你交代的還細\n因為我不想有人跟我一樣\n進來三個月還在猜規則\n剩下的你自己看',
+ '我不是被錢挖走的\n錢只是讓我走得好看一點\n真正的理由你剛剛都聽過\n你每一題都有機會\n你每一題都選錯',
+ '離職面談我會寫個人生涯規劃\n你也會照抄進報告\n然後說現在年輕人留不住\n留不住的不是年輕人\n是你那個講法',
+ '最好笑的是我以前很喜歡這裡\n喜歡到會幫公司講話\n現在我連社團都退了\n不是氣\n是懶得再解釋一次',
+ '你問我還有什麼要說的\n沒有欸\n該說的我這半年說了十幾次\n每次你都說再看看\n現在不用看了',
+ '薪水是沒漲啦\n但我脾氣練得很好\n現在有人凹我我會直接說不\n這個技能是你教我的\n真的謝謝',
+ '我走了下一個也會走\n你會覺得又是草莓\n可是連續四顆草莓都爛掉\n問題可能不在草莓\n在種草莓的地方',
+ '以後有人問我這裡怎樣\n我不會講你壞話\n我會說主管人不錯\n只是他什麼都改不了\n這句比壞話難聽吧',
+ '最後一天我會準時走\n不辦歡送會\n不吃那個蛋糕\n留給下一個\n反正流程你們都很熟了'
+],
+
+blocked:[   /* 你打了視訊 */
+ '你打視訊喔\n我們是同事欸\n又不是在交往\n你要看我的臉\n走過來不就好了',
+ '視訊耶\n我現在在床上\n頭髮沒洗\n房間三個紙箱還沒拆\n你確定要看喔，不用了謝謝',
+ '文字有紀錄\n電話沒有\n視訊更沒有\n我不是不敢講\n我是不想事後變成我記錯',
+ '你打過來那一秒我就懂了\n你想繞過打字\n因為打字要負責\n好喔\n那我幫你省事',
+ '公司給我筆電不是給我出鏡的\n我沒有簽藝人合約\n這不是害羞\n這是界線\n你分不出來所以我幫你分',
+ '下班時間打視訊\n你有想過我在幹嘛嗎\n我在吃飯\n我在洗澡\n我在過我自己的人生',
+ '重要的事就傳訊息\n不重要的事更該傳訊息\n沒有第三個選項\n這個規則很簡單\n你居然學不會',
+ '上一個主管也愛打視訊\n每次都說五分鐘\n每次都四十分鐘\n我學乖了\n這次先封鎖',
+ '我封鎖的是視訊\n不是你這個人\n你想聊隨時傳訊息\n但你不會傳\n因為打字要想清楚',
+ 'sorry 我手滑\n騙你的\n我想很久了\n剛剛只是剛好有藉口\n掰'
+],
+
+bad:[    /* 人還在，心走了一半 */
+ '我還在啊\n只是不講話了\n你叫我做什麼我就做什麼\n不多做也不多問\n這樣大家都輕鬆',
+ '六點我就關電腦\n不是趕著幹嘛\n是我發現多留一小時\n也不會有人記得\n那我留幹嘛',
+ '以前我會提建議\n被說了三次想太多之後\n我就不提了\n現在開會我都說沒問題\n你應該覺得我變成熟了',
+ '你問我最近怎樣\n我說還好\n其實不好\n但講出來要花力氣\n而且結果我猜得到',
+ '我把熱情移到下班以後\n現在週末在接案\n那邊沒有人跟我談感情\n只跟我談錢\n單純多了',
+ '群組我開靜音\n信件我隔天早上看\n不是擺爛\n是我終於學會\n不要把公司放在心上',
+ '你以為我留下來是被說服\n不是\n是我還沒找到\n新的地方不一定比較好\n就這樣而已',
+ '同事問我這裡如何\n我說還可以啦\n然後就轉移話題\n我不想害人\n也不想騙人',
+ '人在這裡\n魂在人力銀行\n我每天中午更新一次履歷\n就像有些人中午滑股票\n一樣的道理',
+ '笑死我居然還在\n上禮拜我還在算資遣費\n今天我又乖乖打卡\n人就是這樣\n沒有那麼帥'
+],
+
+normal:[ /* 留下但履歷還開著 */
+ '先待著\n看你會不會做到\n你講的那幾件事我記著\n不是不信你\n是我被畫過太多餅',
+ '履歷我沒刪\n只是設成隱藏\n這不是威脅\n這是保險\n每個人都該有',
+ '我給你一季\n一季後我們再談一次\n有做到我就繼續\n沒做到我不會吵\n我會直接不見',
+ '你有在改\n這點我承認\n但改一半的東西\n比沒改更讓人猶豫\n你懂我意思嗎',
+ '面試我還是會去\n去了不代表要走\n就像你也會看別的人選\n這樣很公平\n我們扯平',
+ '及格而已\n不要太開心\n及格的意思是\n我暫時沒有理由走\n不是我找到理由留',
+ '朋友問我要不要跳\n我說再看看\n以前我會秒回好\n這句再看看\n是你這個月換來的',
+ '你今天講的話\n如果三個月後還算數\n我就真的留下來\n如果不算數\n我也不會問你為什麼',
+ '這個月先這樣\n下個月再說\n我現在不做長期規劃\n不是因為你\n是因為我不敢',
+ '你有沒有發現我最近少問了\n不是沒問題\n是我在等你先做\n講得再好都是空的\n做了我才會再開口'
+],
+
+good:[   /* 離職單刪掉了 */
+ '好啦\n你有做到\n我承認\n我本來已經寫好離職單了\n剛剛把檔案刪了',
+ '我跟朋友說我主管還行\n他們都不信\n說我一定被洗腦\n我說沒有\n他只是真的會回答問題',
+ '你答應的那三件事\n我在算日子\n第一件你做到了\n剩下兩件我等\n不催你，但我記得',
+ '最有感的不是加薪\n是你有一次直接說我不知道\n以前的主管永遠都知道\n然後永遠都做不到\n你至少沒有騙我',
+ '我還是會問問題喔\n你要習慣\n不是找碴\n是我想留下來\n不然我問幹嘛',
+ '沒有要感動\n但謝謝\n這一年我學到最多的\n是原來可以直接講\n不用先在心裡演練十分鐘',
+ '我把 104 的通知關掉了\n不是永遠\n是這一季\n你有一季的時間\n把剩下的證明給我看',
+ '我還是覺得公司很爛\n但你不爛\n這兩件事可以同時成立\n我留下來是因為後面那個\n你要撐住喔',
+ '新人問我這裡好不好\n我說主管可以直接問\n其他的自己判斷\n這已經是我能給的\n最高的評價了',
+ '那我再待一年看看\n一年後你要是變成以前那種主管\n我會第一個跟你說\n然後第二天遞辭呈\n先講在前面'
+],
+
+best:[   /* 他開始幫你留別人 */
+ '我現在會跟新人說\n有事直接問他\n不用先在心裡排練\n我第一年都不敢\n浪費超多時間',
+ '我沒有變乖\n是你變好\n這句話我只講一次\n不要拿去跟別人炫耀\n很尷尬',
+ '有獵頭找我\n開的比這裡高\n我沒有回\n不是清高\n是我算過離開的成本包含你',
+ '昨天有人在會議上講那種話\n我直接說這樣不行\n以前我不敢\n現在敢\n因為我知道你會站在我後面',
+ '這裡終於像一間公司了\n不像一家人\n一家人不會給加班費\n公司會\n我要的一直是這個',
+ '我把離職單刪了\n資料夾也清了\n連那個備份都刪了\n你不知道我做過幾版\n現在都沒了',
+ '你要是走了我才要考慮\n所以你不要亂跳槽\n我認真的\n我留下來有一半是因為你\n壓力給你',
+ '新人我來帶\n你不要插手\n我會用你那一套\n但講得比你好笑\n你那個冷笑話真的不行',
+ '講出來很怪\n但我想在這裡待久一點\n久到可以做出一個\n我自己會拿去面試講的東西\n現在有機會了',
+ '上禮拜我媽問我工作怎樣\n我說還不錯\n她愣了一下\n因為我大學畢業到現在\n第一次這樣講'
+]
+
+};
+
+/* ═══ 最終 BOSS：離職單 ═══ */
+const BOSS = {
+  s:'他把筆電螢幕轉過來給你看，上面是人資系統',
+  t:'週四 09:12',
+  m:['離職單我填好了，還沒送','你可以給我什麼'],
+  o:[
+    {t:'三件事今天給你答案：錢、遠端、Vivian。做不到你隨時走',d:20,
+     r:'好，那我等今天'},
+    {t:'你先講你要什麼，我告訴你哪些做得到',d:14,
+     r:'……第一次有人問我要什麼'},
+    {t:'再給我一點時間，我會想辦法',d:-16,x:'在決勝點只給時間、不給承諾',
+     r:'想辦法是多久'},
+    {t:'留不留是你的選擇，我尊重',d:-99,mine:1,x:'在決勝點把責任整包丟回員工',
+     r:'我問的是你會做什麼'}
+  ]
+};
+</script>
+<script>
+let deck=[], qi=0, score=55, mines=[], good=0, bad=0;
+let undoLeft=1, busy=false, cur=null, bossDone=false, group=null, blockedEnd=false;
+let lastLine='…', ended=false;
+
+const $ = id => document.getElementById(id);
+const chat=$('chat'), opts=$('opts');
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const shuffle = a => a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
+const down = () => chat.scrollTop = chat.scrollHeight;
+
+/* ── 狀態列時鐘：真實當地時間 ── */
+function tickClock(){
+  const d=new Date();
+  $('stime').textContent = d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+}
+tickClock(); setInterval(tickClock, 10000);
+
+/* ── 電池 ── */
+function paint(){
+  $('batnum').textContent = score;
+  const f = $('batfill');
+  f.style.width = Math.max(0,Math.min(100,score)) + '%';
+  f.className = score >= 50 ? '' : score >= 25 ? 'mid' : 'low';
+}
+
+/* ── 訊息 ── */
+function stamp(time, sub){
+  const d=document.createElement('div');
+  d.className='stamp';
+  d.innerHTML='<b>'+time+'</b>'+sub;
+  chat.appendChild(d); down();
+}
+function mine(text){
+  const d=document.createElement('div');
+  d.className='mine'; d.textContent=text;
+  chat.appendChild(d); down(); group=null; return d;
+}
+function chip(cls,text){
+  const d=document.createElement('div');
+  d.className='chip '+cls; d.textContent=text;
+  chat.appendChild(d); down(); group=null; return d;
+}
+function seen(){
+  const d=document.createElement('div');
+  d.className='seen'; d.textContent='已讀';
+  chat.appendChild(d); down(); return d;
+}
+async function theirs(text){
+  $('pres').textContent='輸入中…'; $('pres').className='live';
+  const t=document.createElement('div');
+  t.className='grp';
+  t.innerHTML='<div class="pic">Z</div><div class="col"><div class="dots"><i></i><i></i><i></i></div></div>';
+  chat.appendChild(t); down();
+  await wait(520 + Math.min(text.length,26)*38);
+  t.remove();
+  $('pres').textContent='活躍中'; $('pres').className='';
+  if(!group){
+    group=document.createElement('div');
+    group.className='grp';
+    group.innerHTML='<div class="pic">Z</div><div class="col"></div>';
+    chat.appendChild(group);
+  }
+  lastLine=text;
+  const b=document.createElement('div');
+  b.className='bb'; b.textContent=text;
+  group.querySelector('.col').appendChild(b);
+  down(); await wait(190);
+}
+
+/* ── 開局 ── */
+let started=false;
+function boot(){
+  if(started) return; started=true;
+  const cats = shuffle(BANK).slice(0, 11);
+  deck = cats.map(c => c[Math.floor(Math.random()*c.length)]);
+  $('boot').classList.add('hide');
+  paint(); run();
+}
+
+function len(){
+  if(score>=75) return 11;
+  if(score>=55) return 9;
+  if(score>=30) return 8;
+  return 7;
+}
+
+async function run(){
+  cur = (qi >= len() || qi >= deck.length) ? BOSS : deck[qi];
+  if(cur===BOSS) bossDone=true;
+  group=null;
+  stamp(cur.t, cur.s);
+  await wait(300);
+  for(const m of cur.m) await theirs(m);
+  show(cur.o, []);
+}
+
+function show(list, blocked){
+  opts.innerHTML='';
+  shuffle(list).forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=o.t;
+    if(blocked.includes(o.t)) b.disabled=true;
+    else b.onclick=()=>pick(o);
+    opts.appendChild(b);
+  });
+  const z=document.createElement('button');
+  z.className='opt ghost'; z.textContent='（已讀，不回）';
+  z.onclick=()=>pickRead();
+  opts.appendChild(z);
+  const bar=document.createElement('div');
+  bar.className='bar-hint';
+  bar.innerHTML='<div class="pill">挑一句傳出去…</div>';
+  opts.appendChild(bar);
+  down();
+}
+function waiting(txt){
+  opts.innerHTML='<div class="bar-hint"><div class="pill">'+txt+'</div></div>';
+}
+
+/* ── 已讀不回 ── */
+const ZR = ['好喔','喔','嗯','……','算了','沒事了','當我沒說'];
+async function pickRead(){
+  if(busy) return; busy=true;
+  waiting('已讀，沒有回');
+  stamp('','你已讀了，沒有回');
+  await wait(520);
+
+  const d = (cur.z !== undefined) ? cur.z : -12;
+  score=Math.max(0,Math.min(100,score+d)); paint();
+  d>0 ? good++ : bad++;
+  chip(d>=0?'up':'dn','已讀不回 '+(d>=0?'+':'−')+Math.abs(d));
+  await wait(340);
+  await theirs(cur.zr || ZR[Math.floor(Math.random()*ZR.length)]);
+
+  if(score<=0) return over(false,'該回的時候你沒有回');
+  next();
+}
+
+/* ── 選擇 ── */
+async function pick(o){
+  if(busy) return; busy=true;
+  waiting('已送出');
+  mine(o.t);
+  await wait(400); seen();
+  await wait(360);
+
+  if(o.mine){
+    chip('zz','⚠ 這句是地雷');
+    await wait(460);
+    if(undoLeft>0 && score-8>0) return offerUndo(o);
+    score=0; bad++; paint();
+    if(o.x) mines.push(o.x);
+    chip('dn','留任意願歸零');
+    await wait(340); await theirs(o.r);
+    return over(false, o.x||'');
+  }
+
+  score=Math.max(0,Math.min(100,score+o.d)); paint();
+  o.d>0 ? good++ : bad++;
+  if(o.x) mines.push(o.x);
+  chip(o.d>=0?'up':'dn','留任意願 '+(o.d>=0?'+':'−')+Math.abs(o.d));
+  await wait(340);
+  await theirs(o.r);
+
+  if(score<=0) return over(false, o.x||'');
+  next();
+}
+
+function offerUndo(badOpt){
+  opts.innerHTML='';
+  const u=document.createElement('button');
+  u.className='opt dark'; u.textContent='收回訊息（整局限一次，−8）';
+  const k=document.createElement('button');
+  k.className='opt'; k.textContent='算了，我就是這個意思';
+  u.onclick=async()=>{
+    undoLeft=0; waiting('收回中…');
+    [...chat.querySelectorAll('.mine,.seen,.chip')].slice(-3).forEach(e=>e.remove());
+    group=null;
+    stamp('','你收回了一則訊息');
+    score=Math.max(0,score-8); paint();
+    chip('dn','留任意願 −8');
+    await wait(340);
+    await theirs('你剛剛想說什麼');
+    busy=false; show(cur.o,[badOpt.t]);
+  };
+  k.onclick=async()=>{
+    waiting('已送出');
+    score=0; bad++; paint();
+    if(badOpt.x) mines.push(badOpt.x);
+    chip('dn','留任意願歸零');
+    await wait(340); await theirs(badOpt.r);
+    over(false, badOpt.x||'');
+  };
+  opts.appendChild(u); opts.appendChild(k); down();
+}
+
+async function next(){
+  qi++; busy=false;
+  if(bossDone) return over(true,'');
+  await wait(560); run();
+}
+
+/* ── 結算 ── */
+let card='';
+async function over(alive, why){
+  busy=true; ended=true;
+  waiting('對話結束');
+  await wait(400);
+
+  let lab,title,text;
+  let key;
+  if(blockedEnd){
+    $('pres').textContent='已封鎖'; $('pres').className='';
+    key='blocked'; lab='B L O C K E D'; title='他把你<u>封鎖</u>了';
+  } else if(!alive){
+    await theirs('我送出去了。謝謝這一年三個月');
+    $('pres').textContent='已封鎖'; $('pres').className='';
+    key='over'; lab='G A M E　O V E R'; title='他<u>遞出離職單</u>了';
+  } else if(score>=85){
+    key='best'; lab='B E S T　E N D'; title='他開始<u>幫你留別人</u>';
+  } else if(score>=65){
+    key='good'; lab='G O O D　E N D'; title='離職單<u>刪掉了</u>';
+  } else if(score>=40){
+    key='normal'; lab='N O R M A L　E N D'; title='人留下，<u>履歷還開著</u>';
+  } else {
+    key='bad'; lab='B A D　E N D'; title='人還在，<u>心走了一半</u>';
+  }
+  const pool=MURMUR[key];
+  text=pool[Math.floor(Math.random()*pool.length)];
+
+  $('oLab').textContent=lab;
+  $('oNum').textContent=score;
+  $('oNum').style.color = !alive?'var(--red)':score>=65?'var(--b)':'var(--ink)';
+  $('oTitle').innerHTML=title;
+  $('oText').textContent='「'+text+'」';
+  $('oQ').textContent = qi + (alive?0:1);
+  $('oG').textContent = good;
+  $('oB').textContent = bad;
+
+  if(mines.length){
+    const m=$('oMines'); m.classList.remove('hide');
+    m.innerHTML='<b>你 這 局 踩 到 的 雷</b><ul>'
+      + [...new Set(mines)].slice(0,5).map(t=>'<li>'+t+'</li>').join('') + '</ul>';
+  }
+  card='【他明天還會來嗎？】\n留任意願 '+score+'／100　'
+     + title.replace(/<\/?u>/g,'') + '\n\ngen_z：「'+text+'」\n\n接住 '+good+' 句、踩雷 '+bad+' 句';
+
+  await wait(750);
+  $('over').classList.remove('hide');
+}
+
+/* ══════ 手機裡的其他畫面 ══════ */
+const playing = () => $('boot').classList.contains('hide') && !ended;
+
+/* 收件匣 */
+$('navBack').onclick = ()=>{
+  if(!playing()) return;
+  $('dmZlast').textContent = lastLine + ' · 現在';
+  $('inbox').classList.remove('hide');
+};
+$('inboxX').onclick = ()=> $('inbox').classList.add('hide');
+$('dmZ').onclick   = ()=> $('inbox').classList.add('hide');
+
+/* 個人檔案 */
+$('navName').onclick = ()=>{ if(playing()) $('profile').classList.remove('hide'); };
+$('proX').onclick    = ()=> $('profile').classList.add('hide');
+
+/* 限時動態 */
+const D='#1a1d22', Y='#ffd400', B='#0b5cff', W='#f4f4f2', R='#ff5a4d', G='#1f7a4d';
+const STORY_POOL = [
+ {bg:D, fg:'#fff', html:'<p>今天第 4 個會</p><small>而且每一個都可以用一封信解決</small>'},
+ {bg:Y, fg:D,      html:'<p>下 班 🫠</p><small>18:01 打卡　一秒都不多留</small>'},
+ {bg:B, fg:'#fff', html:'<p>有人知道怎麼回主管的<br>「再看看」嗎</p>'
+   +'<div class="poll"><div>他真的會看 · 9%</div><div>默默投履歷 · 91%</div></div>'},
+ {bg:W, fg:D,      html:'<p>加班費試算表 v3</p><small>我自己寫的　比公司系統準</small>'},
+ {bg:D, fg:'#fff', html:'<p>「我們是一家人」</p><small>家人不會叫你自己出加班的油錢</small>'},
+ {bg:G, fg:'#fff', html:'<p>週末不看群組<br>第 12 天</p><small>人生滿意度 +37%</small>'},
+ {bg:W, fg:D,      html:'<p>今天 9:00 到</p><small>有人說我「剛好踩線」<br>那叫準時</small>'},
+ {bg:B, fg:'#fff', html:'<p>主管說「這個很有挑戰」<br>是什麼意思</p>'
+   +'<div class="poll"><div>有趣的專案 · 6%</div><div>沒人要做 · 94%</div></div>'},
+ {bg:Y, fg:D,      html:'<p>今天在會議上說了<br>「這不在我的 JD 裡」</p><small>全場安靜三秒　值得</small>'},
+ {bg:W, fg:D,      html:'<p>104 更新完成 ✅</p><small>只是保養一下　沒有要幹嘛</small>'},
+ {bg:R, fg:'#fff', html:'<p>有人問我為什麼不喝</p><small>我說我不喝<br>他說「為什麼」</small>'},
+ {bg:D, fg:'#fff', html:'<p>尾牙表演練習<br>第 3 次</p><small>無償　晚上七點到九點</small>'},
+ {bg:Y, fg:D,      html:'<p>主管說「我去問問」</p><small>第 14 天　還在問</small>'},
+ {bg:W, fg:D,      html:'<p>準時下班被說「這麼早」</p><small>現在六點　我八點半到的</small>'},
+ {bg:B, fg:'#fff', html:'<p>「這個先幫我一下」<br>翻譯</p>'
+   +'<div class="poll"><div>幫一下 · 3%</div><div>從今天起是你的 · 97%</div></div>'},
+ {bg:G, fg:'#fff', html:'<p>今天沒有人在我下班後<br>傳訊息給我</p><small>值得紀念</small>'},
+ {bg:R, fg:'#fff', html:'<p>被說草莓族</p><small>草莓一斤三百　你各位</small>'},
+ {bg:D, fg:'#fff', html:'<p>剛剛算了一下</p><small>今年開會的時間<br>可以飛去日本七趟</small>'}
+];
+const AGO = ['12 分鐘前','1 小時前','2 小時前','4 小時前','5 小時前','8 小時前','11 小時前','昨天'];
+let STORY=[], si=0, stimer=null;
+$('navAvatar').onclick = ()=>{
+  if(!playing()) return;
+  const n = 3 + Math.floor(Math.random()*3);              // 每次隨機 3～5 則
+  STORY = shuffle(STORY_POOL).slice(0, n).map((s,i)=>({...s, ago:AGO[i]}));
+  document.querySelector('#story .segs').innerHTML =
+    STORY.map(()=> '<i><b></b></i>').join('');
+  si=0; $('story').classList.remove('hide'); storyGo();
+};
+$('story').onclick = ()=>{ si++; storyGo(); };
+function storyGo(){
+  clearTimeout(stimer);
+  if(si>=STORY.length){ $('story').classList.add('hide'); return; }
+  const s=STORY[si];
+  $('storyCard').style.background=s.bg;
+  $('storyCard').style.color=s.fg;
+  $('storyCard').innerHTML=s.html;
+  $('storyAgo').textContent=s.ago;
+  [...document.querySelectorAll('#story .segs i')].forEach((el,i)=>{
+    el.className = i<si ? 'done' : '';
+    if(i===si){ el.firstElementChild.style.transition='none';
+                el.firstElementChild.style.width='0';
+                requestAnimationFrame(()=>el.className='now'); }
+  });
+  stimer=setTimeout(()=>{ si++; storyGo(); }, 4200);
+}
+
+/* 語音通話 */
+$('navPhone').onclick = async ()=>{
+  if(!playing() || $('call').classList.contains('hide')===false) return;
+  $('callSt').textContent='撥號中…'; $('callSaid').textContent='';
+  $('call').classList.remove('hide');
+  await wait(1700);
+  $('callSt').textContent='通話中　00:01';
+  $('callSaid').textContent='「傳訊息就傳訊息，打什麼電話啊？」';
+  await wait(2100);
+  $('callSt').textContent='對方已掛斷';
+  $('callSaid').textContent='';
+  await wait(1100);
+  $('call').classList.add('hide');
+  if(ended) return;
+  group=null;
+  stamp('','你打了電話過去，他掛掉了');
+  score=Math.max(0,score-6); bad++; paint();
+  chip('dn','留任意願 −6');
+  if(score<=0 && !ended){ ended=true; over(false,'你打電話而不是打字'); }
+};
+
+/* 視訊 → 直接被封鎖 */
+$('navVideo').onclick = async ()=>{
+  if(!playing()) return;
+  ended=true; busy=true;
+  $('callSt').textContent='視訊邀請中…'; $('callSaid').textContent='';
+  $('call').classList.remove('hide');
+  await wait(1600);
+  $('callSaid').textContent='「？」';
+  await wait(1400);
+  $('callSt').textContent='你已被封鎖';
+  $('callSaid').textContent='';
+  await wait(1400);
+  $('call').classList.add('hide');
+  group=null;
+  stamp('','你發起了視訊');
+  score=0; bad++; paint();
+  chip('dn','他直接把你封鎖了');
+  blockedEnd=true;
+  await wait(600);
+  over(false,'你對他發起視訊');
+};
+
+/* ── 綁定 ── */
+$('press').addEventListener('click', boot);
+$('btnA').addEventListener('click', boot);
+$('btnB').addEventListener('click', boot);
+$('boot').addEventListener('click', boot);
+document.addEventListener('keydown', e=>{
+  if(!$('boot').classList.contains('hide') && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); boot(); }
+});
+$('oAgain').addEventListener('click', ()=>location.reload());
+$('oCopy').addEventListener('click', ()=>{
+  navigator.clipboard.writeText(card).then(()=>{
+    $('oCopy').textContent='已複製 ✓';
+    setTimeout(()=>$('oCopy').textContent='複製戰績',1800);
+  });
+});
+</script>
+</body>
+</html>
