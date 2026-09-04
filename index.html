@@ -259,6 +259,17 @@ body{
 .btn-r:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
 .howto{position:absolute;top:52px;left:0;right:0;text-align:center;font-size:10px;
        letter-spacing:1.5px;color:#a3a399;font-family:ui-monospace,monospace;z-index:2}
+.lang-picker{position:absolute;top:78px;left:50%;transform:translateX(-50%);z-index:5;
+             display:flex;gap:4px;padding:4px;background:#fff;border:2px solid var(--ink);
+             border-radius:999px;box-shadow:3px 3px 0 var(--ink)}
+.lang-btn{border:0;background:transparent;color:var(--ink);border-radius:999px;padding:6px 10px;
+          font:800 11px/1 ui-monospace,"SF Mono",Menlo,monospace;cursor:pointer;white-space:nowrap}
+.lang-btn[aria-pressed="true"]{background:var(--b);color:#fff}
+.lang-btn:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+html[lang="en"] .cart h1{font-size:27px;line-height:1.28;letter-spacing:1px;-webkit-text-stroke:7px var(--b)}
+html[lang="en"] .cart .sub{letter-spacing:1.2px}
+html[lang="ja"] .cart h1{font-size:31px;line-height:1.45;letter-spacing:2px}
+html[lang="en"] .rtitle,html[lang="ja"] .rtitle{font-size:21px}
 
 /* ══════════ 結算 ══════════ */
 #over{position:absolute;inset:0;z-index:45;background:#fff;padding:52px 22px 24px;
@@ -313,7 +324,7 @@ body{
     <div id="nav">
       <div class="back" id="navBack" style="cursor:pointer">‹</div>
       <div class="ring" id="navAvatar" style="cursor:pointer"><div>Z</div></div>
-      <div class="nname" id="navName" style="cursor:pointer"><b>gen_z</b><span id="pres">活躍中</span></div>
+      <div class="nname" id="navName" style="cursor:pointer"><b>gen_z</b><span id="pres" data-i18n="active">活躍中</span></div>
       <div class="nico">
         <span id="navPhone" style="cursor:pointer;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6.6 3.5 8.8 8l-2 2.6a13 13 0 0 0 6.6 6.6l2.6-2 4.5 2.2v3.1c0 .8-.7 1.5-1.6 1.4C10.5 21 3 13.5 2.1 4.1 2 3.2 2.7 2.5 3.5 2.5h3.1Z"/></svg></span>
         <span id="navVideo" style="cursor:pointer;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="m16 11 6-3.5v9L16 13z"/></svg></span>
@@ -328,18 +339,18 @@ body{
 
     <!-- ══ 收件匣 ══ -->
     <div class="sheet hide" id="inbox">
-      <div class="top"><div class="x" id="inboxX">‹</div><b>訊息</b></div>
+      <div class="top"><div class="x" id="inboxX">‹</div><b data-i18n="inbox">訊息</b></div>
       <div class="body">
         <div class="dm hot" id="dmZ">
           <div class="pf">Z</div>
           <div class="tx"><b>gen_z</b><span id="dmZlast">…</span></div>
           <div class="dot"></div>
         </div>
-        <div class="dm"><div class="pf">V</div><div class="tx"><b>vivian_w</b><span>那份流程圖你不用改了 · 2 小時</span></div></div>
-        <div class="dm"><div class="pf">K</div><div class="tx"><b>kevin.tsai</b><span>收到！ · 5 小時</span></div></div>
-        <div class="dm"><div class="pf">H</div><div class="tx"><b>hr_公告</b><span>【提醒】尾牙表演彩排時間 · 昨天</span></div></div>
-        <div class="dm"><div class="pf">老</div><div class="tx"><b>老闆</b><span>明天早上八點半來我辦公室 · 昨天</span></div></div>
-        <div class="tip">現在只有一個人的訊息重要</div>
+        <div class="dm"><div class="pf">V</div><div class="tx"><b>vivian_w</b><span data-i18n="inboxVivian">那份流程圖你不用改了 · 2 小時</span></div></div>
+        <div class="dm"><div class="pf">K</div><div class="tx"><b>kevin.tsai</b><span data-i18n="inboxKevin">收到！ · 5 小時</span></div></div>
+        <div class="dm"><div class="pf">H</div><div class="tx"><b>hr</b><span data-i18n="inboxHr">【提醒】尾牙表演彩排時間 · 昨天</span></div></div>
+        <div class="dm"><div class="pf">B</div><div class="tx"><b>boss</b><span data-i18n="inboxBoss">明天早上八點半來我辦公室 · 昨天</span></div></div>
+        <div class="tip" data-i18n="inboxTip">現在只有一個人的訊息重要</div>
       </div>
     </div>
 
@@ -350,25 +361,25 @@ body{
         <div class="row1">
           <div class="big">Z</div>
           <div class="nums">
-            <div><b>18</b>貼文</div><div><b>431</b>粉絲</div><div><b>287</b>追蹤中</div>
+            <div><b>18</b><span data-i18n="posts">貼文</span></div><div><b>431</b><span data-i18n="followers">粉絲</span></div><div><b>287</b><span data-i18n="following">追蹤中</span></div>
           </div>
         </div>
         <div class="bio">
           <b>Gen Z</b>
-          行銷企劃 · 一年三個月<br>
+          <span data-i18n-html="bio">行銷企劃 · 一年三個月<br>
           拿多少錢做多少事，這句話是中性的<br>
-          <span>限動都在抱怨，本人其實很好相處</span>
+          <span>限動都在抱怨，本人其實很好相處</span></span>
         </div>
         <div class="grid">
-          <div style="background:#fff3b0">下班<br>是一種<br>基本人權</div>
-          <div style="background:#dce8ff">今天<br>第 4 個會</div>
-          <div style="background:#f1f1f1">加班費<br>試算表<br>v3</div>
-          <div style="background:#ffe0dc">「再看看」<br>翻譯蒟蒻</div>
-          <div style="background:#e6f7e9">週末<br>不看群組<br>第 12 天</div>
-          <div style="background:#fff3b0">JD 到底<br>要不要<br>算數</div>
-          <div style="background:#f1f1f1">104 更新<br>紀錄</div>
-          <div style="background:#dce8ff">我不是<br>玻璃心</div>
-          <div style="background:#ffe0dc">是玻璃<br>也有<br>底線</div>
+          <div style="background:#fff3b0" data-i18n-html="grid1">下班<br>是一種<br>基本人權</div>
+          <div style="background:#dce8ff" data-i18n-html="grid2">今天<br>第 4 個會</div>
+          <div style="background:#f1f1f1" data-i18n-html="grid3">加班費<br>試算表<br>v3</div>
+          <div style="background:#ffe0dc" data-i18n-html="grid4">「再看看」<br>翻譯蒟蒻</div>
+          <div style="background:#e6f7e9" data-i18n-html="grid5">週末<br>不看群組<br>第 12 天</div>
+          <div style="background:#fff3b0" data-i18n-html="grid6">JD 到底<br>要不要<br>算數</div>
+          <div style="background:#f1f1f1" data-i18n-html="grid7">104 更新<br>紀錄</div>
+          <div style="background:#dce8ff" data-i18n-html="grid8">我不是<br>玻璃心</div>
+          <div style="background:#ffe0dc" data-i18n-html="grid9">是玻璃<br>也有<br>底線</div>
         </div>
       </div></div>
     </div>
@@ -386,7 +397,7 @@ body{
     <div id="call" class="hide">
       <div class="pf">Z</div>
       <b>gen_z</b>
-      <div class="st" id="callSt">撥號中…</div>
+      <div class="st" id="callSt" data-i18n="dialing">撥號中…</div>
       <div class="said" id="callSaid"></div>
       <div class="hang">✕</div>
     </div>
@@ -394,14 +405,19 @@ body{
     <!-- ══ START ══ -->
     <div id="boot">
       <div class="howto">H R &nbsp; S I M U L A T O R &nbsp;·&nbsp; 2 0 2 6</div>
+      <div class="lang-picker" role="group" aria-label="Language">
+        <button class="lang-btn" type="button" data-lang="zh-Hant" aria-pressed="true">繁中</button>
+        <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button class="lang-btn" type="button" data-lang="ja" aria-pressed="false">日本語</button>
+      </div>
       <div class="cart">
         <div class="mini">M A N A G E R &nbsp; M O D E</div>
-        <h1>他明天<br>還會來嗎</h1>
-        <div class="sub">留 不 住 就 換 你 被 檢 討</div>
+        <h1 data-i18n-html="bootTitle">他明天<br>還會來嗎</h1>
+        <div class="sub" data-i18n="bootSub">留 不 住 就 換 你 被 檢 討</div>
       </div>
       <div class="plate">
         <button id="press">▶ START</button>
-        <div class="blink">P R E S S &nbsp; T O &nbsp; P L A Y</div>
+        <div class="blink" data-i18n-html="pressPlay">P R E S S &nbsp; T O &nbsp; P L A Y</div>
         <small>© 2026 &nbsp; 1 PLAYER &nbsp; NO CONTINUE</small>
       </div>
       <div class="pad-deco">
@@ -417,19 +433,19 @@ body{
     <div id="over" class="hide">
       <div class="rcard">
         <div class="lab" id="oLab">R E S U L T</div>
-        <div class="rnum"><b id="oNum">0</b><i>／100　留任意願</i></div>
+        <div class="rnum"><b id="oNum">0</b><i data-i18n="resultUnit">／100　留任意願</i></div>
         <div class="rtitle" id="oTitle">—</div>
         <div class="rtext" id="oText">—</div>
         <div class="rwho">— gen_z</div>
         <div class="rstat">
-          <div><b id="oQ">0</b>回合</div>
-          <div><b id="oG">0</b>句接住</div>
-          <div><b id="oB">0</b>句踩雷</div>
+          <div><b id="oQ">0</b><span data-i18n="rounds">回合</span></div>
+          <div><b id="oG">0</b><span data-i18n="caught">句接住</span></div>
+          <div><b id="oB">0</b><span data-i18n="traps">句踩雷</span></div>
         </div>
       </div>
       <div class="mines hide" id="oMines"></div>
-      <button class="rbtn" id="oAgain">再玩一次</button>
-      <button class="rbtn g" id="oCopy">複製戰績</button>
+      <button class="rbtn" id="oAgain" data-i18n="again">再玩一次</button>
+      <button class="rbtn g" id="oCopy" data-i18n="copy">複製戰績</button>
     </div>
 
   </div>
@@ -1161,6 +1177,7 @@ const BOSS = {
   ]
 };
 </script>
+<script src="i18n.js"></script>
 <script>
 let deck=[], qi=0, score=55, mines=[], good=0, bad=0;
 let undoLeft=1, busy=false, cur=null, bossDone=false, group=null, blockedEnd=false;
@@ -1171,6 +1188,38 @@ const chat=$('chat'), opts=$('opts');
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const shuffle = a => a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
 const down = () => chat.scrollTop = chat.scrollHeight;
+let lang = (()=>{
+  const saved = localStorage.getItem('hr-sim-lang');
+  if(saved && GAME_I18N[saved]) return saved;
+  const browser = navigator.language.toLowerCase();
+  return browser.startsWith('ja') ? 'ja' : browser.startsWith('en') ? 'en' : 'zh-Hant';
+})();
+let locale = GAME_I18N[lang];
+let activeBank = locale.bank || BANK;
+let activeBoss = locale.boss || BOSS;
+let activeMurmur = locale.murmur || MURMUR;
+const tr = key => locale.ui[key] || GAME_I18N['zh-Hant'].ui[key] || key;
+
+function applyLocale(){
+  locale = GAME_I18N[lang];
+  activeBank = locale.bank || BANK;
+  activeBoss = locale.boss || BOSS;
+  activeMurmur = locale.murmur || MURMUR;
+  document.documentElement.lang = lang;
+  document.title = tr('documentTitle');
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=tr(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>el.innerHTML=tr(el.dataset.i18nHtml));
+  document.querySelectorAll('.lang-btn').forEach(btn=>btn.setAttribute('aria-pressed', String(btn.dataset.lang===lang)));
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click', e=>{
+  e.stopPropagation();
+  if(started) return;
+  lang=btn.dataset.lang;
+  localStorage.setItem('hr-sim-lang',lang);
+  applyLocale();
+}));
+applyLocale();
 
 /* ── 狀態列時鐘：真實當地時間 ── */
 function tickClock(){
@@ -1206,18 +1255,18 @@ function chip(cls,text){
 }
 function seen(){
   const d=document.createElement('div');
-  d.className='seen'; d.textContent='已讀';
+  d.className='seen'; d.textContent=tr('seen');
   chat.appendChild(d); down(); return d;
 }
 async function theirs(text){
-  $('pres').textContent='輸入中…'; $('pres').className='live';
+  $('pres').textContent=tr('typing'); $('pres').className='live';
   const t=document.createElement('div');
   t.className='grp';
   t.innerHTML='<div class="pic">Z</div><div class="col"><div class="dots"><i></i><i></i><i></i></div></div>';
   chat.appendChild(t); down();
   await wait(520 + Math.min(text.length,26)*38);
   t.remove();
-  $('pres').textContent='活躍中'; $('pres').className='';
+  $('pres').textContent=tr('active'); $('pres').className='';
   if(!group){
     group=document.createElement('div');
     group.className='grp';
@@ -1235,7 +1284,7 @@ async function theirs(text){
 let started=false;
 function boot(){
   if(started) return; started=true;
-  const cats = shuffle(BANK).slice(0, 11);
+  const cats = shuffle(activeBank).slice(0, 11);
   deck = cats.map(c => c[Math.floor(Math.random()*c.length)]);
   $('boot').classList.add('hide');
   paint(); run();
@@ -1249,8 +1298,8 @@ function len(){
 }
 
 async function run(){
-  cur = (qi >= len() || qi >= deck.length) ? BOSS : deck[qi];
-  if(cur===BOSS) bossDone=true;
+  cur = (qi >= len() || qi >= deck.length) ? activeBoss : deck[qi];
+  if(cur===activeBoss) bossDone=true;
   group=null;
   stamp(cur.t, cur.s);
   await wait(300);
@@ -1268,12 +1317,12 @@ function show(list, blocked){
     opts.appendChild(b);
   });
   const z=document.createElement('button');
-  z.className='opt ghost'; z.textContent='（已讀，不回）';
+  z.className='opt ghost'; z.textContent=tr('readNoReply');
   z.onclick=()=>pickRead();
   opts.appendChild(z);
   const bar=document.createElement('div');
   bar.className='bar-hint';
-  bar.innerHTML='<div class="pill">挑一句傳出去…</div>';
+  bar.innerHTML='<div class="pill">'+tr('choose')+'</div>';
   opts.appendChild(bar);
   down();
 }
@@ -1282,39 +1331,39 @@ function waiting(txt){
 }
 
 /* ── 已讀不回 ── */
-const ZR = ['好喔','喔','嗯','……','算了','沒事了','當我沒說'];
 async function pickRead(){
   if(busy) return; busy=true;
-  waiting('已讀，沒有回');
-  stamp('','你已讀了，沒有回');
+  waiting(tr('readWait'));
+  stamp('',tr('readStamp'));
   await wait(520);
 
   const d = (cur.z !== undefined) ? cur.z : -12;
   score=Math.max(0,Math.min(100,score+d)); paint();
   d>0 ? good++ : bad++;
-  chip(d>=0?'up':'dn','已讀不回 '+(d>=0?'+':'−')+Math.abs(d));
+  chip(d>=0?'up':'dn',tr('readDelta')+' '+(d>=0?'+':'−')+Math.abs(d));
   await wait(340);
-  await theirs(cur.zr || ZR[Math.floor(Math.random()*ZR.length)]);
+  const replies=locale.readReplies || GAME_I18N['zh-Hant'].readReplies;
+  await theirs(cur.zr || replies[Math.floor(Math.random()*replies.length)]);
 
-  if(score<=0) return over(false,'該回的時候你沒有回');
+  if(score<=0) return over(false,'');
   next();
 }
 
 /* ── 選擇 ── */
 async function pick(o){
   if(busy) return; busy=true;
-  waiting('已送出');
+  waiting(tr('sent'));
   mine(o.t);
   await wait(400); seen();
   await wait(360);
 
   if(o.mine){
-    chip('zz','⚠ 這句是地雷');
+    chip('zz',tr('trapLine'));
     await wait(460);
     if(undoLeft>0 && score-8>0) return offerUndo(o);
     score=0; bad++; paint();
     if(o.x) mines.push(o.x);
-    chip('dn','留任意願歸零');
+    chip('dn',tr('retentionZero'));
     await wait(340); await theirs(o.r);
     return over(false, o.x||'');
   }
@@ -1322,7 +1371,7 @@ async function pick(o){
   score=Math.max(0,Math.min(100,score+o.d)); paint();
   o.d>0 ? good++ : bad++;
   if(o.x) mines.push(o.x);
-  chip(o.d>=0?'up':'dn','留任意願 '+(o.d>=0?'+':'−')+Math.abs(o.d));
+  chip(o.d>=0?'up':'dn',tr('retention')+' '+(o.d>=0?'+':'−')+Math.abs(o.d));
   await wait(340);
   await theirs(o.r);
 
@@ -1333,25 +1382,25 @@ async function pick(o){
 function offerUndo(badOpt){
   opts.innerHTML='';
   const u=document.createElement('button');
-  u.className='opt dark'; u.textContent='收回訊息（整局限一次，−8）';
+  u.className='opt dark'; u.textContent=tr('undo');
   const k=document.createElement('button');
-  k.className='opt'; k.textContent='算了，我就是這個意思';
+  k.className='opt'; k.textContent=tr('keep');
   u.onclick=async()=>{
-    undoLeft=0; waiting('收回中…');
+    undoLeft=0; waiting(tr('undoing'));
     [...chat.querySelectorAll('.mine,.seen,.chip')].slice(-3).forEach(e=>e.remove());
     group=null;
-    stamp('','你收回了一則訊息');
+    stamp('',tr('unsent'));
     score=Math.max(0,score-8); paint();
-    chip('dn','留任意願 −8');
+    chip('dn',tr('retention')+' −8');
     await wait(340);
-    await theirs('你剛剛想說什麼');
+    await theirs(tr('whatSay'));
     busy=false; show(cur.o,[badOpt.t]);
   };
   k.onclick=async()=>{
-    waiting('已送出');
+    waiting(tr('sent'));
     score=0; bad++; paint();
     if(badOpt.x) mines.push(badOpt.x);
-    chip('dn','留任意願歸零');
+    chip('dn',tr('retentionZero'));
     await wait(340); await theirs(badOpt.r);
     over(false, badOpt.x||'');
   };
@@ -1368,28 +1417,28 @@ async function next(){
 let card='';
 async function over(alive, why){
   busy=true; ended=true;
-  waiting('對話結束');
+  waiting(tr('ended'));
   await wait(400);
 
   let lab,title,text;
   let key;
   if(blockedEnd){
-    $('pres').textContent='已封鎖'; $('pres').className='';
-    key='blocked'; lab='B L O C K E D'; title='他把你<u>封鎖</u>了';
+    $('pres').textContent=tr('blocked'); $('pres').className='';
+    key='blocked'; lab='B L O C K E D'; title=tr('endBlocked');
   } else if(!alive){
-    await theirs('我送出去了。謝謝這一年三個月');
-    $('pres').textContent='已封鎖'; $('pres').className='';
-    key='over'; lab='G A M E　O V E R'; title='他<u>遞出離職單</u>了';
+    await theirs(tr('resignation'));
+    $('pres').textContent=tr('blocked'); $('pres').className='';
+    key='over'; lab='G A M E　O V E R'; title=tr('endOver');
   } else if(score>=85){
-    key='best'; lab='B E S T　E N D'; title='他開始<u>幫你留別人</u>';
+    key='best'; lab='B E S T　E N D'; title=tr('endBest');
   } else if(score>=65){
-    key='good'; lab='G O O D　E N D'; title='離職單<u>刪掉了</u>';
+    key='good'; lab='G O O D　E N D'; title=tr('endGood');
   } else if(score>=40){
-    key='normal'; lab='N O R M A L　E N D'; title='人留下，<u>履歷還開著</u>';
+    key='normal'; lab='N O R M A L　E N D'; title=tr('endNormal');
   } else {
-    key='bad'; lab='B A D　E N D'; title='人還在，<u>心走了一半</u>';
+    key='bad'; lab='B A D　E N D'; title=tr('endBad');
   }
-  const pool=MURMUR[key];
+  const pool=activeMurmur[key];
   text=pool[Math.floor(Math.random()*pool.length)];
 
   $('oLab').textContent=lab;
@@ -1403,11 +1452,12 @@ async function over(alive, why){
 
   if(mines.length){
     const m=$('oMines'); m.classList.remove('hide');
-    m.innerHTML='<b>你 這 局 踩 到 的 雷</b><ul>'
+    m.innerHTML='<b>'+tr('minesHead')+'</b><ul>'
       + [...new Set(mines)].slice(0,5).map(t=>'<li>'+t+'</li>').join('') + '</ul>';
   }
-  card='【他明天還會來嗎？】\n留任意願 '+score+'／100　'
-     + title.replace(/<\/?u>/g,'') + '\n\ngen_z：「'+text+'」\n\n接住 '+good+' 句、踩雷 '+bad+' 句';
+  card='【'+tr('cardTitle')+'】\n'+tr('cardScore')+' '+score+'／100　'
+     + title.replace(/<\/?u>/g,'') + '\n\ngen_z：「'+text+'」\n\n'
+     +tr('cardCaught')+' '+good+' · '+tr('cardTrap')+' '+bad;
 
   await wait(750);
   $('over').classList.remove('hide');
@@ -1419,7 +1469,7 @@ const playing = () => $('boot').classList.contains('hide') && !ended;
 /* 收件匣 */
 $('navBack').onclick = ()=>{
   if(!playing()) return;
-  $('dmZlast').textContent = lastLine + ' · 現在';
+  $('dmZlast').textContent = lastLine + ' · ' + tr('now');
   $('inbox').classList.remove('hide');
 };
 $('inboxX').onclick = ()=> $('inbox').classList.add('hide');
@@ -1459,7 +1509,9 @@ let STORY=[], si=0, stimer=null;
 $('navAvatar').onclick = ()=>{
   if(!playing()) return;
   const n = 3 + Math.floor(Math.random()*3);              // 每次隨機 3～5 則
-  STORY = shuffle(STORY_POOL).slice(0, n).map((s,i)=>({...s, ago:AGO[i]}));
+  const storyPool=locale.stories || STORY_POOL;
+  const ago=locale.ago || AGO;
+  STORY = shuffle(storyPool).slice(0, n).map((s,i)=>({...s, ago:ago[i]}));
   document.querySelector('#story .segs').innerHTML =
     STORY.map(()=> '<i><b></b></i>').join('');
   si=0; $('story').classList.remove('hide'); storyGo();
@@ -1485,44 +1537,44 @@ function storyGo(){
 /* 語音通話 */
 $('navPhone').onclick = async ()=>{
   if(!playing() || $('call').classList.contains('hide')===false) return;
-  $('callSt').textContent='撥號中…'; $('callSaid').textContent='';
+  $('callSt').textContent=tr('dialing'); $('callSaid').textContent='';
   $('call').classList.remove('hide');
   await wait(1700);
-  $('callSt').textContent='通話中　00:01';
-  $('callSaid').textContent='「傳訊息就傳訊息，打什麼電話啊？」';
+  $('callSt').textContent=tr('inCall');
+  $('callSaid').textContent=tr('phoneReply');
   await wait(2100);
-  $('callSt').textContent='對方已掛斷';
+  $('callSt').textContent=tr('hungUp');
   $('callSaid').textContent='';
   await wait(1100);
   $('call').classList.add('hide');
   if(ended) return;
   group=null;
-  stamp('','你打了電話過去，他掛掉了');
+  stamp('',tr('phoneStamp'));
   score=Math.max(0,score-6); bad++; paint();
-  chip('dn','留任意願 −6');
-  if(score<=0 && !ended){ ended=true; over(false,'你打電話而不是打字'); }
+  chip('dn',tr('retention')+' −6');
+  if(score<=0 && !ended){ ended=true; over(false,''); }
 };
 
 /* 視訊 → 直接被封鎖 */
 $('navVideo').onclick = async ()=>{
   if(!playing()) return;
   ended=true; busy=true;
-  $('callSt').textContent='視訊邀請中…'; $('callSaid').textContent='';
+  $('callSt').textContent=tr('videoInvite'); $('callSaid').textContent='';
   $('call').classList.remove('hide');
   await wait(1600);
   $('callSaid').textContent='「？」';
   await wait(1400);
-  $('callSt').textContent='你已被封鎖';
+  $('callSt').textContent=tr('videoBlocked');
   $('callSaid').textContent='';
   await wait(1400);
   $('call').classList.add('hide');
   group=null;
-  stamp('','你發起了視訊');
+  stamp('',tr('videoStamp'));
   score=0; bad++; paint();
-  chip('dn','他直接把你封鎖了');
+  chip('dn',tr('videoChip'));
   blockedEnd=true;
   await wait(600);
-  over(false,'你對他發起視訊');
+  over(false,'');
 };
 
 /* ── 綁定 ── */
@@ -1536,8 +1588,8 @@ document.addEventListener('keydown', e=>{
 $('oAgain').addEventListener('click', ()=>location.reload());
 $('oCopy').addEventListener('click', ()=>{
   navigator.clipboard.writeText(card).then(()=>{
-    $('oCopy').textContent='已複製 ✓';
-    setTimeout(()=>$('oCopy').textContent='複製戰績',1800);
+    $('oCopy').textContent=tr('copied');
+    setTimeout(()=>$('oCopy').textContent=tr('copy'),1800);
   });
 });
 </script>
