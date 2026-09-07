@@ -1177,7 +1177,713 @@ const BOSS = {
   ]
 };
 </script>
-<script src="i18n.js"></script>
+<script>
+/* ══ 語系內容（原 i18n.js，已內嵌以支援 file:// 直接開啟） ══ */
+window.GAME_I18N = {
+  'zh-Hant': {
+    label: '繁中',
+    ui: {
+      documentTitle: '他明天還會來嗎？', active: '活躍中', typing: '輸入中…', seen: '已讀',
+      inbox: '訊息', inboxVivian: '那份流程圖你不用改了 · 2 小時', inboxKevin: '收到！ · 5 小時',
+      inboxHr: '【提醒】尾牙表演彩排時間 · 昨天', inboxBoss: '明天早上八點半來我辦公室 · 昨天',
+      inboxTip: '現在只有一個人的訊息重要', posts: '貼文', followers: '粉絲', following: '追蹤中',
+      bio: '行銷企劃 · 一年三個月<br>拿多少錢做多少事，這句話是中性的<br><span>限動都在抱怨，本人其實很好相處</span>',
+      grid1: '下班<br>是一種<br>基本人權', grid2: '今天<br>第 4 個會', grid3: '加班費<br>試算表<br>v3',
+      grid4: '「再看看」<br>翻譯蒟蒻', grid5: '週末<br>不看群組<br>第 12 天', grid6: 'JD 到底<br>要不要<br>算數',
+      grid7: '104 更新<br>紀錄', grid8: '我不是<br>玻璃心', grid9: '是玻璃<br>也有<br>底線',
+      bootTitle: '他明天<br>還會來嗎', bootSub: '留 不 住 就 換 你 被 檢 討', pressPlay: 'P R E S S &nbsp; T O &nbsp; P L A Y',
+      resultUnit: '／100　留任意願', rounds: '回合', caught: '句接住', traps: '句踩雷', again: '再玩一次', copy: '複製戰績', copied: '已複製 ✓',
+      readNoReply: '（已讀，不回）', choose: '挑一句傳出去…', readWait: '已讀，沒有回', readStamp: '你已讀了，沒有回',
+      readDelta: '已讀不回', sent: '已送出', trapLine: '⚠ 這句是地雷', retentionZero: '留任意願歸零', retention: '留任意願',
+      undo: '收回訊息（整局限一次，−8）', keep: '算了，我就是這個意思', undoing: '收回中…', unsent: '你收回了一則訊息',
+      whatSay: '你剛剛想說什麼', ended: '對話結束', blocked: '已封鎖', resignation: '我送出去了。謝謝這一年三個月',
+      minesHead: '你 這 局 踩 到 的 雷', now: '現在', dialing: '撥號中…', inCall: '通話中　00:01',
+      phoneReply: '「傳訊息就傳訊息，打什麼電話啊？」', hungUp: '對方已掛斷', phoneStamp: '你打了電話過去，他掛掉了',
+      videoInvite: '視訊邀請中…', videoBlocked: '你已被封鎖', videoStamp: '你發起了視訊', videoChip: '他直接把你封鎖了',
+      endBlocked: '他把你<u>封鎖</u>了', endOver: '他<u>遞出離職單</u>了', endBest: '他開始<u>幫你留別人</u>',
+      endGood: '離職單<u>刪掉了</u>', endNormal: '人留下，<u>履歷還開著</u>', endBad: '人還在，<u>心走了一半</u>',
+      cardTitle: '他明天還會來嗎？', cardScore: '留任意願', cardCaught: '接住', cardTrap: '踩雷'
+    },
+    readReplies: ['好喔','喔','嗯','……','算了','沒事了','當我沒說']
+  },
+
+  en: {
+    label: 'EN',
+    ui: {
+      documentTitle: 'Will They Be Here Tomorrow?', active: 'Active now', typing: 'Typing…', seen: 'Seen',
+      inbox: 'Messages', inboxVivian: 'You can leave that flowchart · 2h', inboxKevin: 'Got it! · 5h',
+      inboxHr: '[Reminder] Party rehearsal · Yesterday', inboxBoss: 'My office, 8:30 tomorrow · Yesterday',
+      inboxTip: 'Only one message matters right now', posts: 'posts', followers: 'followers', following: 'following',
+      bio: 'Marketing specialist · 1 year, 3 months<br>Pay me for the work you expect—neutral statement.<br><span>Complains in stories. Actually easy to work with.</span>',
+      grid1: 'Leaving on time<br>is a<br>basic right', grid2: 'Meeting<br>number 4<br>today', grid3: 'Overtime pay<br>calculator<br>v3',
+      grid4: '“We’ll see”<br>translator', grid5: 'No work chat<br>on weekends<br>Day 12', grid6: 'Does the JD<br>mean<br>anything?',
+      grid7: 'Résumé<br>updated', grid8: 'Not<br>too sensitive', grid9: 'I just have<br>boundaries',
+      bootTitle: 'WILL THEY BE HERE<br>TOMORROW?', bootSub: 'KEEP THEM — OR ANSWER FOR IT', pressPlay: 'P R E S S &nbsp; T O &nbsp; P L A Y',
+      resultUnit: '/100  WILLINGNESS TO STAY', rounds: 'rounds', caught: 'good calls', traps: 'bad calls', again: 'Play again', copy: 'Copy result', copied: 'Copied ✓',
+      readNoReply: '(Read, no reply)', choose: 'Choose a reply…', readWait: 'Read. No reply.', readStamp: 'You read it and said nothing.',
+      readDelta: 'No reply', sent: 'Sent', trapLine: '⚠ That was a landmine', retentionZero: 'Willingness to stay: zero', retention: 'Willingness to stay',
+      undo: 'Unsend (once per game, −8)', keep: 'No. I meant it.', undoing: 'Unsending…', unsent: 'You unsent a message.',
+      whatSay: 'What were you about to say?', ended: 'Conversation ended', blocked: 'Blocked', resignation: 'I submitted it. Thanks for the last 15 months.',
+      minesHead: 'LANDMINES YOU STEPPED ON', now: 'Now', dialing: 'Calling…', inCall: 'In call  00:01',
+      phoneReply: '“Just text me. Why are you calling?”', hungUp: 'Call ended', phoneStamp: 'You called. They hung up.',
+      videoInvite: 'Video calling…', videoBlocked: 'You have been blocked', videoStamp: 'You started a video call.', videoChip: 'They blocked you immediately',
+      endBlocked: 'They <u>blocked you</u>', endOver: 'They <u>submitted their resignation</u>', endBest: 'They now <u>help you retain others</u>',
+      endGood: 'The resignation letter was <u>deleted</u>', endNormal: 'They stayed, but <u>the résumé is still live</u>', endBad: 'They are here. <u>Their heart is not.</u>',
+      cardTitle: 'Will They Be Here Tomorrow?', cardScore: 'Willingness to stay', cardCaught: 'Good calls', cardTrap: 'Landmines'
+    },
+    readReplies: ['Okay.', 'Oh.', 'Mm.', '…', 'Never mind.', 'It’s nothing.', 'Forget I asked.'],
+    bank: [
+      [{s:'They are already home. You saw them tap out of the metro.',t:'Fri 20:47',m:['The client wants the proposal changed.','That means rebuilding the whole thing.'],o:[
+        {t:'I’ll push back. We deal with it Monday.',d:12,r:'Oh. Okay.'},{t:'Make a first draft. The client is waiting.',d:-8,r:'Sure.'},
+        {t:'How many hours? I’ll negotiate the deadline.',d:10,r:'Four. You’ll really negotiate it?'},{t:'We all had to go through this.',d:-99,mine:1,x:'Used “we all went through it” to justify overtime',r:'And?'}]},
+       {s:'Their bag is on. They are standing at your desk.',t:'Tue 18:55',m:['That competitor analysis—','tomorrow morning or end of day tomorrow?'],o:[
+        {t:'I spoke too fast. End of day is fine.',d:11,r:'Then I’m heading out.'},{t:'Morning. Stay a bit tonight.',d:-13,r:'Sure.'},
+        {t:'Give me a two-hour version first.',d:5,r:'Okay, I’ll stop at eight.'},{t:'Why are you always asking about timing?',d:-16,x:'Treated a deadline question as pushback',r:'Because I want to deliver on time.'}]},
+       {s:'Sunday afternoon. They send a screenshot of the leave calendar.',t:'Sun 15:30',m:['I booked two days off next week.','You put the expo in the same week.'],o:[
+        {t:'I missed your leave. I’ll move people.',d:13,r:'Thanks. My flights are booked.'},{t:'Could you cover it, just this once?',d:-12,x:'Treated approved leave as negotiable',r:'My flights are booked.'},
+        {t:'I’ll see if we can move the date. Answer tomorrow.',d:8,r:'Okay.'},{t:'The expo matters more, right?',d:-99,mine:1,x:'Treated approved leave as cancellable at will',r:'Are you paying the cancellation fee?'}]}],
+
+      [{s:'They typed, deleted, then finally sent it.',t:'Mon 11:20',m:['Those three hours last Saturday—','do I get overtime pay?'],o:[
+        {t:'I’ll ask today and answer tomorrow.',d:12,r:'Okay.'},{t:'Take comp time whenever you can.',d:2,r:'What does “whenever” mean?'},
+        {t:'The law gives you a choice. I’ll send the formula.',d:13,r:'First manager I’ve heard say “the law.”'},{t:'Do we need to count every little thing?',d:-99,mine:1,x:'Dismissed a rights issue as being petty',r:'It isn’t little to me.'}]},
+       {s:'They send a screenshot of the time clock, red numbers circled.',t:'Thu 10:03',m:['The system zeroes out anything over.','I lost 11 hours last month.'],o:[
+        {t:'I’ll pull the records today and get them back.',d:14,r:'Really? Thank you.'},{t:'That’s just the system. Same for everyone.',d:-15,x:'Used “same for everyone” to excuse a broken system',r:'Same doesn’t mean right.'},
+        {t:'Send me your records. I’ll take it up.',d:7,r:'Okay, sending now.'},{t:'Time spent on this is time off the project.',d:-99,mine:1,x:'Implied that claiming your rights is slacking',r:'I did it on my lunch break.'}]},
+       {s:'Their comp-time request bounced back yesterday.',t:'Wed 16:40',m:['Comp time expires after three months.','A batch of mine expired last week.'],o:[
+        {t:'I’ll file an extension. If not, we convert it to pay.',d:14,r:'That’s allowed?'},{t:'Three months is the policy. Nothing I can do.',d:-14,x:'Used “that’s the policy” to end the conversation',r:'Who wrote the policy?'},
+        {t:'I’ll rework the roster. Burn the oldest batch first.',d:9,r:'Okay, I’ll take next week.'},{t:'You never booked it. That’s on you.',d:-99,mine:1,x:'Blamed the employee for leave the manager blocked',r:'I asked three times. You said no three times.'}]}],
+
+      [{s:'At 10 Sunday morning, they finally reply to last night’s message.',t:'Sun 10:12',m:['I muted the work group.','Can we set a rule?'],o:[
+        {t:'Tomorrow: non-urgent messages wait for workdays.',d:14,r:'Then I’ll unmute it.'},{t:'You can mute it, but being unreachable is a problem.',d:-7,r:'So I still have to watch it.'},
+        {t:'I’ll start with myself. No weekend messages.',d:12,r:'I’ll remember that.'},{t:'So everyone follows the rules except you?',d:-99,mine:1,x:'Framed a policy suggestion as special treatment',r:'I proposed it for everyone.'}]},
+       {s:'You sent something at 23:40 last night.',t:'Today 09:15',m:['Saw your midnight message this morning.','Was I supposed to answer then?'],o:[
+        {t:'No. I’ll mark things “not urgent” from now on.',d:12,r:'Good.'},{t:'A quick reply helps me know you saw it.',d:-12,r:'At midnight though?'},
+        {t:'Never thought about it. I’ll schedule them instead.',d:13,r:'Thanks for not saying I overthink.'},{t:'I’m still working at midnight, you know.',d:-99,mine:1,x:'Used your own overtime to guilt someone off the clock',r:'That’s your choice though.'}]},
+       {s:'They forward a group screenshot. Someone tagged everyone at 23:50.',t:'Thu 08:02',m:['Someone tagged everyone at midnight.','People replied. I didn’t.'],o:[
+        {t:'Not replying was right. I’ll say so today.',d:14,r:'Okay, good.'},{t:'A quick “got it” wouldn’t have hurt.',d:-13,x:'Traded away the boundary for a smoother vibe',r:'Then there is no boundary.'},
+        {t:'I’ll ask what last night was even about.',d:8,r:'Okay.'},{t:'Everyone else answered. Only you didn’t.',d:-99,mine:1,x:'Used peer pressure to erode a boundary',r:'So whoever caves first sets the rule.'}]}],
+
+      [{s:'The team just started a dinner sign-up. They message you privately.',t:'Wed 14:05',m:['I might skip Thursday’s dinner.','Does it count as work time?'],o:[
+        {t:'It doesn’t, so skipping is fine. No hard feelings.',d:11,r:'Okay, I’ll skip it.'},{t:'Come for the first half at least?',d:-9,r:'So you still want me there.'},
+        {t:'It doesn’t. Next one is a lunch instead.',d:13,r:'That one I’ll come to.'},{t:'People will think you’re not a team player.',d:-99,mine:1,x:'Used “not a team player” to claim personal time',r:'Sure.'}]},
+       {s:'The party performance list is out. Their name is on it.',t:'Mon 16:30',m:['Three weeks of rehearsals?','Can I just do backstage?'],o:[
+        {t:'You can opt out entirely. I’ll handle it.',d:12,r:'Then I’m out.'},{t:'Backstage works. I’ll tell the organiser.',d:8,r:'Okay.'},
+        {t:'If you skip, someone else covers you.',d:-14,x:'Used peer guilt in place of consent',r:'Fine, I’ll do it.'},
+        {t:'It’s part of the culture. Play along.',d:-99,mine:1,x:'Used “culture” to demand unpaid work',r:'Does the culture include my time?'}]},
+       {s:'Friday, 5pm. The next team over is heading to a bar.',t:'Fri 17:20',m:['I’m skipping that one.','I don’t drink.'],o:[
+        {t:'Noted. No more bars on my invites.',d:13,r:'Didn’t expect that.'},{t:'Order juice. Just show your face.',d:-11,x:'Treated attendance as an obligation',r:'The point is I don’t want to go.'},
+        {t:'Fine. I’ll say you had something on.',d:10,r:'Even better.'},{t:'Deals get made over drinks.',d:-99,mine:1,x:'Sold drinking as a career requirement',r:'Then I won’t do sales.'}]}],
+
+      [{s:'The meeting ended. They are still sitting there.',t:'Thu 17:41',m:['Vivian called me “a snowflake.”','I didn’t say anything.'],o:[
+        {t:'I’ll talk to her. I won’t say it came from you.',d:13,r:'Thanks.'},{t:'That’s just how she talks. Let it go.',d:-13,x:'Made the target absorb the comment',r:'So I’m too sensitive.'},
+        {t:'I’ll set the tone in the next meeting.',d:14,r:'I’d be surprised if you actually did.'},{t:'Go sort it out with her yourself.',d:-99,mine:1,x:'Handed a management problem back to the person harmed',r:'She’s five years senior to me.'}]},
+       {s:'Lunch. They are at that table, saying nothing.',t:'Tue 12:40',m:['They’re talking about “fragile young people.”','Do you think that too?'],o:[
+        {t:'No. Too much used to get said that shouldn’t have.',d:13,r:'Okay. That helps.'},{t:'There’s truth on both sides. Times changed.',d:-9,r:'That’s not an answer.'},
+        {t:'No. And I’ll deal with that table later.',d:12,r:'You don’t have to. I just wanted to know.'},{t:'Honestly, your generation is more sensitive.',d:-99,mine:1,x:'Confirmed the “your generation is fragile” line to their face',r:'Thanks for being honest.'}]},
+       {s:'They send a transcript from this morning’s stand-up.',t:'Wed 11:05',m:['Someone said “anyone who doesn’t want to be here can leave.”','Who was that aimed at?'],o:[
+        {t:'Whoever it was aimed at, I don’t accept it. I’ll respond.',d:14,r:'I’ll be watching.'},{t:'That was said in anger. Don’t read into it.',d:-14,x:'Reclassified a threat as a bad mood',r:'Said out loud is still said.'},
+        {t:'I don’t know. But it isn’t what I think.',d:9,r:'Okay. I’ll trust you once.'},{t:'They aren’t wrong, though.',d:-99,mine:1,x:'Endorsed the “leave if you don’t like it” threat',r:'Right. I’ll start looking then.'}]}],
+
+      [{s:'The task list went out one week before the expo.',t:'Tue 09:58',m:['Hauling and floor flow aren’t in my JD.','Why me?'],o:[
+        {t:'We’re short-staffed. I’ll log it in your review plus a day off.',d:12,r:'That works.'},{t:'A JD is just a reference.',d:-16,x:'Used “a JD is just a reference” to expand the role indefinitely',r:'Then what was the interview?'},
+        {t:'You’re right, it shouldn’t be yours. Next quarter I budget for it.',d:13,r:'I’m holding you to “next quarter.”'},{t:'New people always do more.',d:-99,mine:1,x:'Reframed out-of-scope work as a rookie duty',r:'Noted.'}]},
+       {s:'They send this week’s time log.',t:'Fri 11:15',m:['Three lunch orders, two train tickets this week.','That’s four hours.'],o:[
+        {t:'Not your job. I’ll do it myself.',d:14,r:'…Okay.'},{t:'It’s just a quick favour.',d:-15,x:'Called recurring admin work “a quick favour”',r:'Four hours isn’t quick.'},
+        {t:'Once we hire admin support, we hand it over.',d:2,r:'When is that?'},{t:'Everyone starts with the small stuff.',d:-99,mine:1,x:'Used “start small” to justify piling on admin work',r:'I do marketing.'}]},
+       {s:'Another department tags them directly in the group chat.',t:'Mon 14:30',m:['Sales are asking me to build their deck.','Did they check with you?'],o:[
+        {t:'They didn’t. Requests go through me from now on.',d:13,r:'Thanks. I didn’t want to make enemies.'},{t:'Help if you can. Same company.',d:-13,x:'Let another team take your headcount for free',r:'Then who hits my targets?'},
+        {t:'Don’t reply yet. Let me look into it.',d:9,r:'Okay, leaving it on read.'},{t:'More work, more learning.',d:-99,mine:1,x:'Rebranded being dumped on as “an opportunity”',r:'Can someone else learn instead?'}]}],
+
+      [{s:'They book ten minutes and open with this.',t:'Fri 13:30',m:['I have an offer, 15% more.','I haven’t accepted.'],o:[
+        {t:'I’ll negotiate this week and give you a real number.',d:14,r:'Okay, I’ll wait.'},{t:'Money isn’t everything. Growth matters more.',d:-15,x:'Deflected a pay question with “growth”',r:'Does growth pay rent?'},
+        {t:'Same pay, which would you pick? I’ll work toward that.',d:11,r:'Here, obviously.'},{t:'Maybe go try it. You can come back.',d:-99,mine:1,x:'Sounded replaceable at the decisive moment',r:'So you don’t mind if I go.'}]},
+       {s:'They found out something they shouldn’t have, and won’t pretend otherwise.',t:'Wed 20:10',m:['The new hire starts 6k above me.','I’ve been here a year longer.'],o:[
+        {t:'The company failed to adjust. I’m filing your raise this month.',d:14,r:'Thanks for not blaming me first.'},{t:'Salaries are confidential. You shouldn’t have asked.',d:-17,x:'Interrogated how they found out instead of answering',r:'So that’s the important part.'},
+        {t:'Different experience. Not comparable.',d:-11,r:'Can you tell me what’s different?'},{t:'Don’t measure yourself against other people’s pay.',d:-99,mine:1,x:'Recast a pay gap as the employee’s attitude problem',r:'I’m measuring the company.'}]},
+       {s:'The afternoon the annual raise is announced.',t:'Mon 15:45',m:['Three percent.','Inflation is four.'],o:[
+        {t:'Correct. I won’t dress that number up.',d:14,r:'At least you admit it.'},{t:'Three is better than nothing.',d:-15,x:'Used “others have it worse” to shut down a fair complaint',r:'Race to the bottom then.'},
+        {t:'Three is the blanket rate. Yours I raise separately.',d:9,r:'When do I find out?'},{t:'Look at the long term, not one year.',d:-99,mine:1,x:'Used “the long term” to dodge a real pay cut',r:'How many years is long term?'}]}],
+
+      [{s:'They attach last month’s performance report.',t:'Wed 15:12',m:['I want two days a week from home.','That commute is 2.5 hours a day.'],o:[
+        {t:'One month trial, judged on output.',d:13,r:'Deal.'},{t:'Policy is fixed, but I can get you flexible hours.',d:3,r:'Better than nothing.'},
+        {t:'I can’t promise now, but I’ll raise it and answer either way.',d:8,r:'As long as there’s an answer.'},{t:'Everyone comes in. A precedent is hard to manage.',d:-99,mine:1,x:'Refused flexibility because it is easier to manage',r:'So the reason is convenience.'}]},
+       {s:'It is pouring outside. Every news ticker is red.',t:'Today 06:50',m:['The city called a day off.','The group says “normal hours, use your judgement.”'],o:[
+        {t:'Nothing gets held against you. I’ll say so now.',d:13,r:'That’s what I was waiting for.'},{t:'Come in if you can.',d:-12,x:'Pushed the risk onto the employee with a vague “use your judgement”',r:'I carry the cost though.'},
+        {t:'Fully remote today. I’ll sort it out.',d:14,r:'Opening my laptop then.'},{t:'I’ll be in the office myself.',d:-99,mine:1,x:'Used your own attendance to imply theirs was required',r:'Message received.'}]},
+       {s:'They took a half day and are back at 2pm.',t:'Thu 14:10',m:['Someone said people take a lot of leave now.','Was that about me?'],o:[
+        {t:'If it was, I’ll handle it. You owe no explanation.',d:13,r:'Okay.'},{t:'Just ignore them.',d:-8,r:'It still got said.'},
+        {t:'I’ll find out who said it. That doesn’t belong here.',d:12,r:'Once is enough.'},{t:'You have taken more days than usual.',d:-99,mine:1,x:'Turned lawful leave into a mark against them',r:'I took two.'}]}],
+
+      [{s:'Monday evening. They sit beside you instead of leaving.',t:'Mon 19:03',m:['Where am I in three years?','Have you thought about it?'],o:[
+        {t:'Yes. Leading two people. I’ll list the three gaps.',d:14,r:'Can you write them today?'},{t:'Work hard and chances come.',d:-16,x:'Substituted “chances come” for an actual path',r:'My last job said that too.'},
+        {t:'Honestly I haven’t. Give me a week.',d:9,r:'Honesty works.'},{t:'Too far out. Focus on now.',d:-99,mine:1,x:'Dismissed a career question as overthinking',r:'Three years isn’t far.'}]},
+       {s:'They ask “do you have a minute” before messaging.',t:'Thu 14:22',m:['I’m more interested in product.','I’d like to transfer if there’s a way.'],o:[
+        {t:'I’ll ask them and set up a lunch. Better here than elsewhere.',d:14,r:'Thought you’d be annoyed.'},{t:'But you’re doing well in marketing.',d:-11,r:'Because I want to do that.'},
+        {t:'Yes, with a three-month handover.',d:10,r:'Fair.'},{t:'I trained you and now you’re leaving?',d:-99,mine:1,x:'Cashed in mentorship as an emotional debt',r:'I’m changing teams, not quitting.'}]},
+       {s:'The morning after the promotion list goes up.',t:'Tue 09:40',m:['Kevin got it.','What does he have that I don’t?'],o:[
+        {t:'He carried one crisis. Next quarter that’s you.',d:13,r:'Okay. I’ll wait for that.'},{t:'He’s been here longer.',d:-13,x:'Explained everything with seniority',r:'So I just wait.'},
+        {t:'There was a quota. You’re first in line and I’ll put it in writing.',d:12,r:'Writing, yes.'},{t:'Stop comparing yourself to people.',d:-99,mine:1,x:'Called a fair question “comparing”',r:'I asked for the criteria.'}]}],
+
+      [{s:'Ten minutes after the meeting, they message from their desk.',t:'Wed 16:05',m:['You said those numbers were “wildly wrong.”','They were mine.'],o:[
+        {t:'My mistake. That belonged in private.',d:14,r:'Will you actually correct it?'},{t:'I criticise the work, not the person.',d:-15,x:'Used “not personal” to dodge the venue problem',r:'The venue is what I raised.'},
+        {t:'The numbers were wrong. The setting was my error. Sorry.',d:12,r:'I can live with that.'},{t:'You can’t take a bit of criticism?',d:-99,mine:1,x:'Twisted a question about method into one about resilience',r:'I asked about how. You answered about who I am.'}]},
+       {s:'The review ends. They walk out, then come back.',t:'Fri 17:50',m:['How was the B+ calculated?','What separates that from an A?'],o:[
+        {t:'You haven’t carried a full project alone yet. Next quarter you will.',d:13,r:'Clear. Now I know what to chase.'},{t:'It just felt slightly short. Keep at it.',d:-16,x:'Used “it felt” as a performance rationale',r:'You can’t work toward a feeling.'},
+        {t:'A has a quota. I should have said that earlier.',d:9,r:'Yes, earlier would help.'},{t:'Don’t fixate on the grade.',d:-99,mine:1,x:'Told them to ignore the grade that sets their pay',r:'It sets my raise.'}]},
+       {s:'They paste your own feedback back to you.',t:'Tue 10:15',m:['You said this “has no soul.”','What is soul?'],o:[
+        {t:'That was noise. The first three lines miss the pain point.',d:14,r:'Now it’s fixable.'},{t:'It just feels off. Look at more examples.',d:-14,x:'Gave an abstract verdict instead of usable feedback',r:'I looked at thirty.'},
+        {t:'I’ll rewrite a version so you can see the gap.',d:12,r:'That helps.'},{t:'This kind of thing takes instinct.',d:-99,mine:1,x:'Dressed up “I can’t explain it” as instinct',r:'Then how do you grade me?'}]}],
+
+      [{s:'Monday, 8:40. They don’t invent an excuse.',t:'Mon 08:40',m:['Taking a mental health day.','Not sick. I just need one.'],o:[
+        {t:'Approved. You don’t owe me a reason.',d:13,r:'I had a whole speech ready.'},{t:'Sure, but that deliverable is due today.',d:-10,r:'Finished it last night.'},
+        {t:'Approved. And thanks for saying it straight.',d:14,r:'Ha. Okay.'},{t:'A day off for being in a mood?',d:-99,mine:1,x:'Treated a statutory leave type as an excuse',r:'It’s statutory. I didn’t invent it.'}]},
+       {s:'Sent overnight. You see it at seven.',t:'Tue 07:15',m:['My dad is in hospital for surgery.','I need a week.'],o:[
+        {t:'Go. I’ll split the work.',d:14,r:'…Thank you.'},{t:'A week is a lot. Start with three days?',d:-14,x:'Haggled over a family emergency',r:'I don’t know if three is enough.'},
+        {t:'Go. There’s emergency support too — HR will call you today.',d:15,r:'I didn’t know that existed.'},{t:'Finish the handover doc first.',d:-99,mine:1,x:'Put a handover document ahead of a parent’s surgery',r:'He’s in surgery tomorrow morning.'}]},
+       {s:'They file menstrual leave. HR pings you.',t:'Thu 09:05',m:['The system wants my manager to note a reason.','I don’t want to say.'],o:[
+        {t:'You don’t have to. I’ll write “statutory leave.”',d:14,r:'That system is terrible.'},{t:'Just put “unwell.” It’s boilerplate.',d:4,r:'Fine.'},
+        {t:'That field shouldn’t exist. I’ll raise it.',d:12,r:'Please do.'},{t:'Everyone fills it in.',d:-99,mine:1,x:'Demanded medical details nobody is owed',r:'Why do I report this to you?'}]}],
+
+      [{s:'The all-hands ends. They walk behind you.',t:'Thu 18:20',m:['The boss said “we’re family.”','Two people were laid off last month.'],o:[
+        {t:'I don’t like that line either. This is a company.',d:14,r:'That’s more reassuring than family.'},{t:'He meant well. Don’t be so negative.',d:-14,x:'Labelled a fair question “negative”',r:'I’m checking, not attacking.'},
+        {t:'That was hard for me too, but it was decided above me.',d:-4,r:'I just wanted to hear you say something.'},{t:'The company feeds you. Show some gratitude.',d:-99,mine:1,x:'Replaced an employment contract with gratitude',r:'I trade labour for pay.'}]},
+       {s:'New chairs arrived yesterday. The pay freeze was announced last week.',t:'Mon 10:30',m:['They froze pay.','Then bought new chairs and a coffee machine.'],o:[
+        {t:'That contrast is glaring. I’ll take your exact words up.',d:13,r:'Someone taking it up is enough.'},{t:'Different budget lines.',d:-10,r:'I’m asking about the choice.'},
+        {t:'The chairs were mine. I’ll fight pay separately.',d:11,r:'The chairs are good, admittedly.'},{t:'Times are hard. Be understanding.',d:-99,mine:1,x:'Demanded one-sided understanding for company hardship',r:'Does that go both ways?'}]},
+       {s:'The careers page went live yesterday. They screenshot it.',t:'Wed 13:50',m:['“Flexible hours, unlimited leave.”','Which one is real?'],o:[
+        {t:'None of them. I’ll ask for the copy to change.',d:14,r:'Ha. Respect.'},{t:'It’s recruitment copy. Everyone writes that.',d:-13,x:'Normalised misleading external claims',r:'New hires will find out too.'},
+        {t:'Flat structure is real. The other two aren’t. I’ll get them fixed.',d:12,r:'One out of three.'},{t:'You joined after reading it too.',d:-99,mine:1,x:'Used “you fell for it too” to shut them up',r:'Right, which is why I’m asking.'}]}],
+
+      [{s:'They send this week’s calendar. It is solid blue.',t:'Fri 09:30',m:['Fourteen hours of meetings this week.','Eleven hours of actual work.'],o:[
+        {t:'Too many. I’m killing the weekly.',d:14,r:'You can do that?'},{t:'Meetings are work too.',d:-13,x:'Counted meeting hours as output',r:'Then who does the output?'},
+        {t:'Name the three most useless. You’re excused from them.',d:12,r:'I can list them right now.'},{t:'It’s the cost of alignment. You get used to it.',d:-99,mine:1,x:'Asked them to “get used to” obvious waste',r:'I don’t want to get used to waste.'}]},
+       {s:'They said nothing for the whole meeting, then messaged after.',t:'Tue 16:20',m:['That could have been five minutes.','Why did eight people sit there for an hour?'],o:[
+        {t:'Because I didn’t write the doc first. That’s on me.',d:14,r:'Respect for the honesty.'},{t:'Everyone present builds alignment.',d:-11,x:'Justified a wasteful meeting with “alignment”',r:'Alignment or attendance?'},
+        {t:'Next time only three of us. You’re out.',d:12,r:'Then I can work.'},{t:'Sitting in is a learning opportunity.',d:-99,mine:1,x:'Rebranded wasted time as “learning”',r:'Can you list what I learned?'}]},
+       {s:'The weekly is at 5:30 Friday. Fourth week running.',t:'Fri 17:35',m:['The weekly will run past 6:30 again.','Is that on purpose?'],o:[
+        {t:'No, I never moved it. Thursday from next week.',d:14,r:'Good.'},{t:'People are freer at that hour.',d:-12,x:'Used “freer” to occupy someone’s evening',r:'Freer for whom?'},
+        {t:'Moving it next week. Thirty minutes today.',d:11,r:'Okay.'},{t:'It’s only half an hour.',d:-99,mine:1,x:'Minimised a standing weekly overrun as “only half an hour”',r:'Twenty-six hours a year.'}]}],
+
+      [{s:'Nine in the morning, by the pantry.',t:'Mon 09:12',m:['Someone said new people come in 15 minutes early.','Is that a rule?'],o:[
+        {t:'It isn’t. Nine means nine.',d:13,r:'Sure.'},{t:'Coming early helps you fit in.',d:-14,x:'Used “fitting in” to demand unpaid time',r:'Is it paid?'},
+        {t:'Who said that? I’ll handle it. You stay out of it.',d:12,r:'Please do.'},{t:'I did the same when I started.',d:-99,mine:1,x:'Used “I did it too” to reproduce a bad practice',r:'Did it seem fair then?'}]},
+       {s:'At the party, they are told to pour drinks at the boss’s table.',t:'Fri 20:15',m:['They want me pouring at the boss’s table.','Can I say no?'],o:[
+        {t:'Yes. I’ll go say it now. Stay where you are.',d:14,r:'Thank you, I was panicking.'},{t:'It’s one drink. Give the boss some face.',d:-15,x:'Called serving drinks a matter of “face”',r:'What about mine?'},
+        {t:'Don’t go. If anyone complains, send them to me.',d:13,r:'Got it.'},{t:'It’s just manners. Go once.',d:-99,mine:1,x:'Treated a junior’s time and body as etiquette',r:'Do the manners go both ways?'}]},
+       {s:'Halfway through the handover doc, they message.',t:'Wed 15:40',m:['Vivian says my flowchart doesn’t need changing.','Because “it’s always been this way.”'],o:[
+        {t:'Yours is better. I’ll make the call.',d:14,r:'Then I’ll keep going.'},{t:'She’s senior. Follow hers for now.',d:-15,x:'Let seniority override the actual content',r:'So doing it well means nothing.'},
+        {t:'The three of us review it and decide on merit.',d:12,r:'That’s fair.'},{t:'Don’t challenge the veterans.',d:-99,mine:1,x:'Used rank to kill an improvement',r:'Then I’ll stop suggesting things.'}]}],
+
+      [{s:'The boss sent an Instagram request last night.',t:'Tue 11:30',m:['The boss added me on Instagram.','That’s my personal account.'],o:[
+        {t:'You can decline. No consequences.',d:13,r:'Declining then.'},{t:'Accepting wouldn’t hurt.',d:-13,x:'Decided someone else’s privacy line for them',r:'That isn’t the point.'},
+        {t:'Don’t accept. If he asks, I told you not to.',d:14,r:'That’s a good move.'},{t:'It helps him remember you.',d:-99,mine:1,x:'Treated a private account as a promotion tool',r:'I’d rather he remembered my work.'}]},
+       {s:'Marketing wants brand photos. They are on the list.',t:'Thu 10:50',m:['I don’t want to be in it.','I don’t want my face in company ads.'],o:[
+        {t:'Your likeness is yours. I’ll fix the list.',d:14,r:'I thought I’d have to argue.'},{t:'It’s one photo. Everyone does it.',d:-13,x:'Treated image rights as a matter of cooperation',r:'Can I have it taken down later?'},
+        {t:'If we ever use your photo we ask first, and you can pull it.',d:13,r:'That works.'},{t:'Supporting company promotion is expected.',d:-99,mine:1,x:'Assumed employment includes image rights',r:'It isn’t in my contract.'}]},
+       {s:'A colleague screenshots their personal Threads post into the group.',t:'Mon 13:20',m:['My off-hours post got screenshotted into the group.','Someone said “posting that at work?”'],o:[
+        {t:'That was your time. I’ll deal with the screenshot.',d:14,r:'Thanks, I was fuming.'},{t:'Public posts get seen. Be careful.',d:-14,x:'Reframed being surveilled as “be careful”',r:'So it’s my fault.'},
+        {t:'I’ll find out who took it.',d:12,r:'Please.'},{t:'Colleagues can see it. Tone it down.',d:-99,mine:1,x:'Extended workplace control into off-hours speech',r:'Then I’ll block all of them.'}]}],
+
+      [{s:'They send a course page. The price is 18,000.',t:'Wed 09:45',m:['You said my data analysis needs work.','Am I paying for this myself?'],o:[
+        {t:'Company pays. Share what you learn afterwards.',d:14,r:'Deal.'},{t:'Take it yourself. If results are good I’ll push for reimbursement.',d:-12,x:'Made the employee fund a skill the company needs',r:'And if they aren’t?'},
+        {t:'We have 10k. I’ll find the rest.',d:10,r:'Ten is fine.'},{t:'Invest in yourself. The skill is yours.',d:-99,mine:1,x:'Outsourced training costs with “invest in yourself”',r:'So I can take it elsewhere?'}]},
+       {s:'The book club runs 7 to 9 on Wednesday nights.',t:'Tue 17:30',m:['Does book club count as work?','We have to write it up too.'],o:[
+        {t:'It does. Logged as overtime, and the write-up is output.',d:14,r:'Then I’ll do it properly.'},{t:'That’s personal growth.',d:-14,x:'Called assigned work “personal growth”',r:'You picked the topic.'},
+        {t:'Moving it into work hours. Write-up becomes a five-minute talk.',d:13,r:'Much better.'},{t:'It’s only two hours. Don’t count so carefully.',d:-99,mine:1,x:'Erased unpaid labour with “only two hours”',r:'A hundred hours a year.'}]},
+       {s:'The certification policy was revised yesterday.',t:'Fri 14:15',m:['Support now requires staying two years.','That’s a lock-in.'],o:[
+        {t:'You’re right, it is. I’ll push back.',d:13,r:'Thanks for calling it what it is.'},{t:'Conditions on company money are normal.',d:-11,r:'Then stop calling it support.'},
+        {t:'I’ll get you onto the old terms.',d:12,r:'That would be great.'},{t:'Don’t want the lock-in? Pay for it. That’s fair.',d:-99,mine:1,x:'Called a one-sided clause a fair choice',r:'Fair means both sides can negotiate.'}]}],
+
+      [{s:'Their travel request has been sitting with you for three days.',t:'Thu 11:20',m:['Taichung means driving my own car.','How does fuel work?'],o:[
+        {t:'Full reimbursement, parking too.',d:13,r:'Okay, keeping receipts.'},{t:'Probably claimable. Front it for now.',d:-11,x:'Made them front costs without confirming the rule',r:'How much is “probably”?'},
+        {t:'Book a car instead. Don’t use yours.',d:14,r:'Mine’s old, so that helps.'},{t:'Your own car is easier anyway.',d:-99,mine:1,x:'Called shifting costs onto staff “easier”',r:'Easier for whom?'}]},
+       {s:'The train is booked for 6:30am.',t:'Mon 20:40',m:['The 6:30 train tomorrow.','That’s a 5am alarm.'],o:[
+        {t:'Travel counts as hours. Go straight home after.',d:14,r:'That works.'},{t:'Commuting isn’t work time.',d:-12,x:'Conflated business travel with a normal commute',r:'I’m not going to my house.'},
+        {t:'Rebooking for eight.',d:12,r:'Thanks, I can sleep.'},{t:'That’s business travel for you.',d:-99,mine:1,x:'Shut down a fair question with “that’s just how it is”',r:'Sure.'}]},
+       {s:'The event wraps at 11:30pm. They are packing up.',t:'Sat 23:30',m:['Last train is gone.','How do I get home?'],o:[
+        {t:'Take a car on the company account. Send me the receipt.',d:14,r:'Thanks, my feet are dead.'},{t:'Carpool with someone.',d:-10,x:'Pushed the ride home onto colleagues',r:'I live the other way.'},
+        {t:'Booking you one now. Transport goes in the budget next time.',d:15,r:'Great.'},{t:'That’s events. Figure it out.',d:-99,mine:1,x:'Left an employee to get home alone late at night',r:'I’m alone downtown.'}]}],
+
+      [{s:'There were eight people in that room. Nobody spoke.',t:'Wed 15:10',m:['Someone said “get a woman to do it, they’re detail-oriented.”','Nobody said anything.'],o:[
+        {t:'My silence was the failure. I’ll address it publicly.',d:14,r:'I’ll wait for that.'},{t:'He meant no harm. Old-fashioned.',d:-15,x:'Used “no harm meant” to cancel out real impact',r:'Those are two different things.'},
+        {t:'I’ll go now. Not to defend you — that line is not okay.',d:15,r:'Thank you.'},{t:'Let that kind of thing go.',d:-99,mine:1,x:'Told the target to tune out discriminatory remarks',r:'I’m not the one tuning out.'}]},
+       {s:'Lunch. The next table is laughing loudly.',t:'Fri 12:50',m:['They’re mocking my accent again.','Third time.'],o:[
+        {t:'Third time isn’t a joke. I handle it today.',d:15,r:'Thank you.'},{t:'It’s a joke. Fire back.',d:-15,x:'Made the target fight their own battle',r:'Why is it mine to fight?'},
+        {t:'I need to know who. I won’t name you.',d:12,r:'Sending names.'},{t:'Taking it seriously means they win.',d:-99,mine:1,x:'Told the target to absorb it or “lose”',r:'I’m the one losing.'}]},
+       {s:'The new hire left the gender field blank.',t:'Mon 10:05',m:['The new person wants to go by their name.','Someone said it’s a hassle.'],o:[
+        {t:'It isn’t. I’ll say it in the group.',d:14,r:'Thanks, I asked for them.'},{t:'People will get used to it.',d:-12,x:'Left a solvable problem to time',r:'How long is that?'},
+        {t:'Changing today. Get it wrong, apologise, correct it.',d:15,r:'Good answer.'},{t:'Young people make everything complicated.',d:-99,mine:1,x:'Called basic respect “making things complicated”',r:'Using a name is complicated?'}]}],
+
+      [{s:'Third half day this month, always mornings.',t:'Tue 08:50',m:['Half day this morning.','Personal.'],o:[
+        {t:'Okay. No explanation needed.',d:12,r:'Mm.'},{t:'Lots of mornings lately. Interviewing?',d:-14,x:'Confronted them instead of asking what went wrong',r:'What answer do you want?'},
+        {t:'Approved. And if there’s something I should fix, I want to hear it.',d:13,r:'…I’ll tell you later.'},{t:'Fine, but is that fair to the team?',d:-99,mine:1,x:'Used “is it fair to the team” to guilt lawful leave',r:'It’s my leave.'}]},
+       {s:'Every day this week they shut the laptop at six exactly.',t:'Thu 18:01',m:['I documented everything.','It’s in the shared drive.'],o:[
+        {t:'Thank you. Straight question: are you leaving?',d:11,r:'…I’m thinking about it.'},{t:'Great, that helps everyone.',d:-8,r:'Mm.'},
+        {t:'That’s good. But what’s actually going on with you?',d:13,r:'Okay. Lunch tomorrow.'},{t:'Docs are good. What about progress?',d:-99,mine:1,x:'Answered a distress signal with a status check',r:'It’s all in the docs.'}]},
+       {s:'The group posts “welcome aboard.” They don’t react.',t:'Mon 17:15',m:['The new person sits next to me.','They asked if this place is any good.'],o:[
+        {t:'Tell the truth. Better from you than later.',d:13,r:'Truth it is.'},{t:'Stick to the good parts.',d:-13,x:'Asked an employee to sell a version that isn’t true',r:'Then they’ll be more disappointed.'},
+        {t:'What would you say?',d:12,r:'“Manager’s alright, the system is broken.”'},{t:'Careful. Don’t sour the new hire.',d:-99,mine:1,x:'Treated honesty as a risk to be managed',r:'So the truth is the problem.'}]}],
+
+      [{s:'The company was in yesterday’s business news.',t:'Wed 08:30',m:['The news says restructuring.','Should I start looking?'],o:[
+        {t:'No list exists and our team isn’t affected. Any change, you hear it first.',d:14,r:'Okay. I’ll stay calm.'},{t:'Don’t read into the news.',d:-14,x:'Substituted “don’t worry” for actual information',r:'Give me a reason not to.'},
+        {t:'I don’t know. I’ll ask tomorrow and tell you exactly what I hear.',d:11,r:'Respect for the honesty.'},{t:'Good performers have nothing to worry about.',d:-99,mine:1,x:'Recast layoffs as a performance issue',r:'The last two were fine too.'}]},
+       {s:'They send a link to an AI tool.',t:'Fri 16:10',m:['This does my whole day in ten minutes.','Am I still worth anything?'],o:[
+        {t:'Yes. Your value is judging which version ships.',d:14,r:'Okay. I’ll learn that.'},{t:'AI won’t replace people.',d:-11,x:'Answered real anxiety with a platitude',r:'It just did, though.'},
+        {t:'I’m not sure. But the time saved won’t become more busywork.',d:13,r:'That I believe.'},{t:'Then work harder or you will be replaced.',d:-99,mine:1,x:'Turned structural anxiety into a personal threat',r:'How hard is hard enough?'}]},
+       {s:'Their project shipped. Numbers are good. Nobody mentioned them.',t:'Tue 19:20',m:['My name isn’t in the launch report.','Was that an oversight?'],o:[
+        {t:'It was, and it was mine. Sending a correction now.',d:15,r:'Good.'},{t:'Team results don’t need splitting up.',d:-15,x:'Erased individual contribution behind “team results”',r:'Then why are some names on it?'},
+        {t:'Adding you. From now on credit follows the work, not the title.',d:14,r:'I want that.'},{t:'Don’t work for the credit.',d:-99,mine:1,x:'Called earned credit vanity',r:'Credit is what I take to my next job.'}]}],
+
+      [{s:'11pm. Seven messages in a row.',t:'Wed 23:04',z:14,zr:'never mind. sleeping',m:['ugh Vivian did it again today','on the phone all day, so loud','you don’t think she’s a nightmare?'],o:[
+        {t:'Yeah, she is loud.',d:-20,x:'Joined an employee in trashing a colleague',r:'lol screenshotting this'},{t:'Why not tell her directly?',d:-10,x:'Escalated private venting into open conflict',r:'I don’t want a fight'},
+        {t:'I’ll open a formal case.',d:-12,x:'Turned a midnight vent into an HR case',r:'what no I was just talking'},{t:'Don’t talk about colleagues behind their back.',d:-14,x:'Answered an emotion with a lecture',r:'ok'}]},
+       {s:'They clashed with Kevin in yesterday’s meeting.',t:'Thu 10:20',z:12,zr:'…fine, I know it doesn’t work like that',m:['I don’t want to be on Kevin’s team.','Can you swap him out?'],o:[
+        {t:'Sure, I’ll move him.',d:-20,x:'Sacrificed one person to keep another happy',r:'wait really? is that okay?'},{t:'What’s wrong with him? Tell me.',d:-11,x:'Opened a grievance session with no possible ending',r:'like… a lot of things'},
+        {t:'You two work it out.',d:-12,x:'Pushed a management issue back onto both parties',r:'then why did I tell you'},{t:'No. That’s the structure.',d:-8,r:'sure'}]},
+       {s:'Sunday, 10:31pm. A long message arrives.',t:'Sun 22:31',z:13,zr:'I’ll be in tomorrow, don’t worry',m:['Sunday nights are so bleak','what is the point of this job'],o:[
+        {t:'The point is whatever you make it.',d:-16,x:'Lectured a direct report on a Sunday night',r:'…ok'},{t:'Let’s talk at the office tomorrow.',d:-6,r:'mm'},
+        {t:'Want to take a day off?',d:-10,x:'Converted an emotional signal straight into leave admin',r:'I didn’t ask for time off'},{t:'Everyone feels that. You get used to it.',d:-17,x:'Erased how they feel with “everyone feels that”',r:'sure'}]}],
+
+      [{s:'They send a photo of another company’s lunch.',t:'Tue 12:15',z:11,zr:'joking obviously',m:['my friend’s company does free lunch','look at us'],o:[
+        {t:'I’ll look into a lunch allowance.',d:-14,x:'Let one complaint push you into an empty promise',r:'really? okay I’ll wait then'},{t:'Then maybe go work there.',d:-18,x:'Answered a complaint with “then leave”',r:'I was just saying'},
+        {t:'We have other perks.',d:-9,r:'such as'},{t:'Yeah, this company sucks.',d:-12,x:'Joined the complaining and changed nothing',r:'so what are you going to do'}]},
+       {s:'Third time today they mention the colleague who left.',t:'Fri 16:50',z:12,zr:'just saying',m:['Xin left and got 10k more','maybe I should have…'],o:[
+        {t:'Then go try it.',d:-18,x:'Met a test with a counter-punch',r:'I didn’t say I was leaving'},{t:'I’ll negotiate your raise this month.',d:-13,x:'Let a hint force a promise you can’t back',r:'you sure? don’t bounce again'},
+        {t:'It isn’t as good out there as you think.',d:-15,x:'Used fear instead of an answer',r:'how would you know'},{t:'She talked to me before she left.',d:-7,r:'what did she say'}]},
+       {s:'The party raffle list just went up in the group chat.',t:'Mon 18:40',z:10,zr:'just running my mouth',m:['managers won the top prize again','so rigged lol'],o:[
+        {t:'I’ll audit the raffle process.',d:-11,x:'Escalated a joke into an investigation',r:'no need seriously'},{t:'Yeah, every year.',d:-13,x:'Agreed loudly and did nothing',r:'so?'},
+        {t:'Careful, someone might hear you.',d:-16,x:'Reacted first by telling them to keep quiet',r:'oh. okay'},{t:'Just luck.',d:-8,r:'sure'}]}]
+    ],
+    boss: {s:'They turn their laptop toward you. The HR portal is open.',t:'Thu 09:12',m:['I filled out my resignation. I haven’t submitted it.','What can you offer me?'],o:[
+      {t:'Three answers today: pay, remote work, and Vivian. If I fail, you can walk.',d:20,r:'Okay. I’ll wait until today.'},
+      {t:'Tell me what you need. I’ll tell you exactly what I can do.',d:14,r:'…No one has asked me that before.'},
+      {t:'Give me more time. I’ll find a way.',d:-16,x:'Asked for time at the decisive moment without a commitment',r:'How much time?'},
+      {t:'Staying is your choice. I respect it.',d:-99,mine:1,x:'Handed all responsibility back at the decisive moment',r:'I asked what you would do.'}
+    ]},
+    murmur: {
+      over:[
+        'So I’m fragile\nFragile things still have limits\nYou kept telling me I overthink\nSo I stopped thinking about it\nHope the next one has thicker skin',
+        'The handover doc is done\nMore detailed than you asked for\nBecause I don’t want anyone else\nguessing the rules for three months\nThe rest is yours',
+        'Nobody bought me with money\nThe money just made leaving look tidy\nYou already heard the real reason\nYou had a chance every single time\nYou picked wrong every single time',
+        'I’ll write “personal development” in the exit form\nYou’ll copy that into your report\nThen say young people can’t be kept\nIt isn’t young people\nIt’s that sentence',
+        'The funny part is I liked it here\nEnough to defend this place\nNow I’ve left the group chat\nNot angry\nJust done explaining',
+        'You asked if I had anything else to say\nNo\nI said it all about twelve times\nEvery time you said let’s see\nNo need to see now',
+        'Pay never moved\nMy backbone did\nNow when someone dumps on me I say no\nYou taught me that\nGenuinely, thanks',
+        'I’m going and so is the next one\nYou’ll call them fragile too\nBut four in a row\nsuggests it isn’t the people\nIt’s the place',
+        'When people ask about this company\nI won’t badmouth you\nI’ll say the manager was decent\nHe just couldn’t change anything\nThat’s worse than badmouthing',
+        'Last day I leave on time\nNo send-off\nNo cake\nSave it for the next one\nYou’ve all had the practice'
+      ],
+      blocked:[
+        'A video call?\nWe’re colleagues\nWe’re not dating\nYou want to see my face\nWalk over to my desk',
+        'Video\nI’m in bed\nHair unwashed\nThree unopened boxes behind me\nSure you want that? No thanks',
+        'Text leaves a record\nCalls don’t\nVideo really doesn’t\nIt isn’t that I’m afraid to talk\nI just won’t be told I misremembered',
+        'The second it rang I understood\nYou wanted to skip typing\nBecause typing means owning it\nFine\nI’ll save you the trouble',
+        'The laptop is for work, not for showing my face\nI didn’t sign a talent contract\nThis isn’t shyness\nIt’s a boundary\nYou can’t see it, so I drew it',
+        'Video call after hours\nDid you think about what I’m doing\nI’m eating\nI’m showering\nI’m living my actual life',
+        'Important? Text me\nUnimportant? Definitely text me\nThere is no third option\nIt’s a simple rule\nSomehow you couldn’t learn it',
+        'My last manager loved video calls\nAlways said five minutes\nAlways took forty\nI learned\nSo this time I blocked first',
+        'I blocked the video, not you\nMessage me any time\nBut you won’t\nBecause typing means\nthinking it through first',
+        'sorry, slipped\nI’m lying\nI’ve wanted to do that for a while\nJust needed the excuse\nbye'
+      ],
+      bad:[
+        'I’m still here\nI just stopped talking\nI do what you assign\nNothing more, nothing asked\nEasier for everyone',
+        'Laptop shuts at six\nNot because I’m rushing anywhere\nI worked out that an extra hour\nis an hour nobody remembers\nSo why stay',
+        'I used to make suggestions\nAfter the third “you overthink”\nI stopped\nNow I say “no issues” in every meeting\nYou probably think I matured',
+        'You ask how I’m doing\nI say fine\nI’m not\nBut saying it costs energy\nand I can guess the ending',
+        'I moved the enthusiasm to after hours\nI freelance at weekends now\nNobody there talks to me about family\nThey talk about money\nMuch simpler',
+        'Group chat muted\nEmail opens the next morning\nNot slacking\nI finally learned\nnot to carry this place around',
+        'You think I stayed because you convinced me\nI didn’t\nI just haven’t found it yet\nSomewhere else isn’t guaranteed better\nThat’s all',
+        'Colleagues ask what it’s like\nI say it’s alright\nThen change the subject\nI don’t want to trap anyone\nI don’t want to lie either',
+        'Body here\nSoul on the job board\nI refresh my CV at lunch\nSome people check stocks at lunch\nSame energy',
+        'lol I’m somehow still here\nLast week I was calculating severance\nToday I clocked in like normal\nPeople are like that\nNot as bold as we sound'
+      ],
+      normal:[
+        'I’ll stay for now\nSee if you actually do it\nI wrote down what you said\nNot that I doubt you\nI’ve just been sold a lot of futures',
+        'CV isn’t deleted\nJust set to hidden\nThat isn’t a threat\nIt’s insurance\nEveryone should have it',
+        'You get one quarter\nThen we talk again\nDeliver and I stay\nDon’t and I won’t argue\nI’ll just be gone',
+        'You are changing things\nI’ll give you that\nBut half-changed\nis harder to trust than not changed\nyou know?',
+        'I’ll still take interviews\nTaking them isn’t leaving\nYou look at other candidates too\nThat seems fair\nWe’re even',
+        'A pass, that’s all\nDon’t get excited\nA pass means\nI have no reason to leave yet\nnot that I found a reason to stay',
+        'A friend asked if I want to jump\nI said let me see\nI used to say yes instantly\nThat “let me see”\nis what this month bought you',
+        'What you said today\nif it still holds in three months\nthen I actually stay\nIf it doesn’t\nI won’t even ask why',
+        'This month, like this\nNext month we’ll see\nI don’t make long plans right now\nNot because of you\nBecause I don’t dare',
+        'Notice I ask less lately\nNot because there’s nothing\nI’m waiting for you to move first\nWords are free\nDo it and I’ll speak again'
+      ],
+      good:[
+        'Alright\nYou did it\nI’ll say so\nI had the resignation written\nI deleted the file',
+        'I told a friend my manager is decent\nThey didn’t believe me\nSaid I’d been brainwashed\nI said no\nHe just answers questions',
+        'Those three things you promised\nI’m counting days\nOne is done\nI’ll wait for the other two\nNo pressure, but I remember',
+        'The raise wasn’t the part that landed\nIt was you saying “I don’t know”\nEvery manager before knew everything\nand delivered nothing\nAt least you didn’t lie',
+        'I’ll still ask questions\nGet used to it\nIt isn’t hostility\nIt’s that I want to stay\nOr why would I bother',
+        'Not getting emotional\nBut thanks\nThe thing I learned this year\nis that you can just say it\nwithout ten minutes of rehearsal first',
+        'Job alerts are off\nNot forever\nJust this quarter\nYou have one quarter\nto show me the rest',
+        'I still think the company is a mess\nBut you aren’t\nBoth can be true\nI’m staying for the second one\nSo hold the line',
+        'The new hire asked if this place is good\nI said you can ask the manager anything\nJudge the rest yourself\nThat is already\nthe highest review I have',
+        'One more year then\nIf you turn into the old kind of manager\nI’ll tell you first\nand resign the next morning\nSaying it upfront'
+      ],
+      best:[
+        'I tell new people now\nask him directly\nno need to rehearse it first\nI didn’t dare for a year\nWasted so much time',
+        'I didn’t get softer\nYou got better\nSaying this once only\nDon’t go quoting it to people\nIt’s embarrassing',
+        'A recruiter reached out\nBetter money than here\nI didn’t reply\nNot out of loyalty\nI priced in losing you',
+        'Someone said that thing in a meeting yesterday\nI said it isn’t okay, out loud\nI wouldn’t have before\nI would now\nBecause I know you’re behind me',
+        'This finally feels like a company\nnot a family\nFamilies don’t pay overtime\nCompanies do\nThat’s all I ever wanted',
+        'Resignation letter deleted\nFolder cleared\nEven the backup\nYou have no idea how many drafts there were\nAll gone now',
+        'If you leave I’ll reconsider\nso don’t go jumping anywhere\nI mean it\nHalf my reason for staying is you\nThat’s your problem now',
+        'I’ll take the new hire\nYou stay out of it\nI’ll use your method\nbut funnier\nYour dad jokes are genuinely bad',
+        'This sounds strange\nbut I want to stay a while\nlong enough to build something\nI’d actually bring to an interview\nNow there’s a chance',
+        'My mum asked about work last week\nI said it’s going well\nShe paused\nBecause since I graduated\nthat was the first time'
+      ]
+    },
+    stories: [
+      {bg:'#1a1d22',fg:'#fff',html:'<p>Meeting #4 today</p><small>Every one could have been an email</small>'},
+      {bg:'#ffd400',fg:'#1a1d22',html:'<p>C L O C K E D &nbsp; O U T</p><small>18:01 — not one second donated</small>'},
+      {bg:'#0b5cff',fg:'#fff',html:'<p>What does a manager mean by<br>“We’ll see”?</p><div class="poll"><div>They will · 9%</div><div>Update résumé · 91%</div></div>'},
+      {bg:'#f4f4f2',fg:'#1a1d22',html:'<p>Overtime calculator v3</p><small>I wrote it. More accurate than payroll.</small>'},
+      {bg:'#1f7a4d',fg:'#fff',html:'<p>No work chat on weekends<br>Day 12</p><small>Life satisfaction +37%</small>'},
+      {bg:'#ff5a4d',fg:'#fff',html:'<p>Someone called me a snowflake</p><small>Funny. I still have boundaries.</small>'}
+    ],
+    ago:['12m','1h','2h','4h','5h','8h','11h','Yesterday']
+  },
+
+  ja: {
+    label: '日本語',
+    ui: {
+      documentTitle: '明日も来てくれる？', active: 'オンライン', typing: '入力中…', seen: '既読',
+      inbox: 'メッセージ', inboxVivian: 'フロー図は直さなくていいよ · 2時間', inboxKevin: '了解です！ · 5時間',
+      inboxHr: '【お知らせ】忘年会リハーサル · 昨日', inboxBoss: '明朝8時半、私の部屋へ · 昨日',
+      inboxTip: '今、大切なのは一人からのメッセージだけ', posts: '投稿', followers: 'フォロワー', following: 'フォロー中',
+      bio: 'マーケティング企画 · 1年3か月<br>給料の分だけ働く。これはただの事実。<br><span>ストーリーでは愚痴多め。本人は話しやすい。</span>',
+      grid1: '定時退社は<br>基本的人権', grid2: '本日<br>4回目の<br>会議', grid3: '残業代<br>計算表<br>v3',
+      grid4: '「検討します」<br>翻訳機', grid5: '週末は<br>通知オフ<br>12日目', grid6: '求人票って<br>守るもの？',
+      grid7: '履歴書<br>更新済み', grid8: '打たれ弱い<br>わけじゃない', grid9: '境界線が<br>あるだけ',
+      bootTitle: '明日も<br>来てくれる？', bootSub: '引 き 留 め 失 敗 ＝ あ な た の 責 任', pressPlay: 'P R E S S &nbsp; T O &nbsp; P L A Y',
+      resultUnit: '／100　残留意欲', rounds: 'ラウンド', caught: '好対応', traps: '地雷回答', again: 'もう一度', copy: '結果をコピー', copied: 'コピー完了 ✓',
+      readNoReply: '（既読スルー）', choose: '返信を選ぶ…', readWait: '既読。返信なし', readStamp: '既読をつけて、返信しなかった',
+      readDelta: '既読スルー', sent: '送信済み', trapLine: '⚠ その一言は地雷', retentionZero: '残留意欲がゼロに', retention: '残留意欲',
+      undo: '送信取消（1ゲーム1回、−8）', keep: 'いや、これが本音だ', undoing: '取り消し中…', unsent: 'メッセージの送信を取り消した',
+      whatSay: '今、何を言おうとしたんですか？', ended: '会話終了', blocked: 'ブロック済み', resignation: '提出しました。1年3か月、ありがとうございました。',
+      minesHead: '今 回 踏 ん だ 地 雷', now: '今', dialing: '発信中…', inCall: '通話中　00:01',
+      phoneReply: '「メッセージでいいのに、なんで電話するんですか？」', hungUp: '通話終了', phoneStamp: '電話をかけたが、切られた',
+      videoInvite: 'ビデオ通話を発信中…', videoBlocked: 'ブロックされました', videoStamp: 'ビデオ通話を発信した', videoChip: 'その場でブロックされた',
+      endBlocked: '<u>ブロック</u>された', endOver: '<u>退職届を提出</u>された', endBest: 'ほかの人の定着も<u>支えてくれる</u>',
+      endGood: '退職届が<u>削除された</u>', endNormal: '残った。でも<u>履歴書は公開中</u>', endBad: '席にはいる。<u>気持ちはもういない</u>',
+      cardTitle: '明日も来てくれる？', cardScore: '残留意欲', cardCaught: '好対応', cardTrap: '地雷回答'
+    },
+    readReplies: ['了解です','へえ','うん','……','もういいです','何でもないです','忘れてください'],
+    bank: [
+      [{s:'もう帰宅済み。改札を出た通知まで見えている。',t:'金 20:47',m:['クライアントが提案の方向変えたいって','それ、全部作り直しですよね'],o:[
+        {t:'先方は自分が止める。月曜に一緒に見よう',d:12,r:'あ、はい'},{t:'とりあえず一版だけ作って。先方が待ってる',d:-8,r:'わかりました'},
+        {t:'何時間かかる？その数字で延期交渉する',d:10,r:'四時間です。本当に交渉するんですか'},{t:'みんなそうやって乗り越えてきたよ',d:-99,mine:1,x:'「みんなそうしてきた」で残業を正当化した',r:'それが理由ですか'}]},
+       {s:'カバンを背負ったまま、机の横に立っている。',t:'火 18:55',m:['競合分析のあれ','明日の朝ですか、明日の終業までですか'],o:[
+        {t:'言い方が悪かった。明日の終業まででいい',d:11,r:'じゃあ上がります'},{t:'明日の朝。今日少し残って',d:-13,r:'はい'},
+        {t:'まず二時間ぶんの版をちょうだい',d:5,r:'八時までやります'},{t:'なんで毎回時間の確認ばっかりなの',d:-16,x:'締切の確認を「逃げ」と受け取った',r:'間に合わせたいからです'}]},
+       {s:'日曜の午後、休暇表のスクショが送られてきた。',t:'日 15:30',m:['来週、有給二日取ってます','展示会、同じ週に入れましたよね'],o:[
+        {t:'休暇を見落とした。人を組み替える',d:13,r:'助かります。航空券取ってあるので'},{t:'今回だけ何とかならない？',d:-12,x:'承認済みの有給を交渉の対象にした',r:'航空券取ってあるんですけど'},
+        {t:'日程をずらせるか見る。明日返事する',d:8,r:'わかりました'},{t:'展示会のほうが大事でしょ',d:-99,mine:1,x:'承認済みの有給をいつでも取り消せる扱いにした',r:'キャンセル料、出してくれます？'}]}],
+
+      [{s:'打っては消し、最後にやっと送ってきた。',t:'月 11:20',m:['先週土曜の三時間','残業代出ますか'],o:[
+        {t:'今日確認して、明日答える',d:12,r:'はい'},{t:'代休でいいよ。好きなときに取って',d:2,r:'「好きなとき」ってどういう意味ですか'},
+        {t:'法律上どちらか選べる。計算方法を送る',d:13,r:'「法律上」って言う人、初めてです'},{t:'そんな細かいこと言わなくていいでしょ',d:-99,mine:1,x:'権利の話を「細かい」で片づけた',r:'自分には細かくないです'}]},
+       {s:'勤怠システムの画面。赤い数字が丸で囲まれている。',t:'木 10:03',m:['超過分、自動でゼロになってます','先月11時間ぶん消えてます'],o:[
+        {t:'設定の問題じゃない。今日記録を取って戻す',d:14,r:'本当ですか。ありがとうございます'},{t:'システムがそうなんだ。みんな同じだよ',d:-15,x:'「みんな同じ」で制度の欠陥を流した',r:'同じでも正しくはないですよね'},
+        {t:'記録をまとめて。自分が持っていく',d:7,r:'あとで送ります'},{t:'それ調べる時間があるなら案件やってほしい',d:-99,mine:1,x:'権利を主張することを怠慢だとほのめかした',r:'昼休みに調べました'}]},
+       {s:'代休申請が昨日差し戻された。',t:'水 16:40',m:['代休、三か月で消えるんですね','先週ひとまとまり消えました'],o:[
+        {t:'延長を申請する。通らなければ買い上げにする',d:14,r:'そんなことできるんですか'},{t:'制度が三か月だから。自分にもどうにも',d:-14,x:'「制度だから」で会話を終わらせた',r:'制度は誰が決めたんですか'},
+        {t:'人員を組み直す。古いぶんから消化して',d:9,r:'じゃあ来週取ります'},{t:'自分で申請しなかったんでしょ',d:-99,mine:1,x:'取れなかった休みの責任を本人に押しつけた',r:'三回出して三回戻されました'}]}],
+
+      [{s:'日曜の朝10時。昨夜のメッセージにやっと返信が来た。',t:'日 10:12',m:['グループの通知、切りました','ルール決められませんか'],o:[
+        {t:'明日告知する。緊急以外は平日にまわす',d:14,r:'じゃあ通知戻します'},{t:'切るのはいいけど、繋がらないと困る',d:-7,r:'結局ずっと見てろってことですよね'},
+        {t:'まず自分が変える。週末は送らない',d:12,r:'覚えておきますね'},{t:'君だけ特別ルールってこと？',d:-99,mine:1,x:'制度の提案を「特別扱い希望」と解釈した',r:'全員に適用する話です'}]},
+       {s:'昨夜23:40にあなたが送っていた。',t:'今日 09:15',m:['深夜のメッセージ、朝見ました','あれ、その場で返すものですか'],o:[
+        {t:'いや。今後は「至急でない」と書く',d:12,r:'ならいいです'},{t:'見たら一言返してくれると助かる',d:-12,r:'深夜もですか'},
+        {t:'考えてなかった。今後は予約送信にする',d:13,r:'考えすぎって言われなくてよかったです'},{t:'こっちは深夜まで働いてるんだけど',d:-99,mine:1,x:'自分の残業で相手の退勤を縛った',r:'それはそちらの選択ですよね'}]},
+       {s:'グループのスクショ。23:50に全員宛てのメンション。',t:'木 08:02',m:['昨日、深夜に全員メンションした人がいて','何人か返信してました。自分は返してません'],o:[
+        {t:'返さなくて正解。今日そう言う',d:14,r:'安心しました'},{t:'「了解」くらい返しても損はないでしょ',d:-13,x:'空気のために境界線を譲らせた',r:'それだと線がなくなりますよね'},
+        {t:'昨日の件が何だったのか聞いてくる',d:8,r:'お願いします'},{t:'他はみんな返したのに君だけ',d:-99,mine:1,x:'同調圧力で境界線を崩そうとした',r:'先に折れた人が基準になるんですね'}]}],
+
+      [{s:'部署の食事会の出欠確認直後、個別メッセージが来た。',t:'水 14:05',m:['来週木曜の食事会、行かないかもです','あれ、勤務時間に入りますか'],o:[
+        {t:'入らない。だから欠席で問題ない。含みも持たない',d:11,r:'じゃあ欠席で'},{t:'前半だけでも顔出さない？',d:-9,r:'結局来てほしいんですね'},
+        {t:'入らない。次からはランチでやる',d:13,r:'それなら行きます'},{t:'協調性がないと思われるよ',d:-99,mine:1,x:'「協調性」で私的な時間に圧をかけた',r:'そうですか'}]},
+       {s:'忘年会の出し物リストが出た。名前が載っている。',t:'月 16:30',m:['三週間も練習あるんですか','裏方だけでもいいですか'],o:[
+        {t:'不参加でも問題ない。こちらで話す',d:12,r:'じゃあ不参加で'},{t:'裏方でいい。主催に伝えておく',d:8,r:'わかりました'},
+        {t:'出ないと他の人の負担が増えるよ',d:-14,x:'同調圧力を自発性の代わりにした',r:'じゃあ出ます'},
+        {t:'これも会社の文化だから、合わせて',d:-99,mine:1,x:'「文化」を理由に無償の負担を求めた',r:'文化に自分の時間は含まれますか'}]},
+       {s:'金曜の夕方五時、隣の部署が飲みに誘っている。',t:'金 17:20',m:['あとの飲み、行かないです','お酒飲まないので'],o:[
+        {t:'了解。今後は飲み屋で組まない',d:13,r:'そこまで考えてくれるんですね'},{t:'ジュースでいいよ。顔だけ出して',d:-11,x:'出席そのものを義務として扱った',r:'行きたくないのが理由です'},
+        {t:'わかった。用事があると伝えておく',d:10,r:'そのほうが助かります'},{t:'営業は酒の席で決まるものだよ',d:-99,mine:1,x:'飲酒をキャリアの必須条件のように語った',r:'じゃあ営業はやりません'}]}],
+
+      [{s:'会議は終わったのに、席から動かない。',t:'木 17:41',m:['さっきVivianさんに「ゆとり」って言われました','その場では何も言えませんでした'],o:[
+        {t:'自分から話す。君から聞いたとは言わない',d:13,r:'ありがとうございます'},{t:'あの人はああいう言い方なんだ。気にしないで',d:-13,x:'言われた本人に飲み込ませようとした',r:'自分が敏感なだけってことですか'},
+        {t:'次の会議で線を引く',d:14,r:'本当に言ったら驚きます'},{t:'それは自分で言いに行って',d:-99,mine:1,x:'傷つけられた側に管理責任を戻した',r:'五年上の先輩ですけど'}]},
+       {s:'昼休み。その席に座ったまま、一言も発していない。',t:'火 12:40',m:['「今の若い子は打たれ弱い」って話してました','課長もそう思ってますか'],o:[
+        {t:'思ってない。昔が言い過ぎてただけ',d:13,r:'なら安心しました'},{t:'どっちもあるよ。時代が違うし',d:-9,r:'それ、答えになってないです'},
+        {t:'思ってない。あの席の話はあとで対応する',d:12,r:'そこまでしなくていいです'},{t:'正直、君らの世代は敏感だと思う',d:-99,mine:1,x:'「君らの世代は打たれ弱い」を本人に肯定した',r:'正直にありがとうございます'}]},
+       {s:'今朝の朝礼の書き起こしが送られてきた。',t:'水 11:05',m:['朝礼で「やりたくない人は辞めていい」って','あれ誰に言ってたんですか'],o:[
+        {t:'誰に向けてでも、あの発言は認めない。対応する',d:14,r:'見てます'},{t:'あれは売り言葉だよ。真に受けないで',d:-14,x:'脅しの発言を「勢い」で片づけた',r:'口に出したら発言ですよね'},
+        {t:'わからない。ただ自分の考えではない',d:9,r:'一度は信じます'},{t:'まあ間違ってはいないよね',d:-99,mine:1,x:'「嫌なら辞めろ」に同調した',r:'そうですか。外を見てみます'}]}],
+
+      [{s:'展示会1週間前。担当表が共有された。',t:'火 09:58',m:['搬入と動線、自分のJDにないです','なぜ自分なんですか'],o:[
+        {t:'人が足りないから。評価に書くし代休も一日出す',d:12,r:'それなら大丈夫です'},{t:'JDなんて目安でしょ',d:-16,x:'「JDは目安」で職務を無限に広げた',r:'面接で聞いた話は何だったんですか'},
+        {t:'その通り、本来君の仕事じゃない。今回だけ頼む。来期は予算を取る',d:13,r:'「来期」、覚えておきます'},{t:'新人はみんな多めにやるものだよ',d:-99,mine:1,x:'職務外の仕事を「新人の義務」にすり替えた',r:'覚えておきます'}]},
+       {s:'今週の作業時間の記録が送られてきた。',t:'金 11:15',m:['今週、弁当三回と新幹線二枚手配しました','合計四時間です'],o:[
+        {t:'君の仕事じゃない。自分でやる',d:14,r:'……はい'},{t:'ついでにやってくれてるだけでしょ',d:-15,x:'恒常的な雑務を「ついで」と呼んだ',r:'四時間はついでじゃないです'},
+        {t:'事務が入ったら引き継ぐ',d:2,r:'いつ入るんですか'},{t:'みんな小さいことから始めるものだよ',d:-99,mine:1,x:'「下積み」で雑務の積み上げを正当化した',r:'自分の仕事はマーケティングです'}]},
+       {s:'他部署がグループで直接メンションして依頼してきた。',t:'月 14:30',m:['営業から直接資料を作れと言われました','課長には話が来てますか'],o:[
+        {t:'来てない。今後の依頼は自分を通す',d:13,r:'助かります。角を立てたくないので'},{t:'できる範囲で助けて。同じ会社だし',d:-13,x:'「同じ会社」で他部署にただ働きさせた',r:'自分の数字は誰がやるんですか'},
+        {t:'まだ返信しないで。こちらで確認する',d:9,r:'既読のままにしておきます'},{t:'やればやるだけ勉強になるよ',d:-99,mine:1,x:'押しつけを「機会」と言い換えた',r:'その勉強、他の人に譲れますか'}]}],
+
+      [{s:'10分だけ時間を取り、開口一番こう言った。',t:'金 13:30',m:['15%高いオファーが来てます','まだ返事はしてません'],o:[
+        {t:'今週交渉する。いくらまで出せるか、はっきり返す',d:14,r:'待ちます'},{t:'お金が全部じゃない。成長のほうが大事だよ',d:-15,x:'「成長」で給与の話をはぐらかした',r:'成長で家賃払えますか'},
+        {t:'同額ならどっちを選ぶ？その答えに向けて動く',d:11,r:'こっちですよ'},{t:'一度行ってみたら？合わなければ戻れば',d:-99,mine:1,x:'肝心な場面で「代わりはいる」と伝えた',r:'辞めても構わないんですね'}]},
+       {s:'知るはずのないことを知り、隠す気もない。',t:'水 20:10',m:['新人の初任給、自分より六千高いです','自分のほうが一年長いんですけど'],o:[
+        {t:'会社が見直さなかったのが原因。今月、昇給を出す',d:14,r:'先に自分を責めなかったんですね'},{t:'給与は非公開だよ。聞くべきじゃない',d:-17,x:'答える前に「どこで知った」を追及した',r:'そこが論点なんですね'},
+        {t:'経験が違うから、単純に比べられない',d:-11,r:'どこが違うのか教えてもらえますか'},{t:'人の給料で自分を測らないで',d:-99,mine:1,x:'待遇差を本人の心の問題にすり替えた',r:'測ってるのは会社です'}]},
+       {s:'年次昇給が公表された日の午後。',t:'月 15:45',m:['3%ですか','インフレ4%ですけど'],o:[
+        {t:'その通り。この数字を綺麗に言うつもりはない',d:14,r:'認めるだけましです'},{t:'上がるだけましだよ',d:-15,x:'「他はもっと酷い」で正当な不満を抑えた',r:'下と比べるんですね'},
+        {t:'3%は一律。君のぶんは別で出す',d:9,r:'いつわかりますか'},{t:'長い目で見て。一年で判断しないで',d:-99,mine:1,x:'「長い目で」で実質減給を回避した',r:'長い目って何年ですか'}]}],
+
+      [{s:'先月の成果レポートも添付されている。',t:'水 15:12',m:['週二日、在宅にしたいです','通勤が往復二時間半なので'],o:[
+        {t:'まず一か月試す。成果で判断する',d:13,r:'それでお願いします'},{t:'制度は変えられないけど、時差出勤なら申請できる',d:3,r:'ないよりはましですね'},
+        {t:'即答はできない。来週提案して、結果は必ず返す',d:8,r:'返事があるならいいです'},{t:'前例を作ると管理しづらくなる',d:-99,mine:1,x:'「管理しづらい」を理由に柔軟性を拒んだ',r:'理由は管理の都合なんですね'}]},
+       {s:'外は豪雨。ニュースのテロップが真っ赤になっている。',t:'今日 06:50',m:['市が出勤停止を出しました','グループは「通常通り、各自判断」と'],o:[
+        {t:'来なくても記録に残さない。今すぐそう伝える',d:13,r:'その一言を待ってました'},{t:'来られる人は来て。あとは各自で',d:-12,x:'曖昧な「各自判断」でリスクを個人に移した',r:'リスクは自分持ちですよね'},
+        {t:'今日は全員在宅。こちらで調整する',d:14,r:'PC開きます'},{t:'自分もこれから出社するけど',d:-99,mine:1,x:'自分の出社で相手の欠勤を責めた',r:'わかりました'}]},
+       {s:'半休を取り、午後二時に席へ戻ってきた。',t:'木 14:10',m:['「最近の人は休み多いね」って言われました','自分のことですか'],o:[
+        {t:'そうなら自分が対応する。説明はいらない',d:13,r:'はい'},{t:'気にしないでいいよ',d:-8,r:'でも言われたのは事実です'},
+        {t:'誰が言ったか確認する。この部署で出る言葉じゃない',d:12,r:'一度言ってくれれば十分です'},{t:'今月は確かに多いよね',d:-99,mine:1,x:'合法な休暇をマイナス評価に変えた',r:'二回です'}]}],
+
+      [{s:'月曜の夜。帰らずに隣の席へ来た。',t:'月 19:03',m:['自分、三年後ここでどうなってますか','考えたことありますか'],o:[
+        {t:'ある。次は二人のチームを持つこと。足りない三つを書き出す',d:14,r:'今日書いてもらえますか'},{t:'真面目にやってれば機会は来るよ',d:-16,x:'「機会は来る」で具体的な道筋を省いた',r:'前の会社でも聞きました'},
+        {t:'正直まだ整理できてない。一週間くれ',d:9,r:'正直なのは評価します'},{t:'まだ先の話でしょ。目の前をやろう',d:-99,mine:1,x:'キャリアの問いを「考えすぎ」で退けた',r:'三年、先ですか'}]},
+       {s:'送る前に「今大丈夫ですか」と聞いてきた。',t:'木 14:22',m:['プロダクトのほうに興味があります','異動できるなら考えたいです'],o:[
+        {t:'先方に聞く。まずランチを組む。他社に行かれるよりいい',d:14,r:'怒られると思ってました'},{t:'マーケでうまくやってるのに、なんで',d:-11,r:'そっちをやりたいからです'},
+        {t:'いい。ただ引き継ぎに三か月もらう',d:10,r:'妥当です'},{t:'育ててきたのに、辞めるって言うんだ',d:-99,mine:1,x:'育成を情の借りとして請求した',r:'部署を変わるだけです'}]},
+       {s:'昇進者の発表があった翌朝。',t:'火 09:40',m:['今回はKevinさんですか','あの人に何があって自分にないんですか'],o:[
+        {t:'一度トラブルを一人で背負った。次は君に回す',d:13,r:'待ちます'},{t:'あっちのほうが在籍が長いから',d:-13,x:'年次だけですべてを説明した',r:'待てばいいってことですか'},
+        {t:'今回は枠があった。次は最優先にする。書面で残す',d:12,r:'書面でお願いします'},{t:'人と比べるのはやめよう',d:-99,mine:1,x:'正当な問いを「比較したがり」にした',r:'基準を聞いてます'}]}],
+
+      [{s:'会議の10分後、席からメッセージが来た。',t:'水 16:05',m:['さっき「この数字ひどい」って言いましたよね','あれ、自分が作りました'],o:[
+        {t:'自分が悪い。あれは個別に言うべきだった',d:14,r:'本当に訂正するんですか'},{t:'人じゃなく仕事の話をしたつもりだよ',d:-15,x:'「人格否定ではない」で場所の問題をかわした',r:'問題にしてるのは場所です'},
+        {t:'数字は確かに違ってた。ただ場所は自分の失敗。悪かった',d:12,r:'それなら大丈夫です'},{t:'少し言われたくらいで参るの？',d:-99,mine:1,x:'指摘の「方法」の話を耐性の話にすり替えた',r:'方法を聞いたのに人格の話をされました'}]},
+       {s:'評価面談のあと、一度出てから戻ってきた。',t:'金 17:50',m:['B+ってどう計算されたんですか','Aとの差はどこですか'],o:[
+        {t:'一人で案件を回した経験がまだない。次期に機会を作る',d:13,r:'それなら何を狙うかわかります'},{t:'全体的にあと一歩という感じかな',d:-16,x:'「感じ」を評価の理由にした',r:'感じに向かって努力できません'},
+        {t:'正直Aは枠がある。それを先に言うべきだった',d:9,r:'先に言ってほしかったです'},{t:'等級を気にしすぎないで',d:-99,mine:1,x:'昇給に直結する等級を「気にするな」と言った',r:'昇給に響きますよね'}]},
+       {s:'あなたが昨日言った言葉を、そのまま貼り返してきた。',t:'火 10:15',m:['「これ、魂がない」って言いましたよね','魂って何ですか'],o:[
+        {t:'あれは中身のない言葉だった。冒頭三行が刺さってない',d:14,r:'それなら直せます'},{t:'感覚的に違うんだよ。良い事例をもっと見て',d:-14,x:'具体的な指摘の代わりに抽象論を返した',r:'三十件見ました'},
+        {t:'自分が一版書き直す。差を見て',d:12,r:'それは助かります'},{t:'こういうのはセンスだから',d:-99,mine:1,x:'説明できないことを「センス」で包んだ',r:'ではどう採点してるんですか'}]}],
+
+      [{s:'月曜8時40分。理由を作らずに連絡してきた。',t:'月 08:40',m:['今日、心の健康休暇を取ります','病気ではないです。ただ必要で'],o:[
+        {t:'承認。理由はいらない',d:13,r:'言い訳を用意してました'},{t:'いいけど、あの案件、今日締めだよ',d:-10,r:'昨夜終わらせました'},
+        {t:'承認。むしろ正直に言ってくれて助かる',d:14,r:'はい'},{t:'気分が落ちてるだけで休むの？',d:-99,mine:1,x:'法定の休暇を口実扱いした',r:'法律で決まってる休暇です'}]},
+       {s:'深夜に送られていた。朝七時に気づいた。',t:'火 07:15',m:['父が入院して手術になりました','一週間休みたいです'],o:[
+        {t:'行って。仕事はこちらで割る',d:14,r:'……ありがとうございます'},{t:'一週間は長いな。まず三日で様子見は？',d:-14,x:'家族の緊急事態を交渉の材料にした',r:'三日で足りるかわかりません'},
+        {t:'行って。会社に介護休暇と見舞金がある。人事から連絡させる',d:15,r:'そんな制度あるんですね'},{t:'引き継ぎ資料を書いてから行って',d:-99,mine:1,x:'家族の手術より引き継ぎ書類を優先した',r:'明日の朝が手術です'}]},
+       {s:'生理休暇の申請。人事システムから通知が来た。',t:'木 09:05',m:['システムが上長に理由の記入を求めてます','言いたくないです'],o:[
+        {t:'書かなくていい。「法定申請」と入れる',d:14,r:'あのシステム最悪ですね'},{t:'「体調不良」でいいよ。形式だから',d:4,r:'わかりました'},
+        {t:'あの欄自体が要らない。人事に上げる',d:12,r:'お願いします'},{t:'みんな書いてるよ',d:-99,mine:1,x:'説明する義務のない体調を報告させようとした',r:'なぜ報告が要るんですか'}]}],
+
+      [{s:'全社会議の帰り、後ろからついてきた。',t:'木 18:20',m:['社長が「我々は家族だ」って','先月二人辞めさせましたよね'],o:[
+        {t:'あの言い方は自分も好きじゃない。ここは会社だ',d:14,r:'家族より安心します'},{t:'社長も悪気はないよ。そう否定的にならないで',d:-14,x:'正当な疑問に「否定的」とラベルを貼った',r:'確認してるだけです'},
+        {t:'あれは自分もつらかった。ただ決めたのは上の層だ',d:-4,r:'課長の口から聞きたかっただけです'},{t:'会社に食わせてもらってる。感謝の気持ちを持って',d:-99,mine:1,x:'対等な雇用関係を「感謝」で置き換えた',r:'労働と賃金の交換です'}]},
+       {s:'新しい椅子が昨日届いた。昇給凍結の通知は先週。',t:'月 10:30',m:['昇給は凍結なんですよね','椅子とコーヒーマシンは新しくなりました'],o:[
+        {t:'その対比はきつい。今の言葉のまま上に持っていく',d:13,r:'そのまま上げてくれるならいいです'},{t:'あれは予算の科目が違うんだ',d:-10,r:'科目じゃなく選択の話です'},
+        {t:'椅子は自分が出した話だ。給与は別で戦う',d:11,r:'椅子は確かにいいです'},{t:'会社も苦しい。少しは汲んで',d:-99,mine:1,x:'「会社が苦しい」で一方的な理解を求めた',r:'それは双方向ですか'}]},
+       {s:'採用ページが昨日公開された。スクショが送られてきた。',t:'水 13:50',m:['「フレックス・無制限休暇」って書いてます','どれが本当ですか'],o:[
+        {t:'どれも本当じゃない。今週、修正を要求する',d:14,r:'笑いますけど、そこは尊敬します'},{t:'採用の文章だから。どこもそんなもんだよ',d:-13,x:'対外的な誇張を業界の常識として流した',r:'入ってきた人も気づきますよね'},
+        {t:'フラットなのは本当。他二つは嘘だ。直させる',d:12,r:'一つはあるんですね'},{t:'君もそれを見て入ったんでしょ',d:-99,mine:1,x:'「君も騙されて入った」で口を塞いだ',r:'だから今聞いてます'}]}],
+
+      [{s:'今週のカレンダーのスクショ。青で埋まっている。',t:'金 09:30',m:['今週、会議が14時間ありました','作業できたのは11時間です'],o:[
+        {t:'多すぎる。週次はなくす',d:14,r:'なくせるんですか'},{t:'会議も仕事のうちだよ',d:-13,x:'会議の時間を成果として数えた',r:'では成果は誰が出すんですか'},
+        {t:'一番要らない三つを挙げて。出なくていい',d:12,r:'今すぐ言えます'},{t:'必要なコストだよ。慣れて',d:-99,mine:1,x:'明らかな無駄に「慣れろ」と言った',r:'無駄に慣れたくないです'}]},
+       {s:'会議中は一言も発さず、終わってから送ってきた。',t:'火 16:20',m:['さっきの、五分で終わる話でした','なぜ八人で一時間座るんですか'],o:[
+        {t:'自分が先に資料を書かなかったからだ。次は書く',d:14,r:'正直なのは評価します'},{t:'全員いたほうが認識が揃うから',d:-11,x:'「認識合わせ」で非効率な会議を正当化した',r:'認識合わせですか、同席ですか'},
+        {t:'次から三人だけにする。君は出なくていい',d:12,r:'では仕事します'},{t:'会議に出るのも勉強のうちだよ',d:-99,mine:1,x:'時間の浪費を「勉強」と言い換えた',r:'何を学んだか挙げられますか'}]},
+       {s:'週次は金曜17時30分。四週続けて延びている。',t:'金 17:35',m:['週次、また六時半までいきますよね','わざとですか'],o:[
+        {t:'違う。動かしてなかっただけだ。来週から木曜にする',d:14,r:'ならいいです'},{t:'あの時間のほうがみんな手が空くから',d:-12,x:'「手が空く」を理由に退勤後を使った',r:'誰にとってですか'},
+        {t:'来週から時間を変える。今日は30分で切る',d:11,r:'わかりました'},{t:'たった30分でしょ',d:-99,mine:1,x:'毎週の超過を「たった30分」で矮小化した',r:'年間26時間です'}]}],
+
+      [{s:'朝九時、給湯室。',t:'月 09:12',m:['新人は15分前に来るものだと言われました','規則ですか'],o:[
+        {t:'違う。九時は九時だ',d:13,r:'わかりました'},{t:'少し早く来ると馴染みやすいよ',d:-14,x:'「馴染む」を理由に無償の早出を求めた',r:'それ、給与出ますか'},
+        {t:'誰が言った？自分が話す。君は出なくていい',d:12,r:'お願いします'},{t:'自分も昔はそうだった',d:-99,mine:1,x:'「自分もそうだった」で悪習を再生産した',r:'当時、納得してましたか'}]},
+       {s:'忘年会の席。社長のテーブルで酌をするよう言われた。',t:'金 20:15',m:['社長の席でお酌しろと言われました','断れますか'],o:[
+        {t:'断れる。今から言ってくる。君は動かなくていい',d:14,r:'助かりました、焦ってました'},{t:'一杯くらい。社長の顔を立てて',d:-15,x:'酌を「顔を立てる」の話にした',r:'自分の顔はどうなりますか'},
+        {t:'行かなくていい。何か言われたら全部こちらに回して',d:13,r:'了解です'},{t:'礼儀だよ。一度行けばいい',d:-99,mine:1,x:'若手の時間と身体を礼儀として扱った',r:'礼儀は一方通行ですか'}]},
+       {s:'引き継ぎ資料を書いている途中で連絡が来た。',t:'水 15:40',m:['Vivianさんが自分のフロー図は直さなくていいと','「昔からこうだから」って'],o:[
+        {t:'君の版のほうがいい。こちらで決める',d:14,r:'では続けます'},{t:'先輩だから、まずは向こうに合わせて',d:-15,x:'年次を内容より優先した',r:'よく作っても意味ないんですね'},
+        {t:'三人で見て、中身で決める',d:12,r:'それが公平です'},{t:'ベテランに逆らわないほうがいい',d:-99,mine:1,x:'年功で改善提案を潰した',r:'では提案しません'}]}],
+
+      [{s:'昨夜、社長からInstagramの申請が届いた。',t:'火 11:30',m:['社長にInstagram申請されました','あれ、私用アカウントです'],o:[
+        {t:'承認しなくていい。何の不利益もない',d:13,r:'では拒否します'},{t:'承認しても別に困らないでしょ',d:-13,x:'他人のプライバシーの線を代わりに決めた',r:'そこが問題じゃないです'},
+        {t:'承認しなくていい。聞かれたら自分が止めたと言う',d:14,r:'その手がありますね'},{t:'承認したほうが覚えてもらえるよ',d:-99,mine:1,x:'私的アカウントを昇進の道具として扱った',r:'仕事で覚えてもらいます'}]},
+       {s:'広報がブランド写真を撮る。名簿に名前がある。',t:'木 10:50',m:['写りたくないです','自分の顔が広告に出るのは嫌です'],o:[
+        {t:'肖像権は君のものだ。名簿を直す',d:14,r:'揉めると思ってました'},{t:'一枚だけだよ。みんな撮ってる',d:-13,x:'肖像権を協力の問題として扱った',r:'あとで取り下げられますか'},
+        {t:'今後、写真を使うときは必ず事前に聞く。取り下げもできる',d:13,r:'それならいいです'},{t:'会社の宣伝だ。協力するのが当たり前でしょ',d:-99,mine:1,x:'雇用契約に肖像の使用が含まれると考えた',r:'契約書にその条項はないです'}]},
+       {s:'私的なThreadsの投稿が、同僚にスクショされてグループへ。',t:'月 13:20',m:['退勤後の投稿をスクショされてグループに貼られました','「勤務中にこれ？」って言われて'],o:[
+        {t:'あれは君の時間だ。スクショの件はこちらで処理する',d:14,r:'助かります、腹が立ってて'},{t:'公開投稿は見られるものだよ。気をつけて',d:-14,x:'監視される側に「気をつけろ」と言った',r:'自分が悪いんですね'},
+        {t:'誰が撮ったか確認する',d:12,r:'お願いします'},{t:'同僚に見えるなら、投稿も控えめに',d:-99,mine:1,x:'退勤後の言論にまで管理を広げた',r:'では全員ブロックします'}]}],
+
+      [{s:'講座の申込ページ。金額は18,000。',t:'水 09:45',m:['データ分析を強化しろと言われました','これ、自費ですか'],o:[
+        {t:'会社が出す。戻ったら一度共有して',d:14,r:'わかりました'},{t:'まず自分で受けて。成果が出たら補助を掛け合う',d:-12,x:'会社に必要なスキルを本人の自費にした',r:'出なかった場合は？'},
+        {t:'会社から一万出る。差額は考える',d:10,r:'一万でも助かります'},{t:'自己投資だよ。能力は君のものだ',d:-99,mine:1,x:'「自己投資」で育成コストを本人に外注した',r:'では他社でも使っていいんですね'}]},
+       {s:'読書会は水曜の夜七時から九時。',t:'火 17:30',m:['読書会は勤務時間ですか','感想文も出すんですよね'],o:[
+        {t:'勤務だ。残業でつける。感想文も成果物として扱う',d:14,r:'では真面目に書きます'},{t:'あれは自己成長の時間だから',d:-14,x:'指定した内容を「自己成長」と呼んだ',r:'テーマは指定されてます'},
+        {t:'勤務時間内に移す。感想文は口頭五分に変える',d:13,r:'そのほうがいいです'},{t:'二時間くらい、細かく数えないで',d:-99,mine:1,x:'「たった二時間」で無償労働を消した',r:'年間百時間です'}]},
+       {s:'資格補助の規定が昨日改定された。',t:'金 14:15',m:['補助が「在籍二年以上」に変わりました','それ、縛りですよね'],o:[
+        {t:'その通り、縛りだ。掛け合う',d:13,r:'名前を正しく呼んでくれてありがとうございます'},{t:'会社が出す以上、条件は普通でしょ',d:-11,r:'なら補助と呼ばないでほしいです'},
+        {t:'旧制度で通す',d:12,r:'それは助かります'},{t:'嫌なら自費で。公平でしょ',d:-99,mine:1,x:'一方的な条項を「公平な選択」と言った',r:'公平は双方が交渉できることですよね'}]}],
+
+      [{s:'出張申請が三日、あなたの手元で止まっている。',t:'木 11:20',m:['台中出張、自分の車を出せと','ガソリン代はどうなりますか'],o:[
+        {t:'実費精算。駐車場も出る',d:13,r:'領収書取っておきます'},{t:'たぶん出せる。いったん立て替えて',d:-11,x:'規定を確認せずに立て替えさせた',r:'「たぶん」はいくらですか'},
+        {t:'配車にする。自分の車は使わなくていい',d:14,r:'古い車なので助かります'},{t:'自分の車のほうが早いでしょ',d:-99,mine:1,x:'コストの転嫁を「早い」と言い換えた',r:'誰にとってですか'}]},
+       {s:'新幹線は朝6時半で押さえてある。',t:'月 20:40',m:['明日、6時半の新幹線ですよね','五時起きになります'],o:[
+        {t:'移動も勤務時間につける。帰りは直帰でいい',d:14,r:'それなら大丈夫です'},{t:'通勤は勤務時間に入らないよ',d:-12,x:'出張の移動を通常の通勤と同じ扱いにした',r:'自宅に行くわけじゃないです'},
+        {t:'八時発に取り直す',d:12,r:'寝られます、ありがとうございます'},{t:'出張はそういうものだよ',d:-99,mine:1,x:'「そういうもの」で当然の問いを止めた',r:'そうですか'}]},
+       {s:'イベント終了は23時半。まだ撤収作業中。',t:'土 23:30',m:['終電なくなりました','どうやって帰ればいいですか'],o:[
+        {t:'配車を使って。会社アカウントで。乗ったら連絡して',d:14,r:'足が限界です、助かります'},{t:'誰かと相乗りして',d:-10,x:'帰りの足を同僚同士の問題にした',r:'方向が逆です'},
+        {t:'今すぐ手配する。次から交通費を予算に入れる',d:15,r:'ありがとうございます'},{t:'イベントはそういうもの。何とかして',d:-99,mine:1,x:'深夜の帰宅を本人任せにした',r:'一人で都心にいます'}]}],
+
+      [{s:'あの会議室には八人いた。誰も声を上げなかった。',t:'水 15:10',m:['「これは女性のほうが細かいから」と言った人がいて','誰も何も言いませんでした'],o:[
+        {t:'その場で言わなかった自分の落ち度だ。次の会議で公に言う',d:14,r:'では次を待ちます'},{t:'悪気はないんだよ。言い方が古いだけで',d:-15,x:'「悪気はない」で実害を打ち消した',r:'それは別の話ですよね'},
+        {t:'今から言ってくる。君のためじゃなく、あの発言が駄目だからだ',d:15,r:'ありがとうございます'},{t:'ああいうのは流しておけばいい',d:-99,mine:1,x:'差別的な発言を本人に受け流させた',r:'流す側にいるのは自分じゃないです'}]},
+       {s:'昼。隣のテーブルの笑い声が大きい。',t:'金 12:50',m:['また自分の訛りをネタにされました','三回目です'],o:[
+        {t:'三回目は冗談じゃない。今日対応する',d:15,r:'ありがとうございます'},{t:'冗談だよ。言い返せばいい',d:-15,x:'傷つけられた側に自力で戦わせた',r:'なぜ自分が戦うんですか'},
+        {t:'誰かを教えて。君の名前は出さない',d:12,r:'名前送ります'},{t:'真に受けたほうが負けだよ',d:-99,mine:1,x:'「真に受けたら負け」で我慢を求めた',r:'負けてるのはずっと自分です'}]},
+       {s:'新人の自己紹介シート。性別欄が空白のままだった。',t:'月 10:05',m:['新しい人が名前で呼んでほしいそうです','「面倒くさい」と言った人がいて'],o:[
+        {t:'面倒じゃない。呼び方を変えるだけだ。グループで言う',d:14,r:'代わりに聞きました、ありがとうございます'},{t:'そのうちみんな慣れるよ',d:-12,x:'やるべきことを時間任せにした',r:'そのうちっていつですか'},
+        {t:'今日から変える。間違えたら謝って直す',d:15,r:'いい答えです'},{t:'今の若い人は要求が多いね',d:-99,mine:1,x:'基本的な敬意を「要求が多い」と言った',r:'名前で呼ぶのが要求ですか'}]}],
+
+      [{s:'今月三度目の半休。いつも午前。',t:'火 08:50',m:['今日、午前半休で','私用です'],o:[
+        {t:'了解。説明はいらない',d:12,r:'はい'},{t:'最近午前が多いね。面接？',d:-14,x:'先に自省せず本人を問い詰めた',r:'どう答えてほしいんですか'},
+        {t:'承認。あと、自分に直せることがあるなら聞きたい',d:13,r:'……あとで話します'},{t:'休むのはいいけど、チームには公平かな',d:-99,mine:1,x:'「チームに公平か」で正当な権利を縛った',r:'自分の有給です'}]},
+       {s:'今週は毎日、六時ちょうどにPCを閉じている。',t:'木 18:01',m:['担当ぶん、全部ドキュメントにしました','共有フォルダに置いてあります'],o:[
+        {t:'ありがとう。直接聞く。辞めるつもり？',d:11,r:'……考えてはいます'},{t:'いいね、みんな助かる',d:-8,r:'はい'},
+        {t:'いいことだ。ただ、最近どうしたのか知りたい',d:13,r:'明日、昼にでも'},{t:'資料はいい。それで進捗は？',d:-99,mine:1,x:'助けを求める合図に進捗確認で返した',r:'資料に全部あります'}]},
+       {s:'グループに「新メンバー歓迎」の投稿。反応していない。',t:'月 17:15',m:['新しい人が隣に座りました','ここはどうですかって聞かれて'],o:[
+        {t:'正直に言って。あとで知るより、君から聞いたほうがいい',d:13,r:'では正直に言います'},{t:'いいところだけ話せばいいよ',d:-13,x:'会社を良く見せる役を押しつけた',r:'あとで余計に落胆しますよ'},
+        {t:'君なら何て答える？',d:12,r:'「上司はまとも、制度は最悪」ですかね'},{t:'発言に気をつけて。新人に影響する',d:-99,mine:1,x:'正直さを管理すべきリスクとして扱った',r:'本当のことが悪影響なんですね'}]}],
+
+      [{s:'昨日の経済ニュースに社名が出た。',t:'水 08:30',m:['縮小するってニュースに出てました','転職活動、始めたほうがいいですか'],o:[
+        {t:'今リストはない。うちの部署も対象外だ。動きがあれば最初に言う',d:14,r:'では慌てません'},{t:'ニュースを見て気に病まないで',d:-14,x:'情報開示の代わりに「気にするな」で済ませた',r:'気にしない理由をください'},
+        {t:'自分も知らない。明日聞いて、聞いたことをそのまま伝える',d:11,r:'正直なのは評価します'},{t:'成果を出してる人は心配いらないよ',d:-99,mine:1,x:'人員整理を本人の成果の問題にすり替えた',r:'先月の二人も悪くなかったですよ'}]},
+       {s:'AIツールのリンクが送られてきた。',t:'金 16:10',m:['これ、自分の一日分を十分で終わらせます','自分に価値ありますか'],o:[
+        {t:'ある。どの版を出すか判断することが価値になる',d:14,r:'ではそれを覚えます'},{t:'AIが人を置き換えることはないよ',d:-11,x:'現実の不安に空論で応じた',r:'今、置き換わりましたけど'},
+        {t:'わからない。ただ、浮いた時間を雑務で埋めることはしない',d:13,r:'それは信じます'},{t:'なら、もっと努力しないと本当に置き換わるよ',d:-99,mine:1,x:'構造的な不安を個人への脅しに変えた',r:'どこまで努力すればいいんですか'}]},
+       {s:'担当した案件が公開された。数字も良い。誰も名前を出していない。',t:'火 19:20',m:['公開レポートに自分の名前がないです','抜けただけですか'],o:[
+        {t:'抜けた。しかも自分のミスだ。今から全員に訂正を出す',d:15,r:'ならいいです'},{t:'チームの成果だから、そこまで分けなくていい',d:-15,x:'「チームの成果」で個人の貢献を消した',r:'では、なぜ載ってる人がいるんですか'},
+        {t:'追加する。今後、記名は役職順じゃなく担当順にする',d:14,r:'それはほしいです'},{t:'名前のために仕事しないで',d:-99,mine:1,x:'正当な記名を虚栄心の話にした',r:'名前は次の転職に効きます'}]}],
+
+      [{s:'夜十一時。立て続けに七通。',t:'水 23:04',z:14,zr:'もういいです 寝ます',m:['てかVivianさん今日もなんですけど','一日中電話しててうるさすぎ','あの人やばくないですか'],o:[
+        {t:'たしかにうるさいよね',d:-20,x:'部下と一緒に同僚の悪口を言った',r:'笑 スクショしときます'},{t:'直接言ってみたら？',d:-10,x:'私的な愚痴を対立にまで持ち上げた',r:'別に喧嘩したいわけじゃないです'},
+        {t:'正式に対応する',d:-12,x:'深夜の愚痴を案件として処理しようとした',r:'えっいいです ただ言っただけで'},{t:'陰で同僚の話をするのはやめよう',d:-14,x:'感情に説教で返した',r:'はい'}]},
+       {s:'昨日の会議でKevinと少し揉めていた。',t:'木 10:20',z:12,zr:'……はい、無理なのはわかってます',m:['Kevinさんと同じ班、嫌なんですけど','外してもらえませんか'],o:[
+        {t:'わかった、外す',d:-20,x:'一人を留めるためにもう一人を切り捨てた',r:'えっいいんですか それ'},{t:'どこが駄目か言ってみて',d:-11,x:'結論の出ない批判の場を開いた',r:'まあ……いろいろです'},
+        {t:'二人で話し合って',d:-12,x:'管理すべき問題を当事者に投げ返した',r:'じゃあ何のために言ったんですか'},{t:'無理。編成の問題だ',d:-8,r:'はい'}]},
+       {s:'日曜の夜十時半。長文が届いた。',t:'日 22:31',z:13,zr:'明日はちゃんと行きます',m:['日曜の夜って本当に憂鬱です','この仕事に意味あるんですかね'],o:[
+        {t:'意味は自分でつくるものだよ',d:-16,x:'日曜の夜に部下へ説教した',r:'……はい'},{t:'明日、会社で話そう',d:-6,r:'はい'},
+        {t:'一日休む？',d:-10,x:'感情のサインをそのまま休暇処理に変えた',r:'休みたいとは言ってないです'},{t:'みんなそうだよ。慣れる',d:-17,x:'「みんなそう」で本人の感覚を打ち消した',r:'はい'}]}],
+
+      [{s:'他社のランチの写真が送られてきた。',t:'火 12:15',z:11,zr:'冗談ですよ',m:['友達の会社、昼食無料らしいです','うちと違いすぎ'],o:[
+        {t:'食事補助、掛け合ってみる',d:-14,x:'一言の愚痴に押されて空手形を切った',r:'えっ本当ですか じゃあ待ちます'},{t:'じゃあその会社に行けば',d:-18,x:'愚痴に「なら辞めれば」で返した',r:'ちょっと言っただけです'},
+        {t:'うちにも別の良さはあるよ',d:-9,r:'たとえば'},{t:'たしかにうちの会社はひどいね',d:-12,x:'一緒に貶して何もしなかった',r:'で、何かするんですか'}]},
+       {s:'今日三度目、辞めた同僚の名前が出た。',t:'金 16:50',z:12,zr:'言ってみただけです',m:['小昕さん辞めて給料一万上がったらしいです','自分も早く……'],o:[
+        {t:'なら行ってみたら',d:-18,x:'探りに反撃で返した',r:'辞めるとは言ってないです'},{t:'今月、昇給を掛け合う',d:-13,x:'探りに押されて確約できない約束をした',r:'本当ですか？また流れませんよね'},
+        {t:'外は思ってるほど良くないよ',d:-15,x:'答えの代わりに脅しを使った',r:'なぜわかるんですか'},{t:'あの人、辞める前に自分と話してる',d:-7,r:'何て言ってました'}]},
+       {s:'忘年会の抽選結果がグループに出た直後。',t:'月 18:40',z:10,zr:'口が滑っただけです',m:['今年も一等は上の人ですか','出来レースすぎ'],o:[
+        {t:'抽選の手順を確認する',d:-11,x:'冗談を調査案件に格上げした',r:'いや本当に大丈夫です'},{t:'たしかに毎年そうだね',d:-13,x:'同調しただけで何もしなかった',r:'それで？'},
+        {t:'それ、聞かれたらまずいよ',d:-16,x:'最初の反応が「静かにしろ」だった',r:'あ、はい'},{t:'運でしょ',d:-8,r:'はい'}]}]
+    ],
+    boss: {s:'ノートPCをこちらへ向けた。人事システムが開いている。',t:'木 09:12',m:['退職届は書きました。まだ提出してません。','私に何を提示できますか？'],o:[
+      {t:'今日中に3つ答える。給与、在宅、Vivian。無理なら辞めていい。',d:20,r:'わかりました。今日まで待ちます。'},
+      {t:'望むことを教えて。できることを具体的に答える。',d:14,r:'……何がほしいか、初めて聞かれました。'},
+      {t:'もう少し時間を。何とかする。',d:-16,x:'決定的な場面で約束せず、時間だけ求めた',r:'「何とかする」は何日ですか？'},
+      {t:'残るかどうかは君の選択だ。尊重する。',d:-99,mine:1,x:'決定的な場面で責任をすべて本人に返した',r:'あなたが何をするか聞いています。'}
+    ]},
+    murmur: {
+      over:[
+        '打たれ弱くて結構です\nガラスにも限界はあります\n毎回「考えすぎ」と言われました\nだからもう考えません\n耐性の強い人が見つかるといいですね',
+        '引き継ぎ資料は書きました\n指示より細かく書きました\n自分と同じ思いを\n誰にもさせたくないので\nあとは見てください',
+        'お金で釣られたわけじゃないです\nお金は辞め方を綺麗にしただけ\n本当の理由は全部話しました\n毎回チャンスはありました\n毎回外しましたね',
+        '面談では「キャリアプラン」と書きます\nそれをそのまま報告に写すんでしょう\nそして若手は続かないと言う\n続かないのは若手じゃなくて\nその言い方です',
+        '一番笑えるのは\n前はここが好きだったことです\n会社の擁護までしてました\n今はもうグループも抜けました\n怒りじゃなく、説明に疲れただけです',
+        '他に言いたいことはあるか、と\nないです\n半年で十回以上言いました\n毎回「様子を見よう」でした\nもう見なくていいです',
+        '給料は上がりませんでした\nでも気は強くなりました\n今は押しつけられたら断れます\nこれは課長に教わりました\n本当に感謝してます',
+        '自分が抜けたら次も抜けます\nまた打たれ弱いと言うんでしょう\nでも四人続けて駄目なら\n問題は人じゃなくて\n場所のほうです',
+        '外でここのことを聞かれたら\n悪口は言いません\n「上司は悪くない人でした」\n「ただ何も変えられなかった」と\n悪口よりきついですよね',
+        '最終日は定時で帰ります\n送別会はしません\nケーキも要りません\n次の人に取っておいてください\n手順はもう慣れてるでしょう'
+      ],
+      blocked:[
+        'ビデオ通話ですか\n同僚ですよね\n付き合ってるわけじゃないです\n顔が見たいなら\n歩いてくればいいのでは',
+        'ビデオって\n今ベッドの上です\n髪も洗ってません\n段ボールが三箱あります\n本当に見ます？結構です',
+        '文字は記録が残ります\n電話は残りません\nビデオはもっと残りません\n話すのが怖いんじゃなくて\nあとで「勘違い」にされたくないんです',
+        '鳴った瞬間にわかりました\n打つのを避けたいんですよね\n打つと責任が残るので\nわかりました\n手間を省いてあげます',
+        'PCは仕事用で、顔出し用じゃないです\nタレント契約はしてません\n恥ずかしいんじゃなくて\n線を引いてるんです\n見えないようなので引きました',
+        '退勤後にビデオ通話\nこっちが何をしてるか考えました？\nご飯を食べてます\nお風呂に入ってます\n自分の人生を生きてます',
+        '大事な話は文字で\n大事じゃない話はもっと文字で\n三つ目の選択肢はないです\n簡単なルールなのに\nなぜか覚えられないんですね',
+        '前の上司もビデオ好きでした\n毎回「五分だけ」と言って\n毎回四十分でした\n学習しました\nなので今回は先にブロックです',
+        'ブロックしたのはビデオで\n人としてじゃないです\n話したいなら文字でどうぞ\nでも送らないでしょうね\n打つと考えないといけないので',
+        'すみません、手が滑って\n嘘です\nずっとやりたかったです\n口実ができただけ\nでは'
+      ],
+      bad:[
+        'ちゃんといますよ\nただ喋らなくなっただけです\n言われたことはやります\n増やしもしないし、聞きもしない\nそのほうが全員楽でしょう',
+        '六時にPCを閉じます\n急ぎの用があるわけじゃなく\n一時間多く残っても\n誰も覚えてないと気づいたので\n残る意味がないです',
+        '前は提案してました\n「考えすぎ」を三回言われて\nやめました\n今は会議で「問題ないです」だけ\n成長したと思われてるはずです',
+        '最近どう、と聞かれて\n大丈夫ですと答えました\n大丈夫じゃないです\nでも言うのは体力を使うし\n結末も見えてるので',
+        '情熱は退勤後に移しました\n週末は副業してます\n向こうは情の話をしません\nお金の話だけです\nずっと単純です',
+        'グループは通知オフ\nメールは翌朝に見ます\nサボりじゃなくて\nようやく覚えたんです\n会社を持ち帰らない方法を',
+        '説得されて残ったと思ってます？\n違います\nまだ見つかってないだけです\n次が良いとも限らないので\nそれだけです',
+        '同僚にここはどうかと聞かれて\nまあまあですと答えて\n話を変えました\n巻き込みたくないし\n嘘もつきたくないので',
+        '体はここにあります\n心は求人サイトです\n昼休みに履歴書を更新します\n昼に株を見る人と\n同じようなものです',
+        '笑えることに、まだいます\n先週は退職金を計算してました\n今日は普通に打刻しました\n人ってそんなものです\nそこまで格好よくないです'
+      ],
+      normal:[
+        'とりあえず残ります\n本当にやるか見ます\n言われたことは控えました\n疑ってるんじゃなくて\n絵に描いた餅を見すぎただけです',
+        '履歴書は消してません\n非公開にしただけです\n脅しじゃないです\n保険です\n全員持つべきだと思います',
+        '一四半期あげます\nそのあともう一度話しましょう\nできていれば続けます\nできてなければ揉めません\n黙って消えます',
+        '変えようとはしてますね\nそこは認めます\nただ中途半端に変わったものは\n変わらないより迷います\n伝わりますか',
+        '面接には行きます\n行く＝辞めるじゃないです\nそちらも他の候補を見るでしょう\n同じことです\nおあいこですね',
+        '合格点、それだけです\n喜ばないでください\n合格点というのは\n辞める理由がまだない、という意味で\n残る理由が見つかった訳ではないです',
+        '友達に転職を誘われて\n「ちょっと考える」と答えました\n前なら即答で「行く」でした\nこの「ちょっと考える」が\n今月の成果です',
+        '今日言ってくれたことが\n三か月後も生きてるなら\n本当に残ります\n生きてなければ\n理由も聞きません',
+        '今月はこれで\n来月はまた考えます\n長期の計画は今は立てません\n課長のせいじゃなくて\n怖いだけです',
+        '最近、質問が減ったの気づきました？\n疑問がないんじゃなくて\n先に動くのを待ってます\n言葉はいくらでも出るので\nやってくれたらまた聞きます'
+      ],
+      good:[
+        'わかりました\nやってくれましたね\n認めます\n退職届、書いてあったんです\nさっき消しました',
+        '友達に「うちの上司まとも」と言ったら\n誰も信じませんでした\n洗脳されてると言われて\n違うと答えました\nただ質問に答えてくれる人だと',
+        '約束の三つ\n日数を数えてます\n一つは終わりましたね\n残り二つ待ちます\n急かしませんが、覚えてます',
+        '効いたのは昇給じゃなくて\n「わからない」と言われたことです\n前の上司は全部知ってて\n何も実現しませんでした\n少なくとも嘘はなかったです',
+        'これからも質問しますよ\n慣れてください\n絡んでるんじゃなくて\n残りたいからです\nでなければ聞きません',
+        '感動はしてないですけど\nありがとうございます\n今年一番学んだのは\n頭の中で十分練習しなくても\n直接言っていいということです',
+        '求人の通知、切りました\n永遠にじゃないです\n今期だけ\n一四半期あります\n残りを見せてください',
+        '会社はひどいと思ってます\nでも課長はひどくない\n両方成り立ちます\n残る理由は後者のほうです\n持ちこたえてくださいね',
+        '新人にここはどうかと聞かれて\n「上司には直接聞ける」と答えました\nあとは自分で判断して、と\nこれが自分に出せる\n最高の評価です',
+        'もう一年やってみます\n昔ながらの上司に戻ったら\n最初に本人に言います\nそして翌日に辞表を出します\n先に言っておきますね'
+      ],
+      best:[
+        '新人に言ってます\n用があるなら直接聞けと\n頭の中でリハーサルしなくていいと\n自分は一年できませんでした\n時間の無駄でした',
+        '素直になったんじゃなくて\n課長が変わったんです\nこれは一度しか言いません\n人に自慢しないでください\n恥ずかしいので',
+        'ヘッドハンターから連絡が来ました\nここより高い額でした\n返信してません\n義理じゃなくて\n失うものに課長を数えたからです',
+        '昨日、会議であの手の発言が出て\n「それは駄目です」と言いました\n前なら言えませんでした\n今は言えます\n後ろにいてくれるとわかったので',
+        'やっと会社らしくなりました\n家族ではなく\n家族は残業代を出しません\n会社は出します\n最初からそれだけでした',
+        '退職届は消しました\nフォルダも空にしました\nバックアップまで消しました\n何版あったか知らないでしょう\n全部なくなりました',
+        '課長が辞めたら考え直します\nなので転職しないでください\n本気です\n残る理由の半分は課長です\nプレッシャーどうぞ',
+        '新人は自分が見ます\n口を出さないでください\nやり方は課長のを使います\nただし、もっと面白く\nあの寒いギャグは本当に駄目です',
+        '変な話ですけど\nもう少し長くいたいです\n面接で自分から話したくなる\nそういうものを作れるくらいまで\n今なら可能性があります',
+        '先週、母に仕事はどうかと聞かれて\n悪くないと答えました\n母が一瞬固まりました\n卒業してから今まで\n初めてそう言ったので'
+      ]
+    },
+    stories: [
+      {bg:'#1a1d22',fg:'#fff',html:'<p>今日4回目の会議</p><small>全部メールで済んだはず</small>'},
+      {bg:'#ffd400',fg:'#1a1d22',html:'<p>退 勤 🫠</p><small>18:01　一秒もサービスしない</small>'},
+      {bg:'#0b5cff',fg:'#fff',html:'<p>上司の「検討します」って<br>どういう意味？</p><div class="poll"><div>本当に検討 · 9%</div><div>履歴書を更新 · 91%</div></div>'},
+      {bg:'#f4f4f2',fg:'#1a1d22',html:'<p>残業代計算表 v3</p><small>自作。会社のシステムより正確。</small>'},
+      {bg:'#1f7a4d',fg:'#fff',html:'<p>週末は通知オフ<br>12日目</p><small>人生満足度 +37%</small>'},
+      {bg:'#ff5a4d',fg:'#fff',html:'<p>「最近の若者は弱い」だって</p><small>弱いんじゃない。境界線があるだけ。</small>'}
+    ],
+    ago:['12分前','1時間前','2時間前','4時間前','5時間前','8時間前','11時間前','昨日']
+  }
+};
+</script>
 <script>
 let deck=[], qi=0, score=55, mines=[], good=0, bad=0;
 let undoLeft=1, busy=false, cur=null, bossDone=false, group=null, blockedEnd=false;

@@ -3,7 +3,7 @@
 一款訊息遊戲。你是行銷主管，對面是整頓職場的 Z 世代員工。
 他丟一句，你挑一句回。**留任意願掉到 0，他就送出離職單，你就輸了。**
 
-支援**繁體中文、English、日本語**，可在開始畫面切換語言。
+支援**繁體中文、English、日本語**，可在開始畫面切換語言。三種語言的題庫與結局內容**完全對等**。
 
 ▶ **[開始玩](https://hiroshichuang.github.io/gen-z-manager-sim/)**
 
@@ -46,7 +46,9 @@
 
 ## 改文案
 
-純 HTML、CSS、JavaScript，沒有任何外部依賴，下載整個資料夾後即可開啟。
-題庫在檔案下半部，搜尋 `const BANK = [`，每個類別上面都有註解標示。
-結局 murmur 搜尋 `const MURMUR`，限時動態搜尋 `STORY_POOL`。
-英文與日文語系內容位於 `i18n.js`。
+**單一 `index.html`，零外部依賴**——直接雙擊就能玩，不需要架伺服器。
+
+- 中文題庫：搜尋 `const BANK = [`，每個類別上面都有註解標示
+- 中文結局 murmur：搜尋 `const MURMUR`
+- 限時動態：搜尋 `STORY_POOL`
+- 英日語系內容：搜尋 `window.GAME_I18N`，各語系底下的 `bank` / `boss` / `murmur` / `stories`
